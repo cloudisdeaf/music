@@ -1,16 +1,47 @@
 {
   "artist": "CloudIsDeaf",
-  "tagline": "Melodic trap and R&B type beats made for late nights. Press play and hear it clear up.",
+  "tagline": "Some beats cooked up late at night. Press play and let it clear your mind.",
   "instagram": "cloudisdeaf",
-  "youtube": "",
-  "email": "",
-  "paypal": "",
+  "youtube": "https://www.youtube.com/channel/UChzpqmMc0kUANsExppD88rQ",
+  "email": "cloudisdeaf@gmail.com",
+  "paypal": "Jere78144",
   "currency": "EUR",
   "licenses": [
-    { "name": "Non-exclusive", "price": 25, "features": ["MP3 + WAV (untagged)", "Release on Spotify, Apple Music and YouTube", "Credit: Prod. CloudIsDeaf", "No Content ID registration of the beat", "Beat stays available to other artists"] },
-    { "name": "Exclusive", "price": 150, "best": true, "features": ["WAV + stems", "Full commercial use", "Credit: Prod. CloudIsDeaf", "Beat removed from sale", "Only one buyer"] }
+    {
+      "name": "Non-exclusive",
+      "price": 25,
+      "features": [
+        "MP3 + WAV (untagged)",
+        "Release on Spotify, Apple Music and YouTube",
+        "Credit: Prod. CloudIsDeaf",
+        "No Content ID registration of the beat",
+        "Beat stays available to other artists"
+      ]
+    },
+    {
+      "name": "Exclusive",
+      "price": 150,
+      "best": true,
+      "features": [
+        "WAV + stems",
+        "Full commercial use",
+        "Credit: Prod. CloudIsDeaf",
+        "Beat removed from sale",
+        "Only one buyer"
+      ]
+    }
   ],
   "beats": [
-    { "title": "Nights 4 Us", "bpm": 151, "tags": ["Don Toliver", "Lucki", "Melodic trap"], "audio": "beats/nights-4-us.mp3", "cover": "" }
+    {
+      "title": "Nights 4 Us",
+      "bpm": 151,
+      "tags": [
+        "Don Toliver",
+        "Lucki",
+        "Melodic trap"
+      ],
+      "audio": "beats/nights-4-us.mp3",
+      "cover": ""
+    }
   ]
 }
