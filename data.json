@@ -9,7 +9,7 @@
   "licenses": [
     {
       "name": "Non-exclusive",
-      "price": 25,
+      "price": 17,
       "features": [
         "MP3 + WAV (untagged)",
         "Release on Spotify, Apple Music and YouTube",
@@ -20,7 +20,7 @@
     },
     {
       "name": "Exclusive",
-      "price": 150,
+      "price": 97,
       "best": true,
       "features": [
         "WAV + stems",
