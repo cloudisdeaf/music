@@ -45,6 +45,17 @@
   ],
   "beats": [
     {
+      "title": "Cluster",
+      "bpm": 155,
+      "tags": [
+        "Osamason",
+        "Gucci Mane",
+        "Crank"
+      ],
+      "audio": "beats/osamason-gucci-mane.mp3",
+      "cover": "covers/osamason.jpg"
+    },
+    {
       "title": "4 the billz",
       "bpm": 170,
       "tags": [
