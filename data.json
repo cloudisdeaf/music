@@ -45,6 +45,28 @@
   ],
   "beats": [
     {
+      "title": "4 the billz",
+      "bpm": 170,
+      "tags": [
+        "liluzivert",
+        "lucki",
+        "dontoliver"
+      ],
+      "audio": "beats/lucki-x-lil-uzi.mp3",
+      "cover": "covers/lil-uzi-vert.jpg"
+    },
+    {
+      "title": "Nightfall",
+      "bpm": 185,
+      "tags": [
+        "Lucki",
+        "Drake",
+        "Trippie Red"
+      ],
+      "audio": "beats/lucki-x-drake.mp3",
+      "cover": "covers/lucki.jpg"
+    },
+    {
       "title": "Nights 4 Us",
       "bpm": 151,
       "tags": [
