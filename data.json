@@ -19,28 +19,28 @@
       ]
     },
     {
-      "name": "Exclusive",
-      "price": 47,
-      "best": false,
-      "features": [
-        "WAV + stems (untagged)",
-        "Full commercial use",
-        "Credit: Prod. CloudIsDeaf",
-        "Beat removed from sale",
-        "Only one buyer"
-      ]
-    },
-    {
-      "name": "Non-exclusive deluxe",
+      "name": "Non-exclusive DELUXE",
       "price": 24,
+      "best": true,
       "features": [
         "MP3 + WAV + stems (untagged)",
         "Release on Spotify, Apple Music and YouTube",
         "Credit: Prod. CloudIsDeaf",
         "No Content ID registration of the beat",
         "Beat stays available to other artists"
+      ]
+    },
+    {
+      "name": "Exclusive",
+      "price": 47,
+      "features": [
+        "WAV + stems (untagged)",
+        "Full commercial use",
+        "Credit: Prod. CloudIsDeaf",
+        "Beat removed from sale",
+        "Only one buyer"
       ],
-      "best": true
+      "best": false
     }
   ],
   "beats": [
