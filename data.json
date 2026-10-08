@@ -62,7 +62,15 @@
     "acc": "#ffd400",
     "acc2": "#ffffff"
   },
-  "stickers": [],
+  "stickers": [
+    {
+      "img": "img/legoesqueleto-removebg-preview.png",
+      "x": 70,
+      "y": 20,
+      "w": 140,
+      "r": -8
+    }
+  ],
   "anim": true,
   "ticker": "new beats every week • tagged previews • clean files after payment • ",
   "banner": "img/70x15.png"
