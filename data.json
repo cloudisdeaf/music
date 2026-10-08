@@ -21,14 +21,26 @@
     {
       "name": "Exclusive",
       "price": 47,
-      "best": true,
+      "best": false,
       "features": [
-        "WAV + stems",
+        "WAV + stems (untagged)",
         "Full commercial use",
         "Credit: Prod. CloudIsDeaf",
         "Beat removed from sale",
         "Only one buyer"
       ]
+    },
+    {
+      "name": "Non-exclusive deluxe",
+      "price": 24,
+      "features": [
+        "MP3 + WAV + stems (untagged)",
+        "Release on Spotify, Apple Music and YouTube",
+        "Credit: Prod. CloudIsDeaf",
+        "No Content ID registration of the beat",
+        "Beat stays available to other artists"
+      ],
+      "best": true
     }
   ],
   "beats": [
@@ -43,5 +55,15 @@
       "audio": "beats/free-don-toliver-x-lucki-type-beat---nights-4-us.mp3",
       "cover": "covers/descarga-19-.jpg"
     }
-  ]
+  ],
+  "theme": {
+    "paper": "#f4f1e8",
+    "ink": "#0d0d0d",
+    "acc": "#ffd400",
+    "acc2": "#e63a1e"
+  },
+  "stickers": [],
+  "anim": true,
+  "ticker": "new beats every week • tagged previews • clean files after payment • ",
+  "banner": "img/yung-folky-banners-1-.png"
 }
