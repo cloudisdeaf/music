@@ -93,7 +93,9 @@
     "paper": "#f4f1e8",
     "ink": "#0d0d0d",
     "acc": "#ffd400",
-    "acc2": "#ffffff"
+    "acc2": "#ffffff",
+    "hd": "Archivo Black",
+    "bd": "Space Mono"
   },
   "stickers": [
     {
@@ -106,5 +108,88 @@
   ],
   "anim": true,
   "ticker": "new beats every week • tagged previews • clean files after payment • ",
-  "banner": "img/70x15.png"
+  "banner": "img/70x15.png",
+  "hero": {
+    "ar": "16/7",
+    "arm": "4/5",
+    "items": [
+      {
+        "t": "text",
+        "s": "CloudIsDeaf",
+        "x": 8.4,
+        "y": 14.2,
+        "w": 92,
+        "fs": 11,
+        "f": "Archivo Black",
+        "sh": 1,
+        "r": 0
+      },
+      {
+        "t": "text",
+        "s": "Some beats cooked up late at night. Press play and let it clear your mind.",
+        "x": 4,
+        "y": 62,
+        "w": 55,
+        "fs": 2.1,
+        "f": "Space Mono",
+        "hl": 1,
+        "r": 0
+      },
+      {
+        "t": "text",
+        "s": "hear the beats",
+        "x": 4,
+        "y": 80,
+        "w": 20,
+        "fs": 1.9,
+        "f": "Space Mono",
+        "btn": 1,
+        "link": "#beats",
+        "r": 0
+      },
+      {
+        "t": "text",
+        "s": "★",
+        "x": 84,
+        "y": 4,
+        "w": 12,
+        "fs": 11,
+        "f": "Archivo Black",
+        "c": "#e63a1e",
+        "an": "s",
+        "r": 0
+      },
+      {
+        "t": "text",
+        "s": "ADVISORY\nheavy 808s inside",
+        "x": 70,
+        "y": 72,
+        "w": 22,
+        "fs": 1.6,
+        "f": "Space Mono",
+        "hl": 1,
+        "r": -4
+      },
+      {
+        "t": "img",
+        "src": "img/legoesqueleto-removebg-preview.png",
+        "x": 0.6,
+        "y": -2,
+        "w": 9.1,
+        "r": 10,
+        "sh": 1,
+        "an": "w"
+      },
+      {
+        "t": "img",
+        "src": "img/70x15.png",
+        "x": 10.2,
+        "y": 45.3,
+        "w": 57.8,
+        "r": 0,
+        "sh": 1
+      }
+    ]
+  },
+  "texts": {}
 }
