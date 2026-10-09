@@ -109,81 +109,212 @@
   "anim": true,
   "ticker": "new beats every week • tagged previews • clean files after payment • ",
   "banner": "img/70x15.png",
-  "hero": {
-    "ar": "16/7",
-    "arm": "4/5",
-    "items": [
-      {
-        "t": "text",
-        "s": "CloudIsDeaf",
-        "x": 8.2,
-        "y": 8.6,
-        "w": 92,
-        "fs": 11,
-        "f": "Archivo Black",
-        "sh": 1,
-        "r": 0,
-        "hl": true
+  "texts": {},
+  "canvases": {
+    "hero": {
+      "name": "Top banner",
+      "ar": {
+        "d": "16/7",
+        "m": "4/5"
       },
-      {
-        "t": "text",
-        "s": "hear the beats",
-        "x": 8.5,
-        "y": 44.5,
-        "w": 20,
-        "fs": 1.9,
-        "f": "Space Mono",
-        "btn": 1,
-        "link": "#beats",
-        "r": 0
+      "bg": {
+        "c": "",
+        "img": "",
+        "pat": "none"
       },
-      {
-        "t": "text",
-        "s": "★",
-        "x": 84.8,
-        "y": 12.6,
-        "w": 12,
-        "fs": 11,
-        "f": "Archivo Black",
-        "c": "#e63a1e",
-        "an": "s",
-        "r": 0,
-        "sh": false,
-        "hl": false,
-        "btn": false
+      "items": [
+        {
+          "t": "text",
+          "s": "CloudIsDeaf",
+          "x": 8.2,
+          "y": 8.6,
+          "w": 92,
+          "fs": 11,
+          "f": "Archivo Black",
+          "sh": 1,
+          "r": 0,
+          "hl": true,
+          "d": {
+            "x": 8.2,
+            "y": 8.6,
+            "w": 92,
+            "fs": 11,
+            "r": 0
+          },
+          "m": {
+            "x": 8.2,
+            "y": 8.6,
+            "w": 92,
+            "fs": 11,
+            "r": 0
+          }
+        },
+        {
+          "t": "text",
+          "s": "hear the beats",
+          "x": 8.5,
+          "y": 44.5,
+          "w": 20,
+          "fs": 1.9,
+          "f": "Space Mono",
+          "btn": 1,
+          "link": "#beats",
+          "r": 0,
+          "d": {
+            "x": 8.5,
+            "y": 44.5,
+            "w": 20,
+            "fs": 1.9,
+            "r": 0
+          },
+          "m": {
+            "x": 8.5,
+            "y": 44.5,
+            "w": 20,
+            "fs": 1.9,
+            "r": 0
+          }
+        },
+        {
+          "t": "text",
+          "s": "★",
+          "x": 84.8,
+          "y": 12.6,
+          "w": 12,
+          "fs": 11,
+          "f": "Archivo Black",
+          "c": "#e63a1e",
+          "an": "s",
+          "r": 0,
+          "sh": false,
+          "hl": false,
+          "btn": false,
+          "d": {
+            "x": 84.8,
+            "y": 12.6,
+            "w": 12,
+            "fs": 11,
+            "r": 0
+          },
+          "m": {
+            "x": 84.8,
+            "y": 12.6,
+            "w": 12,
+            "fs": 11,
+            "r": 0
+          }
+        },
+        {
+          "t": "text",
+          "s": "ADVISORY\nheavy 808s inside",
+          "x": 81.6,
+          "y": 40.8,
+          "w": 15.9,
+          "fs": 1.2,
+          "f": "Space Mono",
+          "hl": 1,
+          "r": -4,
+          "btn": true,
+          "d": {
+            "x": 81.6,
+            "y": 40.8,
+            "w": 15.9,
+            "fs": 1.2,
+            "r": -4
+          },
+          "m": {
+            "x": 81.6,
+            "y": 40.8,
+            "w": 15.9,
+            "fs": 1.2,
+            "r": -4
+          }
+        },
+        {
+          "t": "img",
+          "src": "img/legoesqueleto-removebg-preview.png",
+          "x": 1.7,
+          "y": 1.3,
+          "w": 10.9,
+          "r": 16,
+          "sh": 1,
+          "an": "w",
+          "d": {
+            "x": 1.7,
+            "y": 1.3,
+            "w": 10.9,
+            "r": 16
+          },
+          "m": {
+            "x": 1.7,
+            "y": 1.3,
+            "w": 10.9,
+            "r": 16
+          }
+        },
+        {
+          "t": "img",
+          "src": "img/70x15.png",
+          "x": 11.8,
+          "y": 57.4,
+          "w": 83.6,
+          "r": 0,
+          "sh": 1,
+          "d": {
+            "x": 11.8,
+            "y": 57.4,
+            "w": 83.6,
+            "r": 0
+          },
+          "m": {
+            "x": 11.8,
+            "y": 57.4,
+            "w": 83.6,
+            "r": 0
+          }
+        }
+      ]
+    },
+    "cmv14rgm4": {
+      "name": "Canvas 2",
+      "ar": {
+        "d": "16/6",
+        "m": "1/0.3"
       },
-      {
-        "t": "text",
-        "s": "ADVISORY\nheavy 808s inside",
-        "x": 81.6,
-        "y": 40.8,
-        "w": 15.9,
-        "fs": 1.2,
-        "f": "Space Mono",
-        "hl": 1,
-        "r": -4,
-        "btn": true
+      "bg": {
+        "c": "",
+        "img": "",
+        "pat": "dots"
       },
-      {
-        "t": "img",
-        "src": "img/legoesqueleto-removebg-preview.png",
-        "x": 1.7,
-        "y": 1.3,
-        "w": 10.9,
-        "r": 16,
-        "sh": 1,
-        "an": "w"
-      },
-      {
-        "t": "img",
-        "src": "img/70x15.png",
-        "x": 11.8,
-        "y": 57.4,
-        "w": 83.6,
-        "r": 0,
-        "sh": 1
-      }
-    ]
+      "items": [
+        {
+          "t": "img",
+          "src": "img/70x15.png",
+          "sh": 1,
+          "d": {
+            "x": 7.7,
+            "y": 26.5,
+            "w": 84.5,
+            "r": 0
+          },
+          "m": {
+            "x": 6.9,
+            "y": 19,
+            "w": 86.1,
+            "r": 0
+          }
+        }
+      ]
+    }
   },
-  "texts": {}
+  "layout": [
+    "hero",
+    "beats",
+    "licenses",
+    "payments",
+    "free",
+    "faq",
+    "cmv14rgm4",
+    "contact"
+  ]
 }
