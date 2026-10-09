@@ -24,7 +24,7 @@ details{margin:1rem 0;color:var(--mu)}summary{cursor:pointer;color:var(--tx)}ol{
 .bar{position:fixed;left:0;right:0;bottom:0;background:var(--sf);border-top:1px solid var(--ln);padding:.8rem 0}
 .bar .w{display:flex;gap:1rem;align-items:center;justify-content:space-between}#st{color:var(--mu);font-size:.9rem}
 [hidden]{display:none!important}
- 
+
 .des{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:1rem;align-items:start}
 @media(max-width:900px){.des{grid-template-columns:1fr}}
 .des>.card{position:sticky;top:.5rem;max-height:calc(100vh - 1rem);overflow:auto;margin:0}
@@ -45,9 +45,9 @@ details{margin:1rem 0;color:var(--mu)}summary{cursor:pointer;color:var(--tx)}ol{
 </head>
 <body>
 <div class="w">
-<h1>Site admin</h1>
+<h1>Site admin <small style="display:inline;font-size:.85rem">v3 · page designer</small></h1>
 <p>Edit your beats, prices and links. Changes go straight to your GitHub repository.</p>
- 
+
 <div id="login">
  <details open><summary>How to get your access token (one time)</summary><ol>
   <li>On GitHub: your profile picture &rarr; Settings &rarr; Developer settings &rarr; Personal access tokens &rarr; Fine-grained tokens &rarr; Generate new token.</li>
@@ -62,10 +62,10 @@ details{margin:1rem 0;color:var(--mu)}summary{cursor:pointer;color:var(--tx)}ol{
   <small>The token is saved only in this browser.</small>
  </div>
 </div>
- 
+
 <div id="ed" hidden>
  <h2>Page designer</h2><p>Drag items on the canvas to move them. Select one to edit it on the right: drag the round handles to resize and rotate. Press Delete to remove it. The top of the site is this canvas.</p>
- <div class="tb"><button class="sec" id="adt">Add text</button><label class="up">Add image or sticker<input type="file" accept="image/*" id="adi" hidden></label><button class="sec" id="vd">Desktop view</button><button class="sec" id="vm">Mobile view</button></div>
+ <div class="tb"><button class="sec" id="adt">Add text</button><label class="up">Add image or sticker<input type="file" accept="image/*" id="adi" hidden></label><button class="sec" id="vd">Desktop view</button><button class="sec" id="vm">Mobile view</button><button class="sec" id="rst">Reset canvas</button></div>
  <div class="des"><div class="stage"><div class="cvw" id="cvw"><div class="cv" id="cv"></div></div></div><div class="card" id="pn"></div></div>
  <h2>Style</h2><div class="card" id="sty"></div>
  <h2>Texts</h2><p>Change any other text on the page.</p><div class="card" id="txt"></div>
@@ -76,9 +76,9 @@ details{margin:1rem 0;color:var(--mu)}summary{cursor:pointer;color:var(--tx)}ol{
  <h2>Account</h2><button class="sec" id="out">Disconnect this browser</button>
 </div>
 </div>
- 
+
 <div class="bar"><div class="w"><span id="st"></span><button id="pub" hidden>Publish changes</button></div></div>
- 
+
 <script>
 const $=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 let C=JSON.parse(localStorage.getItem("gh")||"{}"),D=null,F={};
@@ -93,7 +93,7 @@ async function put(p,content,msg){const old=await get(p);
  const r=await fetch(url(p),{method:"PUT",headers:hdr(),body:JSON.stringify({message:msg,content,branch:C.branch,...(old?{sha:old.sha}:{})})});
  if(!r.ok)throw new Error(p+" failed ("+r.status+")")}
 async function load(){const f=await get("data.json");if(!f)throw new Error("data.json was not found in the repository.");
- D=JSON.parse(dec(f.content));D.theme=Object.assign({paper:"#f4f1e8",ink:"#0d0d0d",acc:"#ffd400",acc2:"#e63a1e",hd:"Archivo Black",bd:"Space Mono"},D.theme);D.stickers=D.stickers||[];if(D.anim===undefined)D.anim=true;D.ticker=D.ticker||"new beats every week \u2022 tagged previews \u2022 clean files after payment \u2022 ";D.banner=D.banner||"";D.hero=D.hero||defHero();D.texts=D.texts||{};$("#login").hidden=true;$("#ed").hidden=false;$("#pub").hidden=false;draw();design()}
+ D=JSON.parse(dec(f.content));D.theme=Object.assign({paper:"#f4f1e8",ink:"#0d0d0d",acc:"#ffd400",acc2:"#e63a1e",hd:"Archivo Black",bd:"Space Mono"},D.theme);D.stickers=D.stickers||[];if(D.anim===undefined)D.anim=true;D.ticker=D.ticker||"new beats every week \u2022 tagged previews \u2022 clean files after payment \u2022 ";D.banner=D.banner||"";D.hero=D.hero||defHero(D);D.texts=D.texts||{};$("#login").hidden=true;$("#ed").hidden=false;$("#pub").hidden=false;draw();design()}
 function draw(){
  const s=(k,l,ph="")=>`<label>${l}<input data-k="${k}" value="${esc(D[k])}" placeholder="${ph}"></label>`;
  const c=(k,l)=>`<label>${l}<input type="color" data-k="theme.${k}" value="${esc(D.theme[k])}"></label>`;
@@ -113,8 +113,11 @@ document.addEventListener("click",e=>{const d=e.target.dataset;
 $("#addlic").onclick=()=>{D.licenses.push({name:"New license",price:50,features:["Describe what is included"]});draw()};
 const FONTS=["Archivo Black","Permanent Marker","Space Mono","Bebas Neue","Anton","Special Elite","VT323","Inter"],P={};let sel=-1,view="d";
 const lf=n=>{if(!n||document.getElementById("f"+n))return;const l=document.createElement("link");l.id="f"+n;l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family="+n.replace(/ /g,"+")+"&display=swap";document.head.appendChild(l)};
-const defHero=()=>({ar:"16/7",arm:"4/5",items:[{t:"text",s:"CloudIsDeaf",x:4,y:14,w:92,fs:11,f:"Archivo Black",sh:1,r:0},{t:"text",s:"Type beats made for late nights.",x:4,y:62,w:55,fs:2.1,f:"Space Mono",hl:1,r:0},{t:"text",s:"hear the beats",x:4,y:80,w:20,fs:1.9,f:"Space Mono",btn:1,link:"#beats",r:0}]});
-const ist=i=>`left:${i.x}%;top:${i.y}%;width:${i.w}%;--r:${i.r||0};--fs:${i.fs||4};${i.c?`--c:${i.c};`:""}${i.t==="text"?`font-family:"${i.f||"Space Mono"}",sans-serif`:""}`;
+const defHero=d=>{const L=[],b=d.banner?1:0;if(b)L.push({t:"img",src:d.banner,x:2,y:3,w:96,r:0,sh:1});(d.stickers||[]).filter(s=>s.img).forEach(s=>L.push({t:"img",src:s.img,x:+s.x||0,y:+s.y||0,w:Math.max(3,Math.round((+s.w||140)/12.8)),r:+s.r||0,sh:1,an:"w"}));
+ L.push({t:"text",s:d.artist||"CloudIsDeaf",x:4,y:b?46:14,w:92,fs:b?9:11,f:"Archivo Black",sh:1,r:0},{t:"text",s:d.tagline||"Type beats made for late nights.",x:4,y:b?72:62,w:55,fs:2.1,f:"Space Mono",hl:1,r:0},{t:"text",s:"hear the beats",x:4,y:b?85:80,w:20,fs:1.9,f:"Space Mono",btn:1,link:"#beats",r:0});
+ if(!b&&!(d.stickers||[]).length)L.push({t:"text",s:"\u2605",x:84,y:4,w:12,fs:11,f:"Archivo Black",c:"#e63a1e",an:"s",r:0},{t:"text",s:"ADVISORY\nheavy 808s inside",x:70,y:72,w:22,fs:1.6,f:"Space Mono",hl:1,r:-4});
+ return{ar:"16/7",arm:"4/5",items:L}};
+const ist=i=>`left:${i.x}%;top:${i.y}%;width:${i.w}%;--r:${i.r||0};--fs:${i.fs||4};${i.c?`--c:${i.c};`:""}${i.t==="text"?`font-family:'${i.f||"Space Mono"}',sans-serif`:""}`;
 const icl=i=>`it ${i.t==="img"?"im":"tx"}${i.sh?" sh":""}${i.hl?" hl":""}${i.btn?" bt":""}`;
 const addFile=f=>{const p="img/"+f.name.toLowerCase().replace(/[^a-z0-9.\-]+/g,"-");F[p]=f;P[p]=URL.createObjectURL(f);return p};
 function rc(){const H=D.hero,cv=$("#cv"),st=$(".stage");
@@ -142,6 +145,7 @@ $("#pn").addEventListener("click",e=>{const a=e.target.dataset.a,L=D.hero.items;
  rc();pn()});
 $("#adt").onclick=()=>{D.hero.items.push({t:"text",s:"New text",x:10,y:40,w:40,fs:4,f:D.theme.bd,r:0});sel=D.hero.items.length-1;rc();pn()};
 $("#adi").onchange=e=>{const f=e.target.files[0];if(!f)return;D.hero.items.push({t:"img",src:addFile(f),x:30,y:20,w:20,r:0,sh:1});sel=D.hero.items.length-1;e.target.value="";rc();pn()};
+$("#rst").onclick=()=>{if(confirm("Reset the canvas to the default layout?")){D.hero=defHero({artist:D.artist,tagline:D.tagline});sel=-1;rc();pn()}};
 $("#vd").onclick=()=>{view="d";rc()};$("#vm").onclick=()=>{view="m";rc()};
 document.addEventListener("keydown",e=>{if(e.key==="Delete"&&sel>-1&&D&&!/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)){D.hero.items.splice(sel,1);sel=-1;rc();pn()}});
 $("#cv").addEventListener("pointerdown",e=>{const hd=e.target.closest(".hd,.rh"),el=e.target.closest(".it");
@@ -167,4 +171,3 @@ if(C.token){log("Connecting...");load().then(()=>log("Connected.")).catch(e=>{lo
 </script>
 </body>
 </html>
- 
