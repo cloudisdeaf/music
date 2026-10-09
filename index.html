@@ -82,7 +82,7 @@ dialog h3{margin:0 0 .3rem;font:400 1.6rem var(--hd)}
 dialog .btn{display:block;width:100%;margin-top:.7rem}
 @media(max-width:600px){.beat{grid-template-columns:64px 1fr}.cov{width:64px;height:64px}.act{grid-column:1/-1}.nav nav a:nth-child(n+4){display:none}}
 @media(prefers-reduced-motion:reduce){.mq,.st,.mark:hover{animation:none!important}.rv{transition:none}html{scroll-behavior:auto}}
- 
+
 html,body{overflow-x:hidden}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .hero{padding:0;overflow:visible}
@@ -106,6 +106,7 @@ body.anim .an-w{animation:wob 3.5s ease-in-out infinite alternate}body.anim .an-
  #bar .w{gap:.6rem}#bb{padding:.4rem .6rem;font-size:.78rem}
  dialog{max-height:90vh;overflow:auto}footer .w{flex-direction:column}.btn{padding:.7rem 1rem}
 }
+.hero{border-bottom:3px solid var(--ink);background:repeating-linear-gradient(135deg,transparent 0 14px,rgba(0,0,0,.05) 14px 16px)}
 </style>
 </head>
 <body>
@@ -114,45 +115,48 @@ body.anim .an-w{animation:wob 3.5s ease-in-out infinite alternate}body.anim .an-
 <nav><a href="#beats">beats</a><a href="#licenses">licenses</a><a href="#payments">pay</a><a href="#faq">faq</a><a href="#contact">contact</a></nav></div></div>
 <main>
 <div class="hero"><h1 class="vh ar"></h1><div class="cv" id="cv"></div></div>
- 
+
 <section id="beats"><div class="w"><h2 data-tx="latest-beats">latest beats</h2><div class="win rv"><div class="wt"><span>beats.exe</span><i><b></b><b></b></i></div><div class="wb" id="bl"></div></div></div></section>
- 
+
 <section id="licenses"><div class="w"><h2 data-tx="pick-a-license">pick a license</h2><div class="lics" id="ll"></div></div></section>
- 
+
 <section id="payments"><div class="w"><h2 data-tx="how-to-pay">how to pay</h2><div class="win rv"><div class="wt"><span>checkout.txt</span><i><b></b><b></b></i></div><div class="wb"><div class="steps">
 <div><h3 data-tx="choose">Choose</h3><p data-tx="hit-the-price-button-on-a-beat">Hit the price button on a beat and pick your license.</p></div>
 <div><h3 data-tx="pay">Pay</h3><p data-tx="pay-on-paypal-the-money-goes-s">Pay on PayPal. The money goes straight to me.</p></div>
 <div><h3 data-tx="get-files">Get files</h3><p data-tx="send-me-the-receipt-i-reply-wi">Send me the receipt. I reply with the clean files and your written license.</p></div></div></div></div></div></section>
- 
+
 <section><div class="w"><h2 data-tx="free-use">free use</h2><div class="win rv"><div class="wb"><p style="margin:0" data-tx="non-profit-only-beats-marked-f">Non-profit only. Beats marked [FREE] on YouTube can be used in non-monetized projects such as SoundCloud or demos, with credit: (Prod. CloudIsDeaf). To release on streaming platforms or monetize, you need a license.</p></div></div></div></section>
- 
+
 <section id="faq"><div class="w"><h2 data-tx="questions">questions</h2><div class="win rv"><div class="wb">
 <details><summary data-tx="what-do-i-get-after-paying">What do I get after paying?</summary><p data-tx="the-untagged-files-for-your-li">The untagged files for your license (MP3 and WAV, plus stems if your license includes them) and a written license with the beat title.</p></details>
 <details><summary data-tx="can-i-release-songs-made-with">Can I release songs made with your beats?</summary><p data-tx="yes-with-a-paid-license-the-fr">Yes, with a paid license. The free use is only for non-profit projects with credit.</p></details>
 <details><summary data-tx="what-happens-when-a-beat-is-so">What happens when a beat is sold exclusively?</summary><p data-tx="i-take-it-off-the-store-and-st">I take it off the store and stop selling it.</p></details>
 <details><summary data-tx="do-you-make-custom-beats">Do you make custom beats?</summary><p data-tx="yes-message-me-with-references">Yes. Message me with references and what you need.</p></details>
 </div></div></div></section>
- 
+
 <section id="contact"><div class="w"><h2 data-tx="talk-to-me">talk to me</h2><div class="links" id="lk"></div></div></section>
 </main>
 <footer><div class="w"><span>&copy; <span id="yr"></span> <span class="ar"></span>. All rights reserved.</span><span>Do not re-upload or use the previews without a license.</span></div></footer>
- 
+
 <div id="bar"><div class="w">
 <button class="pl" id="bp" aria-label="Play or pause"><svg class="tr" viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg><svg class="ps" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg></button>
 <div><div id="bt"></div><div class="trk" id="bs"><i id="bi"></i></div><div id="tm">0:00 / 0:00</div></div>
 <button class="btn sm" id="bb">Buy</button></div></div>
- 
+
 <dialog id="buy"><button class="x" aria-label="Close" onclick="this.closest('dialog').close()">&times;</button>
 <h3 id="bn"></h3><div>Choose a license</div><div id="bo"></div>
 <a class="btn" id="pp" target="_blank" rel="noopener">Pay with PayPal</a>
 <a class="btn gh" id="rc" target="_blank" rel="noopener">Send me the receipt</a></dialog>
- 
+
 <script>
 const $=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const fmt=s=>isFinite(s)?Math.floor(s/60)+":"+String(Math.floor(s%60)).padStart(2,"0"):"0:00";
 let D,S="€",cur=-1;const A=new Audio();A.preload="none";
 const lf=n=>{if(!n||document.getElementById("f"+n))return;const l=document.createElement("link");l.id="f"+n;l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family="+n.replace(/ /g,"+")+"&display=swap";document.head.appendChild(l)};
-const defHero=d=>({ar:"16/7",arm:"4/5",items:[{t:"text",s:d.artist,x:4,y:14,w:92,fs:11,f:"Archivo Black",sh:1,r:0},{t:"text",s:d.tagline,x:4,y:62,w:55,fs:2.1,f:"Space Mono",hl:1,r:0},{t:"text",s:"hear the beats",x:4,y:80,w:20,fs:1.9,f:"Space Mono",btn:1,link:"#beats",r:0}]});
+const defHero=d=>{const L=[],b=d.banner?1:0;if(b)L.push({t:"img",src:d.banner,x:2,y:3,w:96,r:0,sh:1});(d.stickers||[]).filter(s=>s.img).forEach(s=>L.push({t:"img",src:s.img,x:+s.x||0,y:+s.y||0,w:Math.max(3,Math.round((+s.w||140)/12.8)),r:+s.r||0,sh:1,an:"w"}));
+ L.push({t:"text",s:d.artist||"CloudIsDeaf",x:4,y:b?46:14,w:92,fs:b?9:11,f:"Archivo Black",sh:1,r:0},{t:"text",s:d.tagline||"Type beats made for late nights.",x:4,y:b?72:62,w:55,fs:2.1,f:"Space Mono",hl:1,r:0},{t:"text",s:"hear the beats",x:4,y:b?85:80,w:20,fs:1.9,f:"Space Mono",btn:1,link:"#beats",r:0});
+ if(!b&&!(d.stickers||[]).length)L.push({t:"text",s:"\u2605",x:84,y:4,w:12,fs:11,f:"Archivo Black",c:"#e63a1e",an:"s",r:0},{t:"text",s:"ADVISORY\nheavy 808s inside",x:70,y:72,w:22,fs:1.6,f:"Space Mono",hl:1,r:-4});
+ return{ar:"16/7",arm:"4/5",items:L}};
 fetch("data.json?v="+Date.now()).then(r=>r.json()).then(init).catch(()=>{$("#bl").innerHTML='<p class="empty">Open this page from its GitHub Pages link to load the beats.</p>'});
 function init(d){D=d;S=d.currency==="USD"?"$":"€";const t=d.theme||{};
  for(const[k,v]of Object.entries({paper:t.paper,ink:t.ink,acc:t.acc,acc2:t.acc2}))if(v)document.documentElement.style.setProperty("--"+k,v);
@@ -163,7 +167,7 @@ function init(d){D=d;S=d.currency==="USD"?"$":"€";const t=d.theme||{};
  const th=d.theme||{};if(th.hd){lf(th.hd);document.documentElement.style.setProperty("--hd",`"${th.hd}",Impact,sans-serif`)}if(th.bd){lf(th.bd);document.documentElement.style.setProperty("--mo",`"${th.bd}",ui-monospace,sans-serif`)}
  document.querySelectorAll("[data-tx]").forEach(e=>{const v=(d.texts||{})[e.dataset.tx];if(v!==undefined)e.textContent=v});
  const H=d.hero||defHero(d),cv=$("#cv");cv.style.setProperty("--ar",H.ar||"16/7");cv.style.setProperty("--arm",H.arm||"4/5");
- cv.innerHTML=H.items.map(i=>{if(i.f)lf(i.f);const st=`left:${+i.x}%;top:${+i.y}%;width:${+i.w}%;--r:${+i.r||0};--fs:${+i.fs||4};${i.c?`--c:${esc(i.c)};`:""}${i.t==="text"&&i.f?`font-family:"${esc(i.f)}",sans-serif`:""}`,cl=`it ${i.t==="img"?"im":"tx"}${i.sh?" sh":""}${i.hl?" hl":""}${i.btn?" bt":""}${i.an?" an-"+i.an:""}`,b=i.t==="img"?`<img alt="" src="${esc(i.src)}">`:esc(i.s);return i.link?`<a class="${cl}" style="${st}" href="${esc(i.link)}"${/^https?:/.test(i.link)?' target="_blank" rel="noopener"':""}>${b}</a>`:`<div class="${cl}" style="${st}">${b}</div>`}).join("");
+ cv.innerHTML=H.items.map(i=>{if(i.f)lf(i.f);const st=`left:${+i.x}%;top:${+i.y}%;width:${+i.w}%;--r:${+i.r||0};--fs:${+i.fs||4};${i.c?`--c:${esc(i.c)};`:""}${i.t==="text"&&i.f?`font-family:'${esc(i.f)}',sans-serif`:""}`,cl=`it ${i.t==="img"?"im":"tx"}${i.sh?" sh":""}${i.hl?" hl":""}${i.btn?" bt":""}${i.an?" an-"+i.an:""}`,b=i.t==="img"?`<img alt="" src="${esc(i.src)}">`:esc(i.s);return i.link?`<a class="${cl}" style="${st}" href="${esc(i.link)}"${/^https?:/.test(i.link)?' target="_blank" rel="noopener"':""}>${b}</a>`:`<div class="${cl}" style="${st}">${b}</div>`}).join("");
  const min=Math.min(...d.licenses.map(l=>+l.price));
  $("#bl").innerHTML=d.beats.length?d.beats.map((b,i)=>`<article class="beat" id="b${i}"><div class="cov" ${b.cover?`style="background-image:url('${esc(b.cover)}')"`:""}></div><div><h3>${esc(b.title)}</h3><div class="meta">${esc(b.bpm)} BPM &middot; ${(b.tags||[]).map(esc).join(" &middot; ")}</div></div><div class="act"><button class="pl" data-p="${i}" aria-label="Play ${esc(b.title)}"><svg class="tr" viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg><svg class="ps" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg></button><button class="btn sm" data-b="${i}">from ${S}${min}</button></div></article>`).join(""):'<p class="empty">New beats are on the way.</p>';
  $("#ll").innerHTML=d.licenses.map(l=>`<div class="lic${l.best?" best":""}"><h3>${esc(l.name)}</h3><div class="price">${S}${esc(l.price)}</div><ul>${l.features.map(f=>"<li>"+esc(f)+"</li>").join("")}</ul></div>`).join("");
@@ -195,4 +199,3 @@ function openBuy(i){const b=D.beats[i];
 </script>
 </body>
 </html>
- 
