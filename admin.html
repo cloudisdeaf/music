@@ -9,7 +9,7 @@
 :root{--bg:#1a2033;--sf:#232b45;--ln:#36406a;--tx:#edf0f8;--mu:#9aa5c4;--ac:#a5b8ff}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;padding-bottom:90px}
-.w{width:min(1100px,100% - 2rem);margin:0 auto}
+.w{width:min(1500px,100% - 2rem);margin:0 auto}
 h1{font-size:1.6rem;margin:1.5rem 0 .2rem}h2{font-size:1.2rem;margin:2rem 0 .8rem}
 p,small{color:var(--mu)}small{display:block;margin-top:.3rem;word-break:break-all}
 .card{background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:1.2rem;margin:.8rem 0;display:grid;gap:.9rem}
@@ -25,7 +25,7 @@ details{margin:1rem 0;color:var(--mu)}summary{cursor:pointer;color:var(--tx)}ol{
 .bar .w{display:flex;gap:1rem;align-items:center;justify-content:space-between}#st{color:var(--mu);font-size:.9rem}
 [hidden]{display:none!important}
 
-.des{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:1rem;align-items:start}
+.des{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:1rem;align-items:start}
 @media(max-width:900px){.des{grid-template-columns:1fr}}
 .des>.card{position:sticky;top:.5rem;max-height:calc(100vh - 1rem);overflow:auto;margin:0}
 .tb{display:flex;flex-wrap:wrap;gap:.5rem;margin:.5rem 0}
@@ -41,6 +41,7 @@ details{margin:1rem 0;color:var(--mu)}summary{cursor:pointer;color:var(--tx)}ol{
 .it.sel{outline:2px dashed #2a5bff;outline-offset:4px}
 .hd,.rh{position:absolute;width:16px;height:16px;background:#2a5bff;border:2px solid #fff;border-radius:50%}
 .hd{right:-12px;bottom:-12px;cursor:nwse-resize}.rh{left:calc(50% - 8px);top:-34px;cursor:grab}
+.row2{display:flex;justify-content:space-between;align-items:center;gap:.6rem;flex-wrap:wrap;border-bottom:1px solid var(--ln);padding:.5rem 0}.row2 span{display:flex;gap:.4rem;flex-wrap:wrap}.ghost{opacity:.3}#bgc{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
 </style>
 </head>
 <body>
@@ -64,8 +65,10 @@ details{margin:1rem 0;color:var(--mu)}summary{cursor:pointer;color:var(--tx)}ol{
 </div>
 
 <div id="ed" hidden>
- <h2>Page designer</h2><p>Drag items on the canvas to move them. Select one to edit it on the right: drag the round handles to resize and rotate. Press Delete to remove it. The top of the site is this canvas.</p>
- <div class="tb"><button class="sec" id="adt">Add text</button><label class="up">Add image or sticker<input type="file" accept="image/*" id="adi" hidden></label><button class="sec" id="vd">Desktop view</button><button class="sec" id="vm">Mobile view</button><button class="sec" id="rst">Reset canvas</button></div>
+ <h2>Page layout</h2><p>The page is a stack of blocks. Reorder or remove them, and add free canvases to place text, banners, images and stickers anywhere between sections.</p><div class="card" id="lay"></div>
+ <h2 id="dz">Designer</h2><p>Desktop and mobile have separate layouts: switch the view and arrange each one on its own. Drag items to move them, use the round handles to resize and rotate, press Delete to remove.</p>
+ <div class="tb"><button class="sec" id="vd">Desktop view</button><button class="sec" id="vm">Mobile view</button><button class="sec" id="adt">Add text</button><label class="up">Add image or sticker<input type="file" accept="image/*" id="adi" hidden></label><button class="sec" id="c2m">Copy desktop to mobile</button><button class="sec" id="m2d">Copy mobile to desktop</button></div>
+ <div class="card" id="bgc"></div>
  <div class="des"><div class="stage"><div class="cvw" id="cvw"><div class="cv" id="cv"></div></div></div><div class="card" id="pn"></div></div>
  <h2>Style</h2><div class="card" id="sty"></div>
  <h2>Texts</h2><p>Change any other text on the page.</p><div class="card" id="txt"></div>
@@ -93,7 +96,7 @@ async function put(p,content,msg){const old=await get(p);
  const r=await fetch(url(p),{method:"PUT",headers:hdr(),body:JSON.stringify({message:msg,content,branch:C.branch,...(old?{sha:old.sha}:{})})});
  if(!r.ok)throw new Error(p+" failed ("+r.status+")")}
 async function load(){const f=await get("data.json");if(!f)throw new Error("data.json was not found in the repository.");
- D=JSON.parse(dec(f.content));D.theme=Object.assign({paper:"#f4f1e8",ink:"#0d0d0d",acc:"#ffd400",acc2:"#e63a1e",hd:"Archivo Black",bd:"Space Mono"},D.theme);D.stickers=D.stickers||[];if(D.anim===undefined)D.anim=true;D.ticker=D.ticker||"new beats every week \u2022 tagged previews \u2022 clean files after payment \u2022 ";D.banner=D.banner||"";D.hero=D.hero||defHero(D);D.texts=D.texts||{};$("#login").hidden=true;$("#ed").hidden=false;$("#pub").hidden=false;draw();design()}
+ D=JSON.parse(dec(f.content));D.theme=Object.assign({paper:"#f4f1e8",ink:"#0d0d0d",acc:"#ffd400",acc2:"#e63a1e",hd:"Archivo Black",bd:"Space Mono"},D.theme);D.stickers=D.stickers||[];if(D.anim===undefined)D.anim=true;D.ticker=D.ticker||"new beats every week \u2022 tagged previews \u2022 clean files after payment \u2022 ";D.banner=D.banner||"";mig(D);cur=D.layout.find(k=>D.canvases[k])||"";D.texts=D.texts||{};$("#login").hidden=true;$("#ed").hidden=false;$("#pub").hidden=false;draw();design()}
 function draw(){
  const s=(k,l,ph="")=>`<label>${l}<input data-k="${k}" value="${esc(D[k])}" placeholder="${ph}"></label>`;
  const c=(k,l)=>`<label>${l}<input type="color" data-k="theme.${k}" value="${esc(D.theme[k])}"></label>`;
@@ -111,51 +114,76 @@ document.addEventListener("click",e=>{const d=e.target.dataset;
  if(d.dellic!==undefined&&confirm("Remove this license?")){D.licenses.splice(+d.dellic,1);draw()}
  if(d.delst!==undefined){D.stickers.splice(+d.delst,1);draw()}});
 $("#addlic").onclick=()=>{D.licenses.push({name:"New license",price:50,features:["Describe what is included"]});draw()};
-const FONTS=["Archivo Black","Permanent Marker","Space Mono","Bebas Neue","Anton","Special Elite","VT323","Inter"],P={};let sel=-1,view="d";
+const FONTS=["Archivo Black","Permanent Marker","Space Mono","Bebas Neue","Anton","Special Elite","VT323","Inter"],P={},BN={beats:"Latest beats",licenses:"Licenses",payments:"How to pay",free:"Free use",faq:"Questions",contact:"Contact"};let sel=-1,view="d",cur="";
 const lf=n=>{if(!n||document.getElementById("f"+n))return;const l=document.createElement("link");l.id="f"+n;l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family="+n.replace(/ /g,"+")+"&display=swap";document.head.appendChild(l)};
 const defHero=d=>{const L=[],b=d.banner?1:0;if(b)L.push({t:"img",src:d.banner,x:2,y:3,w:96,r:0,sh:1});(d.stickers||[]).filter(s=>s.img).forEach(s=>L.push({t:"img",src:s.img,x:+s.x||0,y:+s.y||0,w:Math.max(3,Math.round((+s.w||140)/12.8)),r:+s.r||0,sh:1,an:"w"}));
  L.push({t:"text",s:d.artist||"CloudIsDeaf",x:4,y:b?46:14,w:92,fs:b?9:11,f:"Archivo Black",sh:1,r:0},{t:"text",s:d.tagline||"Type beats made for late nights.",x:4,y:b?72:62,w:55,fs:2.1,f:"Space Mono",hl:1,r:0},{t:"text",s:"hear the beats",x:4,y:b?85:80,w:20,fs:1.9,f:"Space Mono",btn:1,link:"#beats",r:0});
  if(!b&&!(d.stickers||[]).length)L.push({t:"text",s:"\u2605",x:84,y:4,w:12,fs:11,f:"Archivo Black",c:"#e63a1e",an:"s",r:0},{t:"text",s:"ADVISORY\nheavy 808s inside",x:70,y:72,w:22,fs:1.6,f:"Space Mono",hl:1,r:-4});
  return{ar:"16/7",arm:"4/5",items:L}};
-const ist=i=>`left:${i.x}%;top:${i.y}%;width:${i.w}%;--r:${i.r||0};--fs:${i.fs||4};${i.c?`--c:${i.c};`:""}${i.t==="text"?`font-family:'${i.f||"Space Mono"}',sans-serif`:""}`;
+const mig=d=>{if(!d.canvases||!d.layout){const H=d.hero||defHero(d),c=i=>({x:i.x,y:i.y,w:i.w,fs:i.fs,r:i.r||0});d.canvases={hero:{name:"Top banner",ar:{d:H.ar||"16/7",m:H.arm||"4/5"},bg:{c:"",img:"",pat:"none"},items:H.items.map(i=>({...i,d:c(i),m:c(i)}))}};d.layout=["hero","beats","licenses","payments","free","faq","contact"]}delete d.hero;d.layout=d.layout.filter(k=>BN[k]||d.canvases[k])};
+const bgs=b=>[b.pat==="dots"?"radial-gradient(rgba(0,0,0,.12) 1px,transparent 1.3px) 0 0/7px 7px":b.pat==="lines"?"repeating-linear-gradient(135deg,transparent 0 14px,rgba(0,0,0,.06) 14px 16px)":"",b.img?`url('${b.img}') center/cover`:"",b.c||"transparent"].filter(Boolean).join(",");
+const B=()=>D&&D.canvases[cur];
+const ist=(i,g)=>`left:${g.x}%;top:${g.y}%;width:${g.w}%;--r:${g.r||0};--fs:${g.fs||4};${i.c?`--c:${i.c};`:""}${i.t==="text"?`font-family:'${i.f||"Space Mono"}',sans-serif`:""}`;
 const icl=i=>`it ${i.t==="img"?"im":"tx"}${i.sh?" sh":""}${i.hl?" hl":""}${i.btn?" bt":""}`;
 const addFile=f=>{const p="img/"+f.name.toLowerCase().replace(/[^a-z0-9.\-]+/g,"-");F[p]=f;P[p]=URL.createObjectURL(f);return p};
-function rc(){const H=D.hero,cv=$("#cv"),st=$(".stage");
+function rc(){const b=B(),cv=$("#cv"),st=$(".stage");if(!b){cv.innerHTML="";return}
  for(const k of["paper","ink","acc","acc2"])st.style.setProperty("--"+k,D.theme[k]);
- $("#cvw").style.maxWidth=view==="m"?"390px":"none";cv.style.setProperty("--ar",view==="m"?H.arm:H.ar);
- cv.innerHTML=H.items.map((i,n)=>{lf(i.f);return`<div class="${icl(i)}${n===sel?" sel":""}" data-i="${n}" style="${ist(i)}">${i.t==="img"?`<img alt="" draggable="false" src="${esc(P[i.src]||i.src)}">`:esc(i.s)}${n===sel?'<span class="hd"></span><span class="rh"></span>':""}</div>`}).join("")}
-function pn(){const i=D.hero.items[sel],p=$("#pn");if(!i){p.innerHTML="<p>Select an item on the canvas, or add one with the buttons above.</p>";return}
- const f=(k,l,t="text",x="")=>`<label>${l}<input type="${t}" data-p="${k}" value="${esc(i[k]??"")}" ${x}></label>`;
- const ck=(k,l)=>`<label class="row"><input type="checkbox" data-p="${k}" data-c="1" ${i[k]?"checked":""}> ${l}</label>`;
- p.innerHTML=(i.t==="text"?`<label>Text<textarea rows="3" data-p="s">${esc(i.s)}</textarea></label><label>Font<select data-p="f">${FONTS.map(x=>`<option${x===i.f?" selected":""}>${x}</option>`).join("")}</select></label>`+f("fs","Size","number",'step="0.1" min="0.5"')+`<label>Color<input type="color" data-p="c" value="${i.c||D.theme.ink}"></label>`+ck("sh","Punk shadow")+ck("hl","Highlighter")+ck("btn","Button style")+f("link","Link (optional, for example #beats)"):`<label>Replace image<input type="file" accept="image/*" id="rpl"></label>`+ck("sh","Drop shadow"))
- +f("w","Width (%)","number",'step="0.5" min="2"')+f("r","Rotation (degrees)","number")+`<label>Animation<select data-p="an">${[["","None"],["w","Wobble"],["s","Spin"],["p","Pulse"]].map(a=>`<option value="${a[0]}"${a[0]===(i.an||"")?" selected":""}>${a[1]}</option>`).join("")}</select></label><div class="tb"><button class="sec" data-a="up">Forward</button><button class="sec" data-a="dn">Back</button><button class="sec" data-a="dup">Duplicate</button><button class="del" data-a="rm">Delete</button></div>`}
+ $("#cvw").style.maxWidth=view==="m"?"390px":"none";cv.style.setProperty("--ar",b.ar[view]);cv.style.background=bgs({...b.bg,c:b.bg.c||D.theme.paper,img:P[b.bg.img]||b.bg.img});
+ $("#vd").style.outline=view==="d"?"2px solid #a5b8ff":"";$("#vm").style.outline=view==="m"?"2px solid #a5b8ff":"";
+ cv.innerHTML=b.items.map((i,n)=>{lf(i.f);const hid=view==="d"?i.hd:i.hm;return`<div class="${icl(i)}${hid?" ghost":""}${n===sel?" sel":""}" data-i="${n}" style="${ist(i,i[view]||i.d)}">${i.t==="img"?`<img alt="" draggable="false" src="${esc(P[i.src]||i.src)}">`:esc(i.s)}${n===sel?'<span class="hd"></span><span class="rh"></span>':""}</div>`}).join("")}
+function lay(){const L=D.layout,rm=Object.keys(BN).filter(k=>!L.includes(k));
+ $("#lay").innerHTML=L.map(id=>{const c=D.canvases[id];return`<div class="row2"><b>${esc(c?c.name:BN[id])}${c?" (free canvas"+(id===cur?", editing":"")+")":""}</b><span>${c?`<button class="sec" data-m="ed" data-id="${id}">Edit</button>`:""}<button class="sec" data-m="up" data-id="${id}">Up</button><button class="sec" data-m="dn" data-id="${id}">Down</button><button class="del" data-m="rm" data-id="${id}">Remove</button></span></div>`}).join("")+`<div class="tb"><button class="sec" id="adc">Add a free canvas</button>${rm.map(k=>`<button class="sec" data-m="back" data-id="${k}">Restore: ${BN[k]}</button>`).join("")}</div>`}
+$("#lay").addEventListener("click",e=>{const m=e.target.dataset.m,id=e.target.dataset.id,L=D.layout,n=L.indexOf(id),ct=L.indexOf("contact")>-1?L.indexOf("contact"):L.length;
+ if(e.target.id==="adc"){const k="c"+Date.now().toString(36);D.canvases[k]={name:"Canvas "+(Object.keys(D.canvases).length+1),ar:{d:"16/6",m:"1/1"},bg:{c:"",img:"",pat:"none"},items:[]};L.splice(ct,0,k);cur=k;sel=-1}
+ else if(!m)return;
+ else if(m==="up"&&n>0)[L[n-1],L[n]]=[L[n],L[n-1]];
+ else if(m==="dn"&&n<L.length-1)[L[n+1],L[n]]=[L[n],L[n+1]];
+ else if(m==="rm"){if(!confirm("Remove this block from the page?"))return;L.splice(n,1);if(D.canvases[id]){delete D.canvases[id];if(cur===id){cur=L.find(k=>D.canvases[k])||"";sel=-1}}}
+ else if(m==="back")L.splice(ct,0,id);
+ else if(m==="ed"){cur=id;sel=-1}
+ lay();bgp();rc();pn();if(m==="ed"||e.target.id==="adc")$("#dz").scrollIntoView({behavior:"smooth"})});
+function bgp(){const b=B(),p=$("#bgc");if(!b){p.innerHTML="<p>Add a free canvas in the page layout above to design it here.</p>";return}
+ const k=x=>`canvases.${cur}.${x}`;
+ p.innerHTML=`<label>Name<input data-k="${k("name")}" value="${esc(b.name)}"></label><label>Shape on desktop (width/height)<input data-k="${k("ar.d")}" value="${esc(b.ar.d)}"></label><label>Shape on mobile (width/height)<input data-k="${k("ar.m")}" value="${esc(b.ar.m)}"></label><label>Background color<input type="color" data-k="${k("bg.c")}" value="${b.bg.c||"#ffffff"}"></label><button class="sec" data-m="nobg">Use page background</button><label>Background pattern<select data-k="${k("bg.pat")}">${[["none","None"],["dots","Dots"],["lines","Stripes"]].map(a=>`<option value="${a[0]}"${a[0]===b.bg.pat?" selected":""}>${a[1]}</option>`).join("")}</select></label><label>Background image<input type="file" accept="image/*" id="bgi"><small>${esc(b.bg.img||"None")}</small></label><button class="sec" data-m="nobi">Remove background image</button>`}
+$("#bgc").addEventListener("click",e=>{const m=e.target.dataset.m,b=B();if(!b)return;if(m==="nobg")b.bg.c="";else if(m==="nobi")b.bg.img="";else return;bgp();rc()});
+$("#bgc").addEventListener("change",e=>{if(e.target.id==="bgi"&&e.target.files[0]){B().bg.img=addFile(e.target.files[0]);bgp();rc()}});
+function pn(){const b=B(),i=b&&b.items[sel],p=$("#pn");if(!i){p.innerHTML="<p>Select an item on the canvas, or add one with the buttons above.</p>";return}
+ const G=i[view]||i.d,V=view==="d"?"desktop":"mobile",
+ f=(k,l,t="text",x="")=>`<label>${l}<input type="${t}" data-p="${k}" value="${esc(i[k]??"")}" ${x}></label>`,
+ gf=(k,l,x="")=>`<label>${l} (${V})<input type="number" data-g="${k}" value="${esc(G[k]??"")}" ${x}></label>`,
+ ck=(k,l)=>`<label class="row"><input type="checkbox" data-p="${k}" data-c="1" ${i[k]?"checked":""}> ${l}</label>`;
+ p.innerHTML=(i.t==="text"?`<label>Text<textarea rows="3" data-p="s">${esc(i.s)}</textarea></label><label>Font<select data-p="f">${FONTS.map(x=>`<option${x===i.f?" selected":""}>${x}</option>`).join("")}</select></label>`+gf("fs","Size",'step="0.1" min="0.5"')+`<label>Color<input type="color" data-p="c" value="${i.c||D.theme.ink}"></label>`+ck("sh","Punk shadow")+ck("hl","Highlighter")+ck("btn","Button style")+f("link","Link (optional, for example #beats)"):`<label>Replace image<input type="file" accept="image/*" id="rpl"></label>`+ck("sh","Drop shadow"))
+ +gf("w","Width (%)",'step="0.5" min="2"')+gf("r","Rotation (degrees)")+ck("hd","Hide on desktop")+ck("hm","Hide on mobile")+`<label>Animation<select data-p="an">${[["","None"],["w","Wobble"],["s","Spin"],["p","Pulse"]].map(a=>`<option value="${a[0]}"${a[0]===(i.an||"")?" selected":""}>${a[1]}</option>`).join("")}</select></label><div class="tb"><button class="sec" data-a="up">Forward</button><button class="sec" data-a="dn">Back</button><button class="sec" data-a="dup">Duplicate</button><button class="del" data-a="rm">Delete</button></div>`}
 function design(){const t=D.theme,o=v=>FONTS.map(x=>`<option${x===v?" selected":""}>${x}</option>`).join(""),c=(k,l)=>`<label>${l}<input type="color" data-k="theme.${k}" value="${esc(t[k])}"></label>`;
- $("#sty").innerHTML=`<label>Heading font (titles of each section)<select data-k="theme.hd">${o(t.hd)}</select></label><label>Body font<select data-k="theme.bd">${o(t.bd)}</select></label>`+c("paper","Background color")+c("ink","Text and border color")+c("acc","Accent color")+c("acc2","Second accent color")+`<label>Scrolling strip text<input data-k="ticker" value="${esc(D.ticker)}"></label><label>Canvas shape on desktop (width/height)<input data-k="hero.ar" value="${esc(D.hero.ar)}"></label><label>Canvas shape on mobile (width/height)<input data-k="hero.arm" value="${esc(D.hero.arm)}"></label><label class="row"><input type="checkbox" data-t="chk" data-k="anim" ${D.anim?"checked":""}> Animations on</label>`;
- rc();pn();
+ $("#sty").innerHTML=`<label>Heading font (titles of each section)<select data-k="theme.hd">${o(t.hd)}</select></label><label>Body font<select data-k="theme.bd">${o(t.bd)}</select></label>`+c("paper","Page background color")+c("ink","Text and border color")+c("acc","Accent color")+c("acc2","Second accent color")+`<label>Page background pattern<select data-k="theme.pat"><option value="dots"${t.pat!=="none"?" selected":""}>Dots</option><option value="none"${t.pat==="none"?" selected":""}>None</option></select></label><label>Scrolling strip text<input data-k="ticker" value="${esc(D.ticker)}"></label><label class="row"><input type="checkbox" data-t="chk" data-k="anim" ${D.anim?"checked":""}> Animations on</label>`;
+ lay();bgp();rc();pn();
  fetch("index.html?t="+Date.now()).then(r=>r.text()).then(h=>{const d=new DOMParser().parseFromString(h,"text/html");
   $("#txt").innerHTML=[...d.querySelectorAll("[data-tx]")].map(e=>`<label>${esc(e.textContent.trim().slice(0,45))}<textarea rows="2" data-x="${e.dataset.tx}">${esc(D.texts[e.dataset.tx]??e.textContent.trim())}</textarea></label>`).join("")||"<p>No texts found.</p>"}).catch(()=>{$("#txt").innerHTML="<p>Could not load the list of texts.</p>"})}
-document.addEventListener("input",e=>{if(e.target.dataset.k&&D.hero)rc()});
+document.addEventListener("input",e=>{if(e.target.dataset.k&&D&&cur)rc()});
 $("#txt").addEventListener("input",e=>{const k=e.target.dataset.x;if(k)D.texts[k]=e.target.value});
-$("#pn").addEventListener("input",e=>{const t=e.target,k=t.dataset.p;if(!k||sel<0)return;let v=t.dataset.c?t.checked:t.value;if(t.type==="number")v=+v;D.hero.items[sel][k]=v;rc()});
-$("#pn").addEventListener("change",e=>{if(e.target.id==="rpl"&&e.target.files[0]){D.hero.items[sel].src=addFile(e.target.files[0]);rc()}});
-$("#pn").addEventListener("click",e=>{const a=e.target.dataset.a,L=D.hero.items;if(!a||sel<0)return;
+$("#pn").addEventListener("input",e=>{const t=e.target,i=B()&&B().items[sel];if(!i)return;
+ if(t.dataset.g)(i[view]=i[view]||{...i.d})[t.dataset.g]=+t.value;else if(t.dataset.p)i[t.dataset.p]=t.dataset.c?t.checked:t.value;else return;rc()});
+$("#pn").addEventListener("change",e=>{if(e.target.id==="rpl"&&e.target.files[0]){B().items[sel].src=addFile(e.target.files[0]);rc()}});
+$("#pn").addEventListener("click",e=>{const a=e.target.dataset.a,L=B()&&B().items;if(!a||sel<0)return;
  if(a==="rm"){L.splice(sel,1);sel=-1}
- else if(a==="dup"){L.push({...L[sel],x:L[sel].x+3,y:L[sel].y+3});sel=L.length-1}
+ else if(a==="dup"){const c=JSON.parse(JSON.stringify(L[sel]));c.d.x+=3;c.d.y+=3;c.m.x+=3;c.m.y+=3;L.push(c);sel=L.length-1}
  else{const j=a==="up"?sel+1:sel-1;if(j>=0&&j<L.length){[L[sel],L[j]]=[L[j],L[sel]];sel=j}}
  rc();pn()});
-$("#adt").onclick=()=>{D.hero.items.push({t:"text",s:"New text",x:10,y:40,w:40,fs:4,f:D.theme.bd,r:0});sel=D.hero.items.length-1;rc();pn()};
-$("#adi").onchange=e=>{const f=e.target.files[0];if(!f)return;D.hero.items.push({t:"img",src:addFile(f),x:30,y:20,w:20,r:0,sh:1});sel=D.hero.items.length-1;e.target.value="";rc();pn()};
-$("#rst").onclick=()=>{if(confirm("Reset the canvas to the default layout?")){D.hero=defHero({artist:D.artist,tagline:D.tagline});sel=-1;rc();pn()}};
-$("#vd").onclick=()=>{view="d";rc()};$("#vm").onclick=()=>{view="m";rc()};
-document.addEventListener("keydown",e=>{if(e.key==="Delete"&&sel>-1&&D&&!/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)){D.hero.items.splice(sel,1);sel=-1;rc();pn()}});
-$("#cv").addEventListener("pointerdown",e=>{const hd=e.target.closest(".hd,.rh"),el=e.target.closest(".it");
- if(!el){sel=-1;rc();pn();return}
- e.preventDefault();const n=+el.dataset.i,it=D.hero.items[n],r=$("#cv").getBoundingClientRect(),b=el.getBoundingClientRect(),cx=b.left+b.width/2,cy=b.top+b.height/2,mode=hd?(hd.classList.contains("rh")?"r":"s"):"m",s0={x:e.clientX,y:e.clientY,ix:it.x,iy:it.y,iw:it.w};
+const nw=o=>{const b=B();if(!b){alert("Add a free canvas first.");return}b.items.push(o);sel=b.items.length-1;rc();pn()};
+$("#adt").onclick=()=>nw({t:"text",s:"New text",f:D.theme.bd,d:{x:10,y:40,w:40,fs:4,r:0},m:{x:10,y:40,w:60,fs:6,r:0}});
+$("#adi").onchange=e=>{const f=e.target.files[0];if(!f)return;nw({t:"img",src:addFile(f),sh:1,d:{x:30,y:20,w:20,r:0},m:{x:30,y:20,w:35,r:0}});e.target.value=""};
+$("#vd").onclick=()=>{view="d";rc();pn()};$("#vm").onclick=()=>{view="m";rc();pn()};
+const cp=(a,z)=>{const b=B();if(b&&confirm("Copy the "+(a==="d"?"desktop":"mobile")+" layout of every item to "+(z==="d"?"desktop":"mobile")+"?")){b.items.forEach(i=>i[z]={...i[a]});rc();pn()}};
+$("#c2m").onclick=()=>cp("d","m");$("#m2d").onclick=()=>cp("m","d");
+document.addEventListener("keydown",e=>{const b=B();if(e.key==="Delete"&&b&&sel>-1&&!/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)){b.items.splice(sel,1);sel=-1;rc();pn()}});
+$("#cv").addEventListener("pointerdown",e=>{const b=B(),hd=e.target.closest(".hd,.rh"),el=e.target.closest(".it");
+ if(!b||!el){sel=-1;rc();pn();return}
+ e.preventDefault();const n=+el.dataset.i,it=b.items[n],g=(it[view]=it[view]||{...it.d}),r=$("#cv").getBoundingClientRect(),bb=el.getBoundingClientRect(),cx=bb.left+bb.width/2,cy=bb.top+bb.height/2,mode=hd?(hd.classList.contains("rh")?"r":"s"):"m",s0={x:e.clientX,y:e.clientY,ix:g.x,iy:g.y,iw:g.w};
  if(sel!==n){sel=n;rc();pn()}
  const mv=ev=>{const dx=(ev.clientX-s0.x)/r.width*100,dy=(ev.clientY-s0.y)/r.height*100;
-  if(mode==="m"){it.x=+(s0.ix+dx).toFixed(1);it.y=+(s0.iy+dy).toFixed(1)}
-  else if(mode==="s")it.w=Math.max(2,+(s0.iw+dx).toFixed(1));
-  else it.r=Math.round(Math.atan2(ev.clientY-cy,ev.clientX-cx)*180/Math.PI+90);
+  if(mode==="m"){g.x=+(s0.ix+dx).toFixed(1);g.y=+(s0.iy+dy).toFixed(1)}
+  else if(mode==="s")g.w=Math.max(2,+(s0.iw+dx).toFixed(1));
+  else g.r=Math.round(Math.atan2(ev.clientY-cy,ev.clientX-cx)*180/Math.PI+90);
   rc()},up=()=>{removeEventListener("pointermove",mv);removeEventListener("pointerup",up);pn()};
  addEventListener("pointermove",mv);addEventListener("pointerup",up)});
 $("#add").onclick=()=>{D.beats.unshift({title:"New beat",bpm:140,tags:[],audio:"",cover:""});draw()};
