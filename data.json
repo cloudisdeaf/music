@@ -45,6 +45,17 @@
   ],
   "beats": [
     {
+      "title": "Brick sh*t",
+      "bpm": 140,
+      "tags": [
+        "Gucci mane",
+        "Fanta Rosario",
+        "Zell"
+      ],
+      "audio": "beats/gucciiii.mp3",
+      "cover": "covers/gucci-mane-album-art-lilyingxtasy.jpg"
+    },
+    {
       "title": "Cluster",
       "bpm": 155,
       "tags": [
