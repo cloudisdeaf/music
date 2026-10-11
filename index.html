@@ -108,6 +108,18 @@ body.anim .an-w{animation:wob 3.5s ease-in-out infinite alternate}body.anim .an-
 }
 .cs{padding:0}.it.xd{display:none}body.np{background:var(--paper)}
 @media(max-width:700px){.it{left:var(--mx);top:var(--my);width:var(--mw);--fs:var(--mfs);--r:var(--mr)}.it.xd{display:block}.it.xm{display:none}}
+main{position:relative}
+.ov{pointer-events:none}.ov[href]{pointer-events:auto}
+.it.tx.ov{font-size:calc(var(--fs)*min(1svw,12.8px))}
+body.ed .it{touch-action:none;user-select:none;-webkit-user-select:none;cursor:move}body.ed .ov{pointer-events:auto}
+@media(min-width:701px){body.ed .it.xd{display:block;opacity:.3}}
+@media(max-width:700px){body.ed .it.xm{display:block;opacity:.3}}
+.it.sel{outline:2px dashed #2a5bff;outline-offset:4px}
+.hd,.rh{position:absolute;width:18px;height:18px;background:#2a5bff;border:2px solid #fff;border-radius:50%;z-index:99}
+.hd{right:-13px;bottom:-13px;cursor:nwse-resize}.rh{left:calc(50% - 9px);top:-36px;cursor:grab}
+.eg{position:absolute;inset:0;pointer-events:none;z-index:90;background-image:linear-gradient(to right,rgba(42,91,255,.3) 1px,transparent 1px),linear-gradient(to bottom,rgba(42,91,255,.3) 1px,transparent 1px),linear-gradient(to right,transparent calc(50% - 1px),rgba(255,45,149,.8) calc(50% - 1px) calc(50% + 1px),transparent calc(50% + 1px)),linear-gradient(to bottom,transparent calc(50% - 1px),rgba(255,45,149,.8) calc(50% - 1px) calc(50% + 1px),transparent calc(50% + 1px));background-size:var(--s) 100%,100% var(--s),100% 100%,100% 100%}
+.eg i,.eg b{position:absolute;font:700 10px/1 monospace;color:#2a5bff;background:rgba(255,255,255,.9);padding:1px 3px;font-style:normal}.eg i{top:0;transform:translateX(-50%)}.eg b{left:0;transform:translateY(-50%)}
+.gd{position:absolute;background:#ff2d95;z-index:91;pointer-events:none}
 </style>
 </head>
 <body>
@@ -160,25 +172,29 @@ const defHero=d=>{const L=[],b=d.banner?1:0;if(b)L.push({t:"img",src:d.banner,x:
 const mig=d=>{if(!d.canvases||!d.layout){const H=d.hero||defHero(d),c=i=>({x:i.x,y:i.y,w:i.w,fs:i.fs,r:i.r||0});d.canvases={hero:{name:"Top banner",ar:{d:H.ar||"16/7",m:H.arm||"4/5"},bg:{c:"",img:"",pat:"none"},items:H.items.map(i=>({...i,d:c(i),m:c(i)}))}};d.layout=["hero","beats","licenses","payments","free","faq","contact"]}};
 const bgs=b=>[b.pat==="dots"?"radial-gradient(rgba(0,0,0,.12) 1px,transparent 1.3px) 0 0/7px 7px":b.pat==="lines"?"repeating-linear-gradient(135deg,transparent 0 14px,rgba(0,0,0,.06) 14px 16px)":"",b.img?`url('${b.img}') center/cover`:"",b.c||"transparent"].filter(Boolean).join(",");
 const gv=(g,p)=>`--${p}x:${+g.x}%;--${p}y:${+g.y}%;--${p}w:${+g.w}%;--${p}fs:${+g.fs||4};--${p}r:${+g.r||0};`;
-const cvh=b=>`<div class="cv" style="--ard:${esc(b.ar.d)};--arm:${esc(b.ar.m)};background:${bgs(b.bg).replace(/"/g,"'")}">${b.items.map(i=>{if(i.f)lf(i.f);const st=gv(i.d,"d")+gv(i.m||i.d,"m")+(i.c?`--c:${esc(i.c)};`:"")+(i.t==="text"&&i.f?`font-family:'${esc(i.f)}',sans-serif`:""),cl=`it ${i.t==="img"?"im":"tx"}${i.sh?" sh":""}${i.hl?" hl":""}${i.btn?" bt":""}${i.an?" an-"+i.an:""}${i.hd?" xd":""}${i.hm?" xm":""}`,b2=i.t==="img"?`<img alt="" src="${esc(i.src)}">`:esc(i.s);return i.link?`<a class="${cl}" style="${st}" href="${esc(i.link)}"${/^https?:/.test(i.link)?' target="_blank" rel="noopener"':""}>${b2}</a>`:`<div class="${cl}" style="${st}">${b2}</div>`}).join("")}</div>`;
-fetch("data.json?v="+Date.now()).then(r=>r.json()).then(init).catch(()=>{$("#bl").innerHTML='<p class="empty">Open this page from its GitHub Pages link to load the beats.</p>'});
-function init(d){D=d;S=d.currency==="USD"?"$":"€";const t=d.theme||{};
+const ihtml=(i,o,id,n)=>{if(i.f)lf(i.f);const st=gv(i.d,"d")+gv(i.m||i.d,"m")+`z-index:${+i.z||0};`+(i.c?`--c:${esc(i.c)};`:"")+(i.t==="text"&&i.f?`font-family:'${esc(i.f)}',sans-serif`:""),cl=`it ${i.t==="img"?"im":"tx"}${o==="o"?" ov":""}${i.sh?" sh":""}${i.hl?" hl":""}${i.btn?" bt":""}${i.an?" an-"+i.an:""}${i.hd?" xd":""}${i.hm?" xm":""}`,at=`data-o="${o}" data-b="${esc(id)}" data-i="${n}"`,b2=i.t==="img"?`<img alt="" draggable="false" src="${esc(i.src)}">`:esc(i.s);return i.link?`<a class="${cl}" ${at} style="${st}" href="${esc(i.link)}"${/^https?:/.test(i.link)?' target="_blank" rel="noopener"':""}>${b2}</a>`:`<div class="${cl}" ${at} style="${st}">${b2}</div>`};
+const cvh=(b,id)=>`<div class="cv" style="--ard:${esc(b.ar.d)};--arm:${esc(b.ar.m)};background:${bgs(b.bg).replace(/"/g,"'")}">${b.items.map((i,n)=>ihtml(i,"c",id,n)).join("")}</div>`;
+const ED=window.name==="ed"||/[?&]edit/.test(location.search);
+if(ED){document.body.classList.add("ed");document.addEventListener("click",e=>{e.preventDefault();e.stopPropagation()},true)}
+else fetch("data.json?v="+Date.now()).then(r=>r.json()).then(render).catch(()=>{$("#bl").innerHTML='<p class="empty">Open this page from its GitHub Pages link to load the beats.</p>'});
+function render(d){D=d;S=d.currency==="USD"?"$":"€";const t=d.theme||{};document.querySelectorAll(".cs,.it.ov").forEach(e=>e.remove());
  for(const[k,v]of Object.entries({paper:t.paper,ink:t.ink,acc:t.acc,acc2:t.acc2}))if(v)document.documentElement.style.setProperty("--"+k,v);
- if(d.anim!==false)document.body.classList.add("anim");
+ document.body.classList.toggle("anim",d.anim!==false&&!ED);
  document.title=d.artist+" | Type beats for sale";$("#yr").textContent=new Date().getFullYear();
  document.querySelectorAll(".ar").forEach(e=>e.textContent=d.artist);
  const tx=(d.ticker||"new beats every week \u2022 tagged previews \u2022 clean files after payment \u2022 ").repeat(6);$("#mq").innerHTML=`<span>${esc(tx)}</span><span>${esc(tx)}</span>`;
  const th=d.theme||{};if(th.hd){lf(th.hd);document.documentElement.style.setProperty("--hd",`"${th.hd}",Impact,sans-serif`)}if(th.bd){lf(th.bd);document.documentElement.style.setProperty("--mo",`"${th.bd}",ui-monospace,sans-serif`)}
  document.querySelectorAll("[data-tx]").forEach(e=>{const v=(d.texts||{})[e.dataset.tx];if(v!==undefined)e.textContent=v});
- if((d.theme||{}).pat==="none")document.body.classList.add("np");
- mig(d);const mn=$("#mn");
- d.layout.forEach(id=>{let el=null;const b=d.canvases[id];if(b){el=document.createElement("section");el.className="cs";el.id="c-"+id;el.innerHTML=cvh(b)}else el=document.querySelector('[data-blk="'+id+'"]');if(el)mn.appendChild(el)});
- document.querySelectorAll("[data-blk]").forEach(e=>{if(!d.layout.includes(e.dataset.blk))e.remove()});
+ document.body.classList.toggle("np",(d.theme||{}).pat==="none");
+ mig(d);const mn=$("#mn");d.over=d.over||{};
+ d.layout.forEach(id=>{let el=null;const b=d.canvases[id];if(b){el=document.createElement("section");el.className="cs";el.id="c-"+id;el.innerHTML=cvh(b,id)}else el=document.querySelector('[data-blk="'+id+'"]');if(el)mn.appendChild(el)});
+ document.querySelectorAll("[data-blk]").forEach(e=>{e.style.display=d.layout.includes(e.dataset.blk)?"":"none"});
+ for(const id in d.over){const c=id==="page"?mn:d.canvases[id]?null:document.querySelector('[data-blk="'+id+'"]>.w');if(c)c.insertAdjacentHTML("beforeend",d.over[id].map((i,n)=>ihtml(i,"o",id,n)).join(""))}
  const min=Math.min(...d.licenses.map(l=>+l.price));
  $("#bl").innerHTML=d.beats.length?d.beats.map((b,i)=>`<article class="beat" id="b${i}"><div class="cov" ${b.cover?`style="background-image:url('${esc(b.cover)}')"`:""}></div><div><h3>${esc(b.title)}</h3><div class="meta">${esc(b.bpm)} BPM &middot; ${(b.tags||[]).map(esc).join(" &middot; ")}</div></div><div class="act"><button class="pl" data-p="${i}" aria-label="Play ${esc(b.title)}"><svg class="tr" viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg><svg class="ps" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg></button><button class="btn sm" data-b="${i}">from ${S}${min}</button></div></article>`).join(""):'<p class="empty">New beats are on the way.</p>';
  $("#ll").innerHTML=d.licenses.map(l=>`<div class="lic${l.best?" best":""}"><h3>${esc(l.name)}</h3><div class="price">${S}${esc(l.price)}</div><ul>${l.features.map(f=>"<li>"+esc(f)+"</li>").join("")}</ul></div>`).join("");
  $("#lk").innerHTML=`<a class="btn" href="https://ig.me/m/${esc(d.instagram)}" target="_blank" rel="noopener">DM on Instagram</a>`+(d.youtube?`<a class="btn gh" href="${esc(d.youtube)}" target="_blank" rel="noopener">YouTube</a>`:"")+(d.email?`<a class="btn gh" href="mailto:${esc(d.email)}">${esc(d.email)}</a>`:"")+`<a class="btn gh" href="https://instagram.com/${esc(d.instagram)}" target="_blank" rel="noopener">@${esc(d.instagram)}</a>`;
- if(d.anim!==false&&"IntersectionObserver"in window){const o=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");o.unobserve(x.target)}}),{threshold:.12});document.querySelectorAll(".rv").forEach(e=>o.observe(e))}else document.querySelectorAll(".rv").forEach(e=>e.classList.add("in"));
+ const rvs=document.querySelectorAll(".rv:not(.in)");if(d.anim!==false&&!ED&&"IntersectionObserver"in window){const o=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");o.unobserve(x.target)}}),{threshold:.12});rvs.forEach(e=>o.observe(e))}else rvs.forEach(e=>e.classList.add("in"));
 }
 function play(i){const b=D.beats[i];
  if(cur===i){A.paused?A.play():A.pause();return}
@@ -202,6 +218,7 @@ function openBuy(i){const b=D.beats[i];
   const m=encodeURIComponent(`Hi, I paid for "${b.title}" (${l.name} license).`);
   $("#rc").href=D.email?`mailto:${D.email}?subject=${encodeURIComponent(b.title+" - "+l.name)}&body=${m}`:"https://ig.me/m/"+D.instagram};
  $("#bo").onchange=upd;upd();$("#buy").showModal()}
+window.render=render;
 </script>
 </body>
 </html>
