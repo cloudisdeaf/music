@@ -120,6 +120,9 @@ body.ed .it{touch-action:none;user-select:none;-webkit-user-select:none;cursor:m
 .eg{position:absolute;inset:0;pointer-events:none;z-index:90;background-image:linear-gradient(to right,rgba(42,91,255,.3) 1px,transparent 1px),linear-gradient(to bottom,rgba(42,91,255,.3) 1px,transparent 1px),linear-gradient(to right,transparent calc(50% - 1px),rgba(255,45,149,.8) calc(50% - 1px) calc(50% + 1px),transparent calc(50% + 1px)),linear-gradient(to bottom,transparent calc(50% - 1px),rgba(255,45,149,.8) calc(50% - 1px) calc(50% + 1px),transparent calc(50% + 1px));background-size:var(--s) 100%,100% var(--s),100% 100%,100% 100%}
 .eg i,.eg b{position:absolute;font:700 10px/1 monospace;color:#2a5bff;background:rgba(255,255,255,.9);padding:1px 3px;font-style:normal}.eg i{top:0;transform:translateX(-50%)}.eg b{left:0;transform:translateY(-50%)}
 .gd{position:absolute;background:#ff2d95;z-index:91;pointer-events:none}
+.pg{position:absolute;top:0;bottom:0;left:50%;width:1920px;margin-left:-960px;pointer-events:none}.pg .it.ov{pointer-events:none}body.ed .pg .it.ov{pointer-events:auto}
+.cv.wd{width:min(1920px,100%)}
+@media(max-width:700px){.pg{left:0;width:100%;margin-left:0}}
 </style>
 </head>
 <body>
@@ -173,7 +176,7 @@ const mig=d=>{if(!d.canvases||!d.layout){const H=d.hero||defHero(d),c=i=>({x:i.x
 const bgs=b=>[b.pat==="dots"?"radial-gradient(rgba(0,0,0,.12) 1px,transparent 1.3px) 0 0/7px 7px":b.pat==="lines"?"repeating-linear-gradient(135deg,transparent 0 14px,rgba(0,0,0,.06) 14px 16px)":"",b.img?`url('${b.img}') center/cover`:"",b.c||"transparent"].filter(Boolean).join(",");
 const gv=(g,p)=>`--${p}x:${+g.x}%;--${p}y:${+g.y}%;--${p}w:${+g.w}%;--${p}fs:${+g.fs||4};--${p}r:${+g.r||0};`;
 const ihtml=(i,o,id,n)=>{if(i.f)lf(i.f);const st=gv(i.d,"d")+gv(i.m||i.d,"m")+`z-index:${+i.z||0};`+(i.c?`--c:${esc(i.c)};`:"")+(i.t==="text"&&i.f?`font-family:'${esc(i.f)}',sans-serif`:""),cl=`it ${i.t==="img"?"im":"tx"}${o==="o"?" ov":""}${i.sh?" sh":""}${i.hl?" hl":""}${i.btn?" bt":""}${i.an?" an-"+i.an:""}${i.hd?" xd":""}${i.hm?" xm":""}`,at=`data-o="${o}" data-b="${esc(id)}" data-i="${n}"`,b2=i.t==="img"?`<img alt="" draggable="false" src="${esc(i.src)}">`:esc(i.s);return i.link?`<a class="${cl}" ${at} style="${st}" href="${esc(i.link)}"${/^https?:/.test(i.link)?' target="_blank" rel="noopener"':""}>${b2}</a>`:`<div class="${cl}" ${at} style="${st}">${b2}</div>`};
-const cvh=(b,id)=>`<div class="cv" style="--ard:${esc(b.ar.d)};--arm:${esc(b.ar.m)};background:${bgs(b.bg).replace(/"/g,"'")}">${b.items.map((i,n)=>ihtml(i,"c",id,n)).join("")}</div>`;
+const cvh=(b,id)=>`<div class="cv${b.wide?" wd":""}" style="--ard:${esc(b.ar.d)};--arm:${esc(b.ar.m)};background:${bgs(b.bg).replace(/"/g,"'")}">${b.items.map((i,n)=>ihtml(i,"c",id,n)).join("")}</div>`;
 const ED=window.name==="ed"||/[?&]edit/.test(location.search);
 if(ED){document.body.classList.add("ed");document.addEventListener("click",e=>{e.preventDefault();e.stopPropagation()},true)}
 else fetch("data.json?v="+Date.now()).then(r=>r.json()).then(render).catch(()=>{$("#bl").innerHTML='<p class="empty">Open this page from its GitHub Pages link to load the beats.</p>'});
@@ -189,7 +192,8 @@ function render(d){D=d;S=d.currency==="USD"?"$":"€";const t=d.theme||{};docume
  mig(d);const mn=$("#mn");d.over=d.over||{};
  d.layout.forEach(id=>{let el=null;const b=d.canvases[id];if(b){el=document.createElement("section");el.className="cs";el.id="c-"+id;el.innerHTML=cvh(b,id)}else el=document.querySelector('[data-blk="'+id+'"]');if(el)mn.appendChild(el)});
  document.querySelectorAll("[data-blk]").forEach(e=>{e.style.display=d.layout.includes(e.dataset.blk)?"":"none"});
- for(const id in d.over){const c=id==="page"?mn:d.canvases[id]?null:document.querySelector('[data-blk="'+id+'"]>.w');if(c)c.insertAdjacentHTML("beforeend",d.over[id].map((i,n)=>ihtml(i,"o",id,n)).join(""))}
+ let pg=$("#pg");if(!pg){pg=document.createElement("div");pg.id="pg";pg.className="pg"}mn.appendChild(pg);
+ for(const id in d.over){const c=id==="page"?pg:d.canvases[id]?null:document.querySelector('[data-blk="'+id+'"]>.w');if(c)c.insertAdjacentHTML("beforeend",d.over[id].map((i,n)=>ihtml(i,"o",id,n)).join(""))}
  const min=Math.min(...d.licenses.map(l=>+l.price));
  $("#bl").innerHTML=d.beats.length?d.beats.map((b,i)=>`<article class="beat" id="b${i}"><div class="cov" ${b.cover?`style="background-image:url('${esc(b.cover)}')"`:""}></div><div><h3>${esc(b.title)}</h3><div class="meta">${esc(b.bpm)} BPM &middot; ${(b.tags||[]).map(esc).join(" &middot; ")}</div></div><div class="act"><button class="pl" data-p="${i}" aria-label="Play ${esc(b.title)}"><svg class="tr" viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg><svg class="ps" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg></button><button class="btn sm" data-b="${i}">from ${S}${min}</button></div></article>`).join(""):'<p class="empty">New beats are on the way.</p>';
  $("#ll").innerHTML=d.licenses.map(l=>`<div class="lic${l.best?" best":""}"><h3>${esc(l.name)}</h3><div class="price">${S}${esc(l.price)}</div><ul>${l.features.map(f=>"<li>"+esc(f)+"</li>").join("")}</ul></div>`).join("");
