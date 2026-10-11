@@ -335,8 +335,8 @@
         "d": {
           "w": 5,
           "r": 6,
-          "x": 85,
-          "y": 35
+          "x": 83.6,
+          "y": 34.2
         },
         "m": {
           "w": 35,
@@ -348,31 +348,13 @@
       },
       {
         "t": "img",
-        "src": "img/--removebg-preview.png",
-        "sh": true,
-        "z": 1,
-        "d": {
-          "w": 8.5,
-          "r": 0,
-          "x": 45.8,
-          "y": 70
-        },
-        "m": {
-          "w": 35,
-          "r": 0,
-          "x": 42.7,
-          "y": 5.6
-        }
-      },
-      {
-        "t": "img",
         "src": "img/-what-do-you-make-of-a-society-that-is-so-primitive-that-it-clings-to-the-belief-that-certain-words-in-its-language-are-so-powerful-that-they-could-corrupt-you-the-moment-you-hear-them-frank-zappa-r.png",
         "sh": 1,
         "z": 1,
         "d": {
-          "w": 9.5,
-          "r": 30,
-          "x": 74.7,
+          "w": 9,
+          "r": 19,
+          "x": 73.8,
           "y": 80.1
         },
         "m": {
@@ -380,7 +362,8 @@
           "r": 0,
           "x": 42.7,
           "y": 8.8
-        }
+        },
+        "an": "w"
       },
       {
         "t": "img",
@@ -445,7 +428,7 @@
           "w": 14.5,
           "r": 0,
           "x": 0,
-          "y": 45
+          "y": 40
         },
         "m": {
           "w": 35,
@@ -515,10 +498,10 @@
         "sh": 1,
         "z": 1,
         "d": {
-          "w": 6.5,
-          "r": 0,
-          "x": 34.4,
-          "y": 92.7
+          "w": 5.5,
+          "r": 12,
+          "x": 34.6,
+          "y": 93.1
         },
         "m": {
           "w": 35,
@@ -570,9 +553,9 @@
         "sh": false,
         "z": 1,
         "d": {
-          "w": 10,
+          "w": 10.5,
           "r": -6,
-          "x": 3.9,
+          "x": 2.5,
           "y": 25
         },
         "m": {
@@ -618,7 +601,8 @@
           "r": 0,
           "x": 42.8,
           "y": 14.7
-        }
+        },
+        "an": "w"
       },
       {
         "t": "img",
@@ -656,8 +640,118 @@
           "x": 42.8,
           "y": 53.4
         }
+      },
+      {
+        "t": "img",
+        "src": "img/kon-1--removebg-preview.png",
+        "sh": 1,
+        "z": 1,
+        "d": {
+          "w": 13,
+          "r": 0,
+          "x": 1.6,
+          "y": 10
+        },
+        "m": {
+          "w": 35,
+          "r": 0,
+          "x": 42.8,
+          "y": 14.7
+        }
+      },
+      {
+        "t": "img",
+        "src": "img/no-ai-removed-bg-removebg-preview.png",
+        "sh": 1,
+        "z": 1,
+        "d": {
+          "w": 7,
+          "r": 0,
+          "x": 91.7,
+          "y": 0.2
+        },
+        "m": {
+          "w": 35,
+          "r": 0,
+          "x": 42.8,
+          "y": 14.7
+        }
+      },
+      {
+        "t": "img",
+        "src": "img/-5-instagram-mensajes-removebg-preview.png",
+        "sh": 1,
+        "z": 1,
+        "d": {
+          "w": 18,
+          "r": 0,
+          "x": 0,
+          "y": 55
+        },
+        "m": {
+          "w": 35,
+          "r": 0,
+          "x": 42.8,
+          "y": 14.7
+        }
+      },
+      {
+        "t": "img",
+        "src": "img/descarga-39--removebg-preview.png",
+        "sh": 1,
+        "z": 1,
+        "d": {
+          "w": 5,
+          "r": 0,
+          "x": 10,
+          "y": 20
+        },
+        "m": {
+          "w": 35,
+          "r": 0,
+          "x": 42.8,
+          "y": 14.7
+        }
+      },
+      {
+        "t": "img",
+        "src": "img/descarga-38--removebg-preview.png",
+        "sh": 1,
+        "z": 1,
+        "d": {
+          "w": 10,
+          "r": 0,
+          "x": 90,
+          "y": 35
+        },
+        "m": {
+          "w": 35,
+          "r": 0,
+          "x": 42.8,
+          "y": 14.7
+        }
+      },
+      {
+        "t": "img",
+        "src": "img/--removebg-preview.png",
+        "sh": 1,
+        "z": 1,
+        "d": {
+          "w": 8,
+          "r": 0,
+          "x": 8.6,
+          "y": 34.4
+        },
+        "m": {
+          "w": 35,
+          "r": 0,
+          "x": 42.8,
+          "y": 14.7
+        },
+        "an": "s"
       }
     ],
-    "free": []
+    "free": [],
+    "payments": []
   }
 }
