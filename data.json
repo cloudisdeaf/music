@@ -251,8 +251,8 @@
           "sh": 1,
           "an": "w",
           "d": {
-            "x": -0.6,
-            "y": -2.6,
+            "x": 0,
+            "y": -5,
             "w": 10.4,
             "r": 16
           },
@@ -306,5 +306,246 @@
     "free",
     "faq",
     "contact"
-  ]
+  ],
+  "over": {
+    "page": [
+      {
+        "t": "img",
+        "src": "img/descarga-21--removebg-preview.png",
+        "sh": false,
+        "z": 1,
+        "d": {
+          "w": 10,
+          "r": 0,
+          "x": 85,
+          "y": 10
+        },
+        "m": {
+          "w": 35,
+          "r": 0,
+          "x": 42.7,
+          "y": 5.6
+        }
+      },
+      {
+        "t": "img",
+        "src": "img/mario-kart-golden-star-icon-removebg-preview.png",
+        "sh": true,
+        "z": 1,
+        "d": {
+          "w": 5,
+          "r": 6,
+          "x": 75,
+          "y": 35
+        },
+        "m": {
+          "w": 35,
+          "r": 0,
+          "x": 42.7,
+          "y": 79.2
+        },
+        "an": "w"
+      },
+      {
+        "t": "img",
+        "src": "img/--removebg-preview.png",
+        "sh": true,
+        "z": 1,
+        "d": {
+          "w": 10,
+          "r": 0,
+          "x": 30,
+          "y": 70
+        },
+        "m": {
+          "w": 35,
+          "r": 0,
+          "x": 42.7,
+          "y": 5.6
+        }
+      },
+      {
+        "t": "img",
+        "src": "img/-what-do-you-make-of-a-society-that-is-so-primitive-that-it-clings-to-the-belief-that-certain-words-in-its-language-are-so-powerful-that-they-could-corrupt-you-the-moment-you-hear-them-frank-zappa-r.png",
+        "sh": 1,
+        "z": 1,
+        "d": {
+          "w": 10,
+          "r": 11,
+          "x": 90,
+          "y": 80
+        },
+        "m": {
+          "w": 35,
+          "r": 0,
+          "x": 42.7,
+          "y": 8.8
+        }
+      },
+      {
+        "t": "img",
+        "src": "img/descarga-23--removebg-preview.png",
+        "sh": false,
+        "z": 1,
+        "d": {
+          "w": 5,
+          "r": 0,
+          "x": 35,
+          "y": 36.3
+        },
+        "m": {
+          "w": 35,
+          "r": 0,
+          "x": 42.7,
+          "y": 5.6
+        }
+      },
+      {
+        "t": "img",
+        "src": "img/-iyotaka-jichi-esthetic--removebg-preview.png",
+        "sh": false,
+        "z": 1,
+        "d": {
+          "w": 10,
+          "r": 0,
+          "x": 29,
+          "y": 60.5
+        },
+        "m": {
+          "w": 35,
+          "r": 0,
+          "x": 42.7,
+          "y": 7.1
+        }
+      },
+      {
+        "t": "img",
+        "src": "img/descarga-24--removebg-preview.png",
+        "sh": false,
+        "z": 1,
+        "d": {
+          "w": 10,
+          "r": 0,
+          "x": 25,
+          "y": 80.2
+        },
+        "m": {
+          "w": 35,
+          "r": 0,
+          "x": 42.7,
+          "y": 83.9
+        }
+      },
+      {
+        "t": "img",
+        "src": "img/descarga-25--removebg-preview.png",
+        "sh": 1,
+        "z": 1,
+        "d": {
+          "w": 15,
+          "r": 0,
+          "x": 0,
+          "y": 50
+        },
+        "m": {
+          "w": 35,
+          "r": 0,
+          "x": 42.7,
+          "y": 5.6
+        }
+      },
+      {
+        "t": "img",
+        "src": "img/spwn-daisy--removebg-preview.png",
+        "sh": 1,
+        "z": 1,
+        "d": {
+          "w": 15,
+          "r": -2,
+          "x": 0.4,
+          "y": 76.8
+        },
+        "m": {
+          "w": 35,
+          "r": 0,
+          "x": 42.7,
+          "y": 5.6
+        }
+      },
+      {
+        "t": "img",
+        "src": "img/descarga-26--removebg-preview.png",
+        "sh": 1,
+        "z": 1,
+        "d": {
+          "w": 5,
+          "r": 14,
+          "x": 85,
+          "y": 60.3
+        },
+        "m": {
+          "w": 35,
+          "r": 0,
+          "x": 42.7,
+          "y": 5.6
+        },
+        "an": "w"
+      },
+      {
+        "t": "img",
+        "src": "img/descarga-27--removebg-preview.png",
+        "sh": 1,
+        "z": 1,
+        "d": {
+          "w": 5,
+          "r": 0,
+          "x": 75,
+          "y": 69.7
+        },
+        "m": {
+          "w": 35,
+          "r": 0,
+          "x": 42.7,
+          "y": 5.6
+        }
+      },
+      {
+        "t": "img",
+        "src": "img/descarga-28--removebg-preview.png",
+        "sh": 1,
+        "z": 1,
+        "d": {
+          "w": 10,
+          "r": 0,
+          "x": 24.3,
+          "y": 92.8
+        },
+        "m": {
+          "w": 35,
+          "r": 0,
+          "x": 42.7,
+          "y": 5.6
+        }
+      },
+      {
+        "t": "img",
+        "src": "img/descarga-29--removebg-preview.png",
+        "sh": 1,
+        "z": 1,
+        "d": {
+          "w": 20,
+          "r": 0,
+          "x": 80,
+          "y": 91.5
+        },
+        "m": {
+          "w": 35,
+          "r": 0,
+          "x": 42.7,
+          "y": 87.5
+        }
+      }
+    ],
+    "free": []
+  }
 }
