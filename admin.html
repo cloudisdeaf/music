@@ -42,7 +42,7 @@ details{margin:1rem 0;color:var(--mu)}summary{cursor:pointer;color:var(--tx)}ol{
 .hd,.rh{position:absolute;width:16px;height:16px;background:#2a5bff;border:2px solid #fff;border-radius:50%}
 .hd{right:-12px;bottom:-12px;cursor:nwse-resize}.rh{left:calc(50% - 8px);top:-34px;cursor:grab}
 .row2{display:flex;justify-content:space-between;align-items:center;gap:.6rem;flex-wrap:wrap;border-bottom:1px solid var(--ln);padding:.5rem 0}.row2 span{display:flex;gap:.4rem;flex-wrap:wrap}.ghost{opacity:.3}#bgc{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-.tb label{display:flex;gap:.5rem;align-items:center;flex-direction:row}.fw{margin:0 auto;max-width:100%}.fw iframe{width:100%;height:80vh;border:0;background:#fff;display:block}
+.tb label{display:flex;gap:.5rem;align-items:center;flex-direction:row}.fw{margin:0 auto;overflow:hidden;background:#fff;border:1px solid var(--ln)}.fw iframe{border:0;background:#fff;display:block}
 .ro{position:sticky;top:0;z-index:5;background:var(--sf);border:1px solid var(--ln);padding:.5rem .8rem;font:600 .85rem ui-monospace,Consolas,monospace;margin:.5rem 0;word-break:break-word}
 </style>
 </head>
@@ -71,7 +71,7 @@ details{margin:1rem 0;color:var(--mu)}summary{cursor:pointer;color:var(--tx)}ol{
  <h2 id="dz">Designer</h2><p>Desktop and mobile have separate layouts: switch the view and arrange each one on its own. Drag items to move them, use the round handles to resize and rotate, press Delete to remove.</p>
  <div class="tb"><button class="sec" id="vd">Desktop view</button><button class="sec" id="vm">Mobile view</button><button class="sec" id="adt">Add text</button><label class="up">Add image or sticker<input type="file" accept="image/*" id="adi" hidden></label><button class="sec" id="c2m">Copy desktop to mobile</button><button class="sec" id="m2d">Copy mobile to desktop</button></div>
  <div class="card" id="bgc"></div>
- <div class="tb"><label>Place new items on <select id="tgt"></select></label><label>Snap to grid <select id="snap"><option value="0">Off</option><option value="1">1%</option><option value="2.5">2.5%</option><option value="5" selected>5%</option><option value="10">10%</option></select></label><label><input type="checkbox" id="grid" checked> Show grid and rulers</label></div>
+ <div class="tb"><label>Place new items on <select id="tgt"></select></label><label>Snap to grid <select id="snap"><option value="0">Off</option><option value="1">1%</option><option value="2.5">2.5%</option><option value="5" selected>5%</option><option value="10">10%</option></select></label><label>Preview screen width <select id="pw"><option value="1920" selected>1920 px</option><option value="1600">1600 px</option><option value="1440">1440 px</option><option value="1366">1366 px</option><option value="1280">1280 px</option></select></label><label><input type="checkbox" id="grid" checked> Show grid and rulers</label></div>
  <div class="ro" id="ro">Click an item in the preview to select it.</div>
  <div class="des"><div class="stage"><div class="fw" id="fw"><iframe id="fr" name="ed" title="Page preview"></iframe></div></div><div class="card" id="pn"></div></div>
  <h2>Style</h2><div class="card" id="sty"></div>
@@ -129,13 +129,16 @@ const items=(b,o)=>o==="c"?(D.canvases[b]||{items:[]}).items:(D.over[b]=D.over[b
 const it0=()=>sel&&items(sel.b,sel.o)[sel.i];
 const tn=id=>id==="page"?"Whole page":D.canvases[id]?D.canvases[id].name:BN[id]||id;
 const elOf=s=>W&&s&&W.document.querySelector(`.it[data-o="${s.o}"][data-b="${s.b}"][data-i="${s.i}"]`);
-const ctrEl=id=>{if(!W)return null;const d=W.document;return id==="page"?d.querySelector("#mn"):D.canvases[id]?d.querySelector("#c-"+id+" .cv"):d.querySelector('[data-blk="'+id+'"]>.w')};
+const ctrEl=id=>{if(!W)return null;const d=W.document;return id==="page"?d.querySelector("#pg"):D.canvases[id]?d.querySelector("#c-"+id+" .cv"):d.querySelector('[data-blk="'+id+'"]>.w')};
 const prev=()=>JSON.parse(JSON.stringify(D,(k,v)=>(k==="src"||k==="img")&&P[v]?P[v]:v));
 const addFile=f=>{const p="img/"+f.name.toLowerCase().replace(/[^a-z0-9.\-]+/g,"-");F[p]=f;P[p]=URL.createObjectURL(f);return p};
 const all=()=>[...Object.values(D.canvases).flatMap(c=>c.items),...Object.values(D.over).flat()];
 const rf=()=>{clearTimeout(tm);tm=setTimeout(rf0,70)};
-function rf0(){if(!W||!W.render||!D)return;$("#fw").style.maxWidth=view==="m"?"390px":"100%";$("#vd").style.outline=view==="d"?"2px solid #a5b8ff":"";$("#vm").style.outline=view==="m"?"2px solid #a5b8ff":"";
- const b=W.document.body;b.classList.toggle("vm",view==="m");b.classList.toggle("vd",view==="d");W.render(prev());decor()}
+function fit(){const st=document.querySelector(".stage"),w=view==="m"?390:+$("#pw").value,av=st.clientWidth-26,s=av>0?Math.min(1,av/w):1,h=Math.round(innerHeight*.82),fw=$("#fw"),fr=$("#fr");
+ fw.style.width=Math.round(w*s)+"px";fw.style.height=h+"px";fr.style.width=w+"px";fr.style.height=Math.round(h/s)+"px";fr.style.transform="scale("+s+")";fr.style.transformOrigin="0 0"}
+addEventListener("resize",()=>{if(D)fit()});$("#pw").onchange=()=>rf0();
+function rf0(){if(!W||!W.render||!D)return;fit();$("#vd").style.outline=view==="d"?"2px solid #a5b8ff":"";$("#vm").style.outline=view==="m"?"2px solid #a5b8ff":"";
+ const b=W.document.body;b.classList.toggle("vm",view==="m");b.classList.toggle("vd",view==="d");const y=W.scrollY||0;W.render(prev());try{W.scrollTo(0,y)}catch(_){}decor()}
 function decor(){if(!W||!W.render)return;const d=W.document;d.querySelectorAll(".eg,.gd,.hd,.rh").forEach(e=>e.remove());
  const el=elOf(sel);if(el&&it0()){el.classList.add("sel");el.insertAdjacentHTML("beforeend",'<span class="hd"></span><span class="rh"></span>')}
  const C=el?el.offsetParent:ctrEl(T);
@@ -143,7 +146,7 @@ function decor(){if(!W||!W.render)return;const d=W.document;d.querySelectorAll("
  ro()}
 function ro(g){const i=it0(),el=elOf(sel),R=$("#ro");
  if(!i){const C=ctrEl(T);R.textContent="New items go on: "+tn(T)+(C?" ("+C.offsetWidth+"\u00d7"+C.offsetHeight+" px)":"")+". Click an item in the preview to select it.";return}
- const G=g||i[view]||i.d,C=el&&el.offsetParent;R.textContent=tn(sel.b)+(C?" \u00b7 "+C.offsetWidth+"\u00d7"+C.offsetHeight+" px":"")+" \u00b7 x "+G.x+"%  y "+G.y+"%  w "+G.w+"%  rot "+(G.r||0)+"\u00b0  layer "+(i.z||0)}
+ const G=g||i[view]||i.d,C=el&&el.offsetParent;R.textContent=tn(sel.b)+(C?" \u00b7 "+C.offsetWidth+"\u00d7"+C.offsetHeight+" px":"")+" \u00b7 x "+G.x+"%  y "+G.y+"%  w "+G.w+"%  rot "+(G.r||0)+"\u00b0  layer "+(i.z||0)+" \u00b7 screen "+W.innerWidth+"px"}
 function setT(id){T=id;$("#tgt").value=id;if(D.canvases[id]&&cur!==id){cur=id;bgp();lay()}}
 function lay(){const L=D.layout,rm=Object.keys(BN).filter(k=>!L.includes(k));
  $("#lay").innerHTML=L.map(id=>{const c=D.canvases[id];return`<div class="row2"><b>${esc(c?c.name:BN[id])}${c?" (free canvas"+(id===cur?", editing":"")+")":""}</b><span>${c?`<button class="sec" data-m="ed" data-id="${id}">Edit</button>`:""}<button class="sec" data-m="up" data-id="${id}">Up</button><button class="sec" data-m="dn" data-id="${id}">Down</button><button class="del" data-m="rm" data-id="${id}">Remove</button></span></div>`}).join("")+`<div class="tb"><button class="sec" id="adc">Add a free canvas</button>${rm.map(k=>`<button class="sec" data-m="back" data-id="${k}">Restore: ${BN[k]}</button>`).join("")}</div>`;
@@ -160,7 +163,7 @@ $("#lay").addEventListener("click",e=>{const m=e.target.dataset.m,id=e.target.da
  lay();bgp();pn();rf0()});
 function bgp(){const b=B(),p=$("#bgc");if(!b){p.innerHTML="<p>Add a free canvas in the page layout above to set its background and height.</p>";return}
  const k=x=>`canvases.${cur}.${x}`;
- p.innerHTML=`<label>Canvas name<input data-k="${k("name")}" value="${esc(b.name)}"></label><label>Shape on desktop (width/height)<input data-k="${k("ar.d")}" value="${esc(b.ar.d)}"></label><label>Shape on mobile (width/height)<input data-k="${k("ar.m")}" value="${esc(b.ar.m)}"></label><label>Background color<input type="color" data-k="${k("bg.c")}" value="${b.bg.c||"#ffffff"}"></label><button class="sec" data-m="nobg">Use page background</button><label>Background pattern<select data-k="${k("bg.pat")}">${[["none","None"],["dots","Dots"],["lines","Stripes"]].map(a=>`<option value="${a[0]}"${a[0]===b.bg.pat?" selected":""}>${a[1]}</option>`).join("")}</select></label><label>Background image<input type="file" accept="image/*" id="bgi"><small>${esc(b.bg.img||"None")}</small></label><button class="sec" data-m="nobi">Remove background image</button>`}
+ p.innerHTML=`<label>Canvas name<input data-k="${k("name")}" value="${esc(b.name)}"></label><label>Shape on desktop (width/height)<input data-k="${k("ar.d")}" value="${esc(b.ar.d)}"></label><label>Shape on mobile (width/height)<input data-k="${k("ar.m")}" value="${esc(b.ar.m)}"></label><label>Background color<input type="color" data-k="${k("bg.c")}" value="${b.bg.c||"#ffffff"}"></label><button class="sec" data-m="nobg">Use page background</button><label>Background pattern<select data-k="${k("bg.pat")}">${[["none","None"],["dots","Dots"],["lines","Stripes"]].map(a=>`<option value="${a[0]}"${a[0]===b.bg.pat?" selected":""}>${a[1]}</option>`).join("")}</select></label><label class="row"><input type="checkbox" data-t="chk" data-k="${k("wide")}" ${b.wide?"checked":""}> Full width (edge to edge, up to 1920 px)</label><label>Background image<input type="file" accept="image/*" id="bgi"><small>${esc(b.bg.img||"None")}</small></label><button class="sec" data-m="nobi">Remove background image</button>`}
 $("#bgc").addEventListener("click",e=>{const m=e.target.dataset.m,b=B();if(!b)return;if(m==="nobg")b.bg.c="";else if(m==="nobi")b.bg.img="";else return;bgp();rf0()});
 $("#bgc").addEventListener("change",e=>{if(e.target.id==="bgi"&&e.target.files[0]){B().bg.img=addFile(e.target.files[0]);bgp();rf0()}});
 function pn(){const i=it0(),p=$("#pn");if(!i){p.innerHTML="<p>Select an item in the preview, or add one with the buttons above.</p>";return}
