@@ -45,6 +45,21 @@
   ],
   "beats": [
     {
+      "title": "Cash Carti",
+      "bpm": 163,
+      "tags": [
+        "Cash Carti",
+        "A$AP Rocky",
+        "Lucki"
+      ],
+      "audio": "beats/cash-carti-type-beat.mp3",
+      "cover": "covers/descarga-40-.jpg",
+      "genres": [
+        "Trap",
+        "Melodic"
+      ]
+    },
+    {
       "title": "Brick sh*t",
       "bpm": 140,
       "tags": [
@@ -53,7 +68,11 @@
         "Zell"
       ],
       "audio": "beats/gucciiii.mp3",
-      "cover": "covers/gucci-mane-album-art-lilyingxtasy.jpg"
+      "cover": "covers/gucci-mane-album-art-lilyingxtasy.jpg",
+      "genres": [
+        "Trap",
+        "Crank"
+      ]
     },
     {
       "title": "Cluster",
@@ -64,7 +83,11 @@
         "Crank"
       ],
       "audio": "beats/osamason-gucci-mane.mp3",
-      "cover": "covers/osamason.jpg"
+      "cover": "covers/osamason.jpg",
+      "genres": [
+        "Trap",
+        "Crank"
+      ]
     },
     {
       "title": "4 the billz",
@@ -75,7 +98,12 @@
         "dontoliver"
       ],
       "audio": "beats/lucki-x-lil-uzi.mp3",
-      "cover": "covers/lil-uzi-vert.jpg"
+      "cover": "covers/lil-uzi-vert.jpg",
+      "genres": [
+        "Trap",
+        "R&B",
+        "Melodic"
+      ]
     },
     {
       "title": "Nightfall",
@@ -86,7 +114,11 @@
         "Trippie Red"
       ],
       "audio": "beats/lucki-x-drake.mp3",
-      "cover": "covers/lucki.jpg"
+      "cover": "covers/lucki.jpg",
+      "genres": [
+        "Trap",
+        "Rage"
+      ]
     },
     {
       "title": "Nights 4 Us",
@@ -97,7 +129,11 @@
         "rnb trap"
       ],
       "audio": "beats/free-don-toliver-x-lucki-type-beat---nights-4-us.mp3",
-      "cover": "covers/descarga-19-.jpg"
+      "cover": "covers/descarga-19-.jpg",
+      "genres": [
+        "Trap",
+        "R&B"
+      ]
     }
   ],
   "theme": {
@@ -184,7 +220,8 @@
             "w": 20,
             "fs": 1.9,
             "r": 0
-          }
+          },
+          "hm": 0
         },
         {
           "t": "text",
@@ -261,7 +298,8 @@
             "y": -15.9,
             "w": 13,
             "r": 16
-          }
+          },
+          "hm": 1
         }
       ]
     },
@@ -292,7 +330,8 @@
             "y": 9,
             "w": 94.8,
             "r": 0
-          }
+          },
+          "hm": 1
         }
       ]
     }
@@ -325,7 +364,8 @@
           "r": 0,
           "x": 42.7,
           "y": 5.6
-        }
+        },
+        "hm": 1
       },
       {
         "t": "img",
@@ -344,7 +384,8 @@
           "x": 42.7,
           "y": 79.2
         },
-        "an": "w"
+        "an": "w",
+        "hm": 1
       },
       {
         "t": "img",
@@ -363,7 +404,8 @@
           "x": 42.7,
           "y": 8.8
         },
-        "an": "w"
+        "an": "w",
+        "hm": 1
       },
       {
         "t": "img",
@@ -381,7 +423,8 @@
           "r": 0,
           "x": 42.7,
           "y": 5.6
-        }
+        },
+        "hm": 1
       },
       {
         "t": "img",
@@ -399,7 +442,8 @@
           "r": 0,
           "x": 42.7,
           "y": 7.1
-        }
+        },
+        "hm": 1
       },
       {
         "t": "img",
@@ -417,7 +461,8 @@
           "r": 0,
           "x": 42.7,
           "y": 83.9
-        }
+        },
+        "hm": 1
       },
       {
         "t": "img",
@@ -435,7 +480,8 @@
           "r": 0,
           "x": 42.7,
           "y": 5.6
-        }
+        },
+        "hm": 1
       },
       {
         "t": "img",
@@ -453,7 +499,8 @@
           "r": 0,
           "x": 42.7,
           "y": 5.6
-        }
+        },
+        "hm": 1
       },
       {
         "t": "img",
@@ -472,7 +519,8 @@
           "x": 42.7,
           "y": 5.6
         },
-        "an": "w"
+        "an": "w",
+        "hm": 1
       },
       {
         "t": "img",
@@ -490,7 +538,8 @@
           "r": 0,
           "x": 42.7,
           "y": 5.6
-        }
+        },
+        "hm": 1
       },
       {
         "t": "img",
@@ -508,7 +557,8 @@
           "r": 0,
           "x": 42.7,
           "y": 5.6
-        }
+        },
+        "hm": 1
       },
       {
         "t": "img",
@@ -526,7 +576,8 @@
           "r": 0,
           "x": 42.7,
           "y": 87.5
-        }
+        },
+        "hm": 1
       },
       {
         "t": "img",
@@ -545,7 +596,8 @@
           "x": 42.8,
           "y": 14.7
         },
-        "an": "s"
+        "an": "s",
+        "hm": 1
       },
       {
         "t": "img",
@@ -564,7 +616,8 @@
           "x": 42.8,
           "y": 14.7
         },
-        "an": "w"
+        "an": "w",
+        "hm": 1
       },
       {
         "t": "img",
@@ -583,7 +636,8 @@
           "x": 42.8,
           "y": 14.7
         },
-        "an": "w"
+        "an": "w",
+        "hm": 1
       },
       {
         "t": "img",
@@ -602,7 +656,8 @@
           "x": 42.8,
           "y": 14.7
         },
-        "an": "w"
+        "an": "w",
+        "hm": 1
       },
       {
         "t": "img",
@@ -621,7 +676,8 @@
           "x": 42.8,
           "y": 14.7
         },
-        "an": "w"
+        "an": "w",
+        "hm": 1
       },
       {
         "t": "img",
@@ -639,7 +695,8 @@
           "r": 0,
           "x": 42.8,
           "y": 53.4
-        }
+        },
+        "hm": 1
       },
       {
         "t": "img",
@@ -657,7 +714,8 @@
           "r": 0,
           "x": 42.8,
           "y": 14.7
-        }
+        },
+        "hm": 1
       },
       {
         "t": "img",
@@ -675,7 +733,8 @@
           "r": 0,
           "x": 42.8,
           "y": 14.7
-        }
+        },
+        "hm": 1
       },
       {
         "t": "img",
@@ -693,7 +752,8 @@
           "r": 0,
           "x": 42.8,
           "y": 14.7
-        }
+        },
+        "hm": 1
       },
       {
         "t": "img",
@@ -711,7 +771,8 @@
           "r": 0,
           "x": 42.8,
           "y": 14.7
-        }
+        },
+        "hm": 1
       },
       {
         "t": "img",
@@ -729,7 +790,8 @@
           "r": 0,
           "x": 42.8,
           "y": 14.7
-        }
+        },
+        "hm": 1
       },
       {
         "t": "img",
@@ -748,10 +810,34 @@
           "x": 42.8,
           "y": 14.7
         },
-        "an": "s"
+        "an": "s",
+        "hm": 1
       }
     ],
     "free": [],
     "payments": []
-  }
+  },
+  "album": {
+    "on": false,
+    "week": "",
+    "title": "",
+    "artist": "",
+    "year": "",
+    "cover": "",
+    "note": "",
+    "links": {}
+  },
+  "projects": {
+    "on": false,
+    "items": []
+  },
+  "genres": [
+    "Trap",
+    "R&B",
+    "Crank",
+    "Jerk",
+    "Melodic",
+    "Drill",
+    "Rage"
+  ]
 }
