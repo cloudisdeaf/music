@@ -74,6 +74,10 @@ details{margin:1rem 0;color:var(--mu)}summary{cursor:pointer;color:var(--tx)}ol{
  <div class="tb"><label>Place new items on <select id="tgt"></select></label><label>Snap to grid <select id="snap"><option value="0">Off</option><option value="1">1%</option><option value="2.5">2.5%</option><option value="5" selected>5%</option><option value="10">10%</option></select></label><label>Preview screen width <select id="pw"><option value="1920" selected>1920 px</option><option value="1600">1600 px</option><option value="1440">1440 px</option><option value="1366">1366 px</option><option value="1280">1280 px</option></select></label><label><input type="checkbox" id="grid" checked> Show grid and rulers</label></div>
  <div class="ro" id="ro">Click an item in the preview to select it.</div>
  <div class="des"><div class="stage"><div class="fw" id="fw"><iframe id="fr" name="ed" title="Page preview"></iframe></div></div><div class="card" id="pn"></div></div>
+ <h2>Pages</h2><p>The Beats page is always on. Switch the other pages public or private: a private page disappears from the menu and cannot be opened.</p><div class="card" id="pgs"></div>
+ <h2>Album of the week</h2><div class="card" id="alb"></div>
+ <h2>Projects</h2><button class="sec" id="adp">Add a project</button><div id="prj"></div>
+ <h2>All items</h2><p>Every sticker, image and text on your page. Untick Mobile to hide an item on phones without touching the desktop.</p><div class="tb"><button class="sec" id="hm1">Hide every image on mobile</button><button class="sec" id="hm0">Show every item on mobile</button></div><div class="card" id="ly"></div>
  <h2>Style</h2><div class="card" id="sty"></div>
  <h2>Texts</h2><p>Change any other text on the page.</p><div class="card" id="txt"></div>
  <h2>Site settings</h2><div class="card" id="set"></div>
@@ -108,11 +112,11 @@ function draw(){
  const n=(k,l,v)=>`<label>${l}<input type="number" data-t="num" data-k="${k}" value="${esc(v)}"></label>`;
  $("#set").innerHTML=s("artist","Artist name (logo, footer, page title)")+s("instagram","Instagram username (no @)")+s("youtube","YouTube channel URL")+s("email","Contact email (optional)")+s("paypal","PayPal.me username or link","e.g. cloudisdeaf")+`<label>Currency<select data-k="currency"><option${D.currency==="EUR"?" selected":""}>EUR</option><option${D.currency==="USD"?" selected":""}>USD</option></select></label>`;
  $("#lic").innerHTML=D.licenses.map((l,i)=>`<div class="card"><label>Name<input data-k="licenses.${i}.name" value="${esc(l.name)}"></label>${n(`licenses.${i}.price`,"Price",l.price)}<label>What is included (one per line)<textarea rows="5" data-t="list" data-k="licenses.${i}.features">${esc(l.features.join("\n"))}</textarea></label><label class="row"><input type="checkbox" data-t="chk" data-k="licenses.${i}.best" ${l.best?"checked":""}> Highlight this license</label><button class="del" data-dellic="${i}">Remove license</button></div>`).join("");
- $("#bts").innerHTML=D.beats.map((b,i)=>`<div class="card"><label>Title<input data-k="beats.${i}.title" value="${esc(b.title)}"></label>${n(`beats.${i}.bpm`,"BPM",b.bpm)}<label>Tags (comma separated)<input data-t="csv" data-k="beats.${i}.tags" value="${esc((b.tags||[]).join(", "))}"></label>${fi("audio",i,"beats","Preview MP3 (with voice tag)",b.audio)}${fi("cover",i,"beats","Cover image (optional)",b.cover)}<label>Checkout link (optional: BeatStars, Payhip... for automatic delivery)<input data-k="beats.${i}.buy" value="${esc(b.buy||"")}"></label><button class="del" data-del="${i}">Remove beat</button></div>`).join("")||"<p>No beats yet.</p>"}
+ $("#bts").innerHTML=D.beats.map((b,i)=>`<div class="card"><label>Title<input data-k="beats.${i}.title" value="${esc(b.title)}"></label>${n(`beats.${i}.bpm`,"BPM",b.bpm)}<label>Tags (comma separated)<input data-t="csv" data-k="beats.${i}.tags" value="${esc((b.tags||[]).join(", "))}"></label>${fi("audio",i,"beats","Preview MP3 (with voice tag)",b.audio)}${fi("cover",i,"beats","Cover image (optional)",b.cover)}<label>Checkout link (optional: BeatStars, Payhip... for automatic delivery)<input data-k="beats.${i}.buy" value="${esc(b.buy||"")}"></label>${gn(b,i)}<button class="del" data-del="${i}">Remove beat</button></div>`).join("")||"<p>No beats yet.</p>"}
 document.addEventListener("input",e=>{const t=e.target,k=t.dataset.k;if(!k)return;const p=k.split(".");let o=D;while(p.length>1)o=o[p.shift()];
  let v=t.value;const ty=t.dataset.t;if(ty==="num")v=+v;if(ty==="list")v=v.split("\n").map(x=>x.trim()).filter(Boolean);if(ty==="csv")v=v.split(",").map(x=>x.trim()).filter(Boolean);if(ty==="chk")v=t.checked;o[p[0]]=v});
 document.addEventListener("change",e=>{const t=e.target;if(!t.dataset.f||!t.files[0])return;const f=t.files[0],k=t.dataset.f,dir=k==="audio"?"beats/":k==="cover"?"covers/":"img/",p=dir+f.name.toLowerCase().replace(/[^a-z0-9.\-]+/g,"-"),o=t.dataset.o;
- F[p]=f;(o==="root"?D:D[o][+t.dataset.i])[k]=p;t.nextElementSibling.textContent=p+" (uploads when you publish)"});
+ F[p]=f;if(k!=="audio"){P[p]=URL.createObjectURL(f);rf()}(()=>{const base=o==="root"?D:o.split(".").reduce((x,q)=>x[q],D);return t.dataset.i===""||o==="root"?base:base[+t.dataset.i]})()[k]=p;t.nextElementSibling.textContent=p+" (uploads when you publish)"});
 document.addEventListener("click",e=>{const d=e.target.dataset;
  if(d.del!==undefined&&confirm("Remove this beat from the site?")){D.beats.splice(+d.del,1);draw()}
  if(d.dellic!==undefined&&confirm("Remove this license?")){D.licenses.splice(+d.dellic,1);draw()}
@@ -123,14 +127,14 @@ const defHero=d=>{const L=[],b=d.banner?1:0;if(b)L.push({t:"img",src:d.banner,x:
  L.push({t:"text",s:d.artist||"CloudIsDeaf",x:4,y:b?46:14,w:92,fs:b?9:11,f:"Archivo Black",sh:1,r:0},{t:"text",s:d.tagline||"Type beats made for late nights.",x:4,y:b?72:62,w:55,fs:2.1,f:"Space Mono",hl:1,r:0},{t:"text",s:"hear the beats",x:4,y:b?85:80,w:20,fs:1.9,f:"Space Mono",btn:1,link:"#beats",r:0});
  if(!b&&!(d.stickers||[]).length)L.push({t:"text",s:"\u2605",x:84,y:4,w:12,fs:11,f:"Archivo Black",c:"#e63a1e",an:"s",r:0},{t:"text",s:"ADVISORY\nheavy 808s inside",x:70,y:72,w:22,fs:1.6,f:"Space Mono",hl:1,r:-4});
  return{ar:"16/7",arm:"4/5",items:L}};
-const mig=d=>{if(!d.canvases||!d.layout){const H=d.hero||defHero(d),c=i=>({x:i.x,y:i.y,w:i.w,fs:i.fs,r:i.r||0});d.canvases={hero:{name:"Top banner",ar:{d:H.ar||"16/7",m:H.arm||"4/5"},bg:{c:"",img:"",pat:"none"},items:H.items.map(i=>({...i,d:c(i),m:c(i)}))}};d.layout=["hero","beats","licenses","payments","free","faq","contact"]}delete d.hero;d.over=d.over||{};d.layout=d.layout.filter(k=>BN[k]||d.canvases[k])};
+const mig=d=>{if(!d.canvases||!d.layout){const H=d.hero||defHero(d),c=i=>({x:i.x,y:i.y,w:i.w,fs:i.fs,r:i.r||0});d.canvases={hero:{name:"Top banner",ar:{d:H.ar||"16/7",m:H.arm||"4/5"},bg:{c:"",img:"",pat:"none"},items:H.items.map(i=>({...i,d:c(i),m:c(i)}))}};d.layout=["hero","beats","licenses","payments","free","faq","contact"]}delete d.hero;d.over=d.over||{};d.album=d.album||{on:false,week:"",title:"",artist:"",year:"",cover:"",note:"",links:{}};d.album.links=d.album.links||{};d.projects=d.projects||{on:false,items:[]};d.genres=d.genres||["Trap","R&B","Crank","Jerk","Melodic","Drill","Rage"];d.layout=d.layout.filter(k=>BN[k]||d.canvases[k])};
 const B=()=>D&&D.canvases[cur];
 const items=(b,o)=>o==="c"?(D.canvases[b]||{items:[]}).items:(D.over[b]=D.over[b]||[]);
 const it0=()=>sel&&items(sel.b,sel.o)[sel.i];
 const tn=id=>id==="page"?"Whole page":D.canvases[id]?D.canvases[id].name:BN[id]||id;
 const elOf=s=>W&&s&&W.document.querySelector(`.it[data-o="${s.o}"][data-b="${s.b}"][data-i="${s.i}"]`);
 const ctrEl=id=>{if(!W)return null;const d=W.document;return id==="page"?d.querySelector("#pg"):D.canvases[id]?d.querySelector("#c-"+id+" .cv"):d.querySelector('[data-blk="'+id+'"]>.w')};
-const prev=()=>JSON.parse(JSON.stringify(D,(k,v)=>(k==="src"||k==="img")&&P[v]?P[v]:v));
+const prev=()=>JSON.parse(JSON.stringify(D,(k,v)=>(k==="src"||k==="img"||k==="cover")&&P[v]?P[v]:v));
 const addFile=f=>{const p="img/"+f.name.toLowerCase().replace(/[^a-z0-9.\-]+/g,"-");F[p]=f;P[p]=URL.createObjectURL(f);return p};
 const all=()=>[...Object.values(D.canvases).flatMap(c=>c.items),...Object.values(D.over).flat()];
 const rf=()=>{clearTimeout(tm);tm=setTimeout(rf0,70)};
@@ -138,7 +142,7 @@ function fit(){const st=document.querySelector(".stage"),w=view==="m"?390:+$("#p
  fw.style.width=Math.round(w*s)+"px";fw.style.height=h+"px";fr.style.width=w+"px";fr.style.height=Math.round(h/s)+"px";fr.style.transform="scale("+s+")";fr.style.transformOrigin="0 0"}
 addEventListener("resize",()=>{if(D)fit()});$("#pw").onchange=()=>rf0();
 function rf0(){if(!W||!W.render||!D)return;fit();$("#vd").style.outline=view==="d"?"2px solid #a5b8ff":"";$("#vm").style.outline=view==="m"?"2px solid #a5b8ff":"";
- const b=W.document.body;b.classList.toggle("vm",view==="m");b.classList.toggle("vd",view==="d");const y=W.scrollY||0;W.render(prev());try{W.scrollTo(0,y)}catch(_){}decor()}
+ const b=W.document.body;b.classList.toggle("vm",view==="m");b.classList.toggle("vd",view==="d");const y=W.scrollY||0;W.render(prev());try{W.scrollTo(0,y)}catch(_){}decor();lyr()}
 function decor(){if(!W||!W.render)return;const d=W.document;d.querySelectorAll(".eg,.gd,.hd,.rh").forEach(e=>e.remove());
  const el=elOf(sel);if(el&&it0()){el.classList.add("sel");el.insertAdjacentHTML("beforeend",'<span class="hd"></span><span class="rh"></span>')}
  const C=el?el.offsetParent:ctrEl(T);
@@ -175,10 +179,10 @@ function pn(){const i=it0(),p=$("#pn");if(!i){p.innerHTML="<p>Select an item in 
  p.innerHTML=`<p><b>${esc(tn(sel.b))}</b>: editing the ${V} layout</p>`+(i.t==="text"?`<label>Text<textarea rows="3" data-p="s">${esc(i.s)}</textarea></label><label>Font<select data-p="f">${FONTS.map(x=>`<option${x===i.f?" selected":""}>${x}</option>`).join("")}</select></label>`+gf("fs","Size",'step="0.1" min="0.5"')+`<label>Color<input type="color" data-p="c" value="${i.c||D.theme.ink}"></label>`+ck("sh","Punk shadow")+ck("hl","Highlighter")+ck("btn","Button style")+f("link","Link (optional, for example #beats)"):`<label>Replace image<input type="file" accept="image/*" id="rpl"></label>`+ck("sh","Drop shadow"))
  +gf("x","X position (%)",'step="0.1"')+gf("y","Y position (%)",'step="0.1"')+gf("w","Width (%)",'step="0.5" min="2"')+gf("r","Rotation (degrees)")
  +`<label>Layer (-5 behind page content, 15 in front)<input type="number" min="-5" max="15" step="1" data-p="z" value="${i.z||0}"></label>`+ck("hd","Hide on desktop")+ck("hm","Hide on mobile")+`<label>Animation<select data-p="an">${[["","None"],["w","Wobble"],["s","Spin"],["p","Pulse"]].map(a=>`<option value="${a[0]}"${a[0]===(i.an||"")?" selected":""}>${a[1]}</option>`).join("")}</select></label>`
- +`<div class="tb">${ab("l","Left edge")}${ab("ch","Center horizontally")}${ab("r","Right edge")}${ab("t","Top edge")}${ab("cv","Center vertically")}${ab("b","Bottom edge")}</div><div class="tb"><button class="sec" data-a="fw">Layer +1</button><button class="sec" data-a="bk">Layer -1</button><button class="sec" data-a="dup">Duplicate</button><button class="del" data-a="rm">Delete</button></div>`}
+ +`<div class="tb">${ab("l","Left edge")}${ab("ch","Center horizontally")}${ab("r","Right edge")}${ab("t","Top edge")}${ab("cv","Center vertically")}${ab("b","Bottom edge")}</div><div class="tb"><button class="sec" data-a="fw">Layer +1</button><button class="sec" data-a="bk">Layer -1</button><button class="sec" data-a="dup">Duplicate</button><button class="sec" data-a="hidev">Hide on ${V}</button><button class="del" data-a="rm">Delete everywhere</button></div>`}
 function design(){const t=D.theme,o=v=>FONTS.map(x=>`<option${x===v?" selected":""}>${x}</option>`).join(""),c=(k,l)=>`<label>${l}<input type="color" data-k="theme.${k}" value="${esc(t[k])}"></label>`;
  $("#sty").innerHTML=`<label>Heading font (titles of each section)<select data-k="theme.hd">${o(t.hd)}</select></label><label>Body font<select data-k="theme.bd">${o(t.bd)}</select></label>`+c("paper","Page background color")+c("ink","Text and border color")+c("acc","Accent color")+c("acc2","Second accent color")+`<label>Page background pattern<select data-k="theme.pat"><option value="dots"${t.pat!=="none"?" selected":""}>Dots</option><option value="none"${t.pat==="none"?" selected":""}>None</option></select></label><label>Scrolling strip text<input data-k="ticker" value="${esc(D.ticker)}"></label><label class="row"><input type="checkbox" data-t="chk" data-k="anim" ${D.anim?"checked":""}> Animations on</label>`;
- lay();bgp();pn();if(!$("#fr").getAttribute("src"))$("#fr").src="index.html?edit=1&t="+Date.now();
+ lay();bgp();pn();pgs();if(!$("#fr").getAttribute("src"))$("#fr").src="index.html?edit=1&t="+Date.now();
  fetch("index.html?t="+Date.now()).then(r=>r.text()).then(h=>{const d=new DOMParser().parseFromString(h,"text/html");
   $("#txt").innerHTML=[...d.querySelectorAll("[data-tx]")].map(e=>`<label>${esc(e.textContent.trim().slice(0,45))}<textarea rows="2" data-x="${e.dataset.tx}">${esc(D.texts[e.dataset.tx]??e.textContent.trim())}</textarea></label>`).join("")||"<p>No texts found.</p>"}).catch(()=>{$("#txt").innerHTML="<p>Could not load the list of texts.</p>"})}
 document.addEventListener("input",e=>{if(e.target.dataset.k&&D)rf()});
@@ -187,7 +191,7 @@ $("#pn").addEventListener("input",e=>{const t=e.target,i=it0();if(!i)return;
  if(t.dataset.g)(i[view]=i[view]||{...i.d})[t.dataset.g]=+t.value;else if(t.dataset.p)i[t.dataset.p]=t.dataset.c?t.checked:t.type==="number"?+t.value:t.value;else return;rf();ro()});
 $("#pn").addEventListener("change",e=>{if(e.target.id==="rpl"&&e.target.files[0]){it0().src=addFile(e.target.files[0]);rf0()}});
 $("#pn").addEventListener("click",e=>{const a=e.target.dataset.a,i=it0();if(!a||!i)return;const L=items(sel.b,sel.o),g=i[view]=i[view]||{...i.d};
- if(a==="rm"){L.splice(sel.i,1);sel=null}
+ if(a==="rm"){if(!confirm("Delete this item from desktop AND mobile?"))return;L.splice(sel.i,1);sel=null}else if(a==="hidev"){i[view==="d"?"hd":"hm"]=1}
  else if(a==="dup"){const c=JSON.parse(JSON.stringify(i));["d","m"].forEach(k=>{c[k].x+=3;c[k].y+=3});L.push(c);sel={...sel,i:L.length-1}}
  else if(a==="fw"||a==="bk")i.z=Math.max(-5,Math.min(15,(i.z||0)+(a==="fw"?1:-1)));
  else if(a==="al"){const el=elOf(sel),C=el.offsetParent,w=el.offsetWidth/C.offsetWidth*100,h=el.offsetHeight/C.offsetHeight*100,v=e.target.dataset.v;
@@ -195,14 +199,31 @@ $("#pn").addEventListener("click",e=>{const a=e.target.dataset.a,i=it0();if(!a||
  rf0();pn()});
 const nw=o=>{const id=ctrEl(T)?T:"page",oo=D.canvases[id]?"c":"o",C=ctrEl(id);let x=30,y=20;
  if(C&&W){const r=C.getBoundingClientRect();x=Math.max(0,Math.min(85,(W.innerWidth/2-r.left)/r.width*100-8));y=Math.max(-10,Math.min(100,(W.innerHeight/2-r.top)/r.height*100-4))}
- const g={x:+x.toFixed(1),y:+y.toFixed(1)};o.d={...o.d,...g};o.m={...o.m,...g};const L=items(id,oo);L.push(o);sel={o:oo,b:id,i:L.length-1};T=id;$("#tgt").value=id;rf0();pn()};
+ const g={x:+x.toFixed(1),y:+y.toFixed(1)};if(oo==="o"&&id==="page"&&view==="d")o.hm=1;o.d={...o.d,...g};o.m={...o.m,...g};const L=items(id,oo);L.push(o);sel={o:oo,b:id,i:L.length-1};T=id;$("#tgt").value=id;rf0();pn()};
 $("#adt").onclick=()=>nw({t:"text",s:"New text",f:D.theme.bd,z:0,d:{w:40,fs:4,r:0},m:{w:60,fs:6,r:0}});
 $("#adi").onchange=e=>{const f=e.target.files[0];if(!f)return;nw({t:"img",src:addFile(f),sh:1,z:1,d:{w:20,r:0},m:{w:35,r:0}});e.target.value=""};
 $("#vd").onclick=()=>{view="d";rf0();pn()};$("#vm").onclick=()=>{view="m";rf0();pn()};
 const cp=(a,z)=>{if(confirm("Copy the "+(a==="d"?"desktop":"mobile")+" layout of every item to "+(z==="d"?"desktop":"mobile")+"?")){all().forEach(i=>{i[z]={...(i[a]||i.d)}});rf0();pn()}};
 $("#c2m").onclick=()=>cp("d","m");$("#m2d").onclick=()=>cp("m","d");
+const refs=()=>[...Object.entries(D.canvases).flatMap(([b,c])=>c.items.map((it,i)=>({o:"c",b,i,it}))),...Object.entries(D.over).flatMap(([b,L])=>L.map((it,i)=>({o:"o",b,i,it})))];
+function lyr(){const L=$("#ly");if(!L||!D)return;
+ L.innerHTML=refs().map(r=>{const k=r.o+"|"+r.b+"|"+r.i;return`<div class="row2"><span><b>${esc(r.it.t==="img"?(r.it.src||"").split("/").pop():"\u201c"+String(r.it.s||"").slice(0,28)+"\u201d")}</b><small>on ${esc(tn(r.b))}</small></span><span><label class="row"><input type="checkbox" data-ly="d" data-ref="${k}" ${r.it.hd?"":"checked"}> Desktop</label><label class="row"><input type="checkbox" data-ly="m" data-ref="${k}" ${r.it.hm?"":"checked"}> Mobile</label><button class="sec" data-ly="s" data-ref="${k}">Select</button></span></div>`}).join("")||"<p>No items yet.</p>"}
+$("#ly").addEventListener("change",e=>{const t=e.target,v=t.dataset.ly;if(!v||v==="s")return;const[o,b,i]=t.dataset.ref.split("|");items(b,o)[+i][v==="d"?"hd":"hm"]=t.checked?0:1;rf0()});
+$("#ly").addEventListener("click",e=>{const t=e.target;if(t.dataset.ly!=="s")return;const[o,b,i]=t.dataset.ref.split("|");sel={o,b,i:+i};setT(b);rf0();pn();const el=elOf(sel);if(el&&el.scrollIntoView)el.scrollIntoView({block:"center"})});
+$("#hm1").onclick=()=>{refs().forEach(r=>{if(r.it.t==="img")r.it.hm=1});rf0()};$("#hm0").onclick=()=>{refs().forEach(r=>{r.it.hm=0});rf0()};
+const PL=[["spotify","Spotify"],["apple","Apple Music"],["ytm","YouTube Music"],["amazon","Amazon Music"],["deezer","Deezer"],["tidal","Tidal"],["soundcloud","SoundCloud"],["bandcamp","Bandcamp"]];
+const gn=(b,i)=>`<div><b>Genres</b><div class="tb">${D.genres.map(g=>`<label class="row"><input type="checkbox" data-gn="${i}" data-gv="${esc(g)}" ${(b.genres||[]).includes(g)?"checked":""}> ${esc(g)}</label>`).join("")}</div></div>`;
+document.addEventListener("change",e=>{const t=e.target;if(t.dataset.gn===undefined)return;const b=D.beats[+t.dataset.gn];b.genres=b.genres||[];const g=t.dataset.gv,ix=b.genres.indexOf(g);if(t.checked&&ix<0)b.genres.push(g);if(!t.checked&&ix>-1)b.genres.splice(ix,1);rf()});
+function pgs(){const A=D.album,J=D.projects,f=(k,l,v)=>`<label>${l}<input data-k="${k}" value="${esc(v||"")}"></label>`;
+ $("#pgs").innerHTML=`<label class="row"><input type="checkbox" data-t="chk" data-k="album.on" ${A.on?"checked":""}> Album of the week page is public</label><label class="row"><input type="checkbox" data-t="chk" data-k="projects.on" ${J.on?"checked":""}> Projects page is public</label><label>Preview page in the designer<select id="pgv"><option value="">Home</option><option value="beats">All beats</option><option value="album">Album of the week</option><option value="projects">Projects</option></select></label><label>Genres for the beats page (comma separated)<input data-t="csv" data-k="genres" value="${esc(D.genres.join(", "))}"></label>`;
+ $("#alb").innerHTML=f("album.week","Label (for example Week of Oct 12)",A.week)+f("album.title","Album title",A.title)+f("album.artist","Artist",A.artist)+f("album.year","Year",A.year)+`<label>Why this album<textarea rows="3" data-k="album.note">${esc(A.note)}</textarea></label><label>Cover<input type="file" accept="image/*" data-f="cover" data-i="" data-o="album"><small>${esc(A.cover||"No cover")}</small></label>`+PL.map(x=>`<label>${x[1]} link<input data-k="album.links.${x[0]}" value="${esc(A.links[x[0]]||"")}" placeholder="https://"></label>`).join("");
+ $("#prj").innerHTML=J.items.map((p,i)=>`<div class="card">${f(`projects.items.${i}.title`,"Title",p.title)}${f(`projects.items.${i}.role`,"Your role",p.role)}${f(`projects.items.${i}.year`,"Year",p.year)}<label>Description<textarea rows="3" data-k="projects.items.${i}.desc">${esc(p.desc)}</textarea></label><label>Cover<input type="file" accept="image/*" data-f="cover" data-i="${i}" data-o="projects.items"><small>${esc(p.cover||"No cover")}</small></label><label>Links (one per line: Label | URL)<textarea rows="3" data-k="projects.items.${i}.links">${esc(p.links)}</textarea></label><button class="del" data-delp="${i}">Remove project</button></div>`).join("")||"<p>No projects yet.</p>"}
+$("#pgs").addEventListener("change",e=>{if(e.target.id==="pgv"&&W)W.location.hash=e.target.value?"#/"+e.target.value:"#/"});
+$("#pgs").addEventListener("input",e=>{if(e.target.dataset.k==="genres")setTimeout(()=>{draw();rf()},0)});
+$("#adp").onclick=()=>{D.projects.items.unshift({title:"New project",role:"",year:"",desc:"",cover:"",links:""});pgs();rf()};
+$("#prj").addEventListener("click",e=>{const x=e.target.dataset.delp;if(x!==undefined&&confirm("Remove this project?")){D.projects.items.splice(+x,1);pgs();rf()}});
 function key(e){if(!sel||!D||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;const i=it0();if(!i)return;const g=i[view]=i[view]||{...i.d},st=e.shiftKey?2:.5;
- if(e.key==="Delete"||e.key==="Backspace"){items(sel.b,sel.o).splice(sel.i,1);sel=null}
+ if(e.key==="Delete"||e.key==="Backspace"){if(view==="m")i.hm=1;else if(confirm("Delete this item from the whole page? To only hide it, use the Desktop and Mobile checkboxes in All items.")){items(sel.b,sel.o).splice(sel.i,1);sel=null}}
  else if(e.key.indexOf("Arrow")===0){e.preventDefault();if(e.key==="ArrowLeft")g.x=+(g.x-st).toFixed(1);if(e.key==="ArrowRight")g.x=+(g.x+st).toFixed(1);if(e.key==="ArrowUp")g.y=+(g.y-st).toFixed(1);if(e.key==="ArrowDown")g.y=+(g.y+st).toFixed(1)}
  else return;rf0();pn()}
 document.addEventListener("keydown",key);
