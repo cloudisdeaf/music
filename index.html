@@ -80,10 +80,10 @@ dialog h3{margin:0 0 .3rem;font:400 1.6rem var(--hd)}
 .opt:has(input:checked){background:var(--acc)}.opt small{display:block}.opt em{font:400 1.2rem var(--hd);font-style:normal}
 .x{float:right;background:none;border:0;font-size:1.8rem;cursor:pointer;line-height:1}
 dialog .btn{display:block;width:100%;margin-top:.7rem}
-@media(max-width:600px){.beat{grid-template-columns:64px 1fr}.cov{width:64px;height:64px}.act{grid-column:1/-1}.nav nav a:nth-child(n+4){display:none}}
+@media(max-width:600px){.beat{grid-template-columns:64px 1fr}.cov{width:64px;height:64px}.act{grid-column:1/-1}}
 @media(prefers-reduced-motion:reduce){.mq,.st,.mark:hover{animation:none!important}.rv{transition:none}html{scroll-behavior:auto}}
 
-html,body{overflow-x:hidden}
+html{overflow-x:hidden}body{overflow-x:clip}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .hero{padding:0;overflow:visible}
 .cv{position:relative;container-type:inline-size;aspect-ratio:var(--ard,16/7);overflow:hidden;width:min(1280px,100%);margin:0 auto}
@@ -120,18 +120,35 @@ body.ed .it{touch-action:none;user-select:none;-webkit-user-select:none;cursor:m
 .eg{position:absolute;inset:0;pointer-events:none;z-index:90;background-image:linear-gradient(to right,rgba(42,91,255,.3) 1px,transparent 1px),linear-gradient(to bottom,rgba(42,91,255,.3) 1px,transparent 1px),linear-gradient(to right,transparent calc(50% - 1px),rgba(255,45,149,.8) calc(50% - 1px) calc(50% + 1px),transparent calc(50% + 1px)),linear-gradient(to bottom,transparent calc(50% - 1px),rgba(255,45,149,.8) calc(50% - 1px) calc(50% + 1px),transparent calc(50% + 1px));background-size:var(--s) 100%,100% var(--s),100% 100%,100% 100%}
 .eg i,.eg b{position:absolute;font:700 10px/1 monospace;color:#2a5bff;background:rgba(255,255,255,.9);padding:1px 3px;font-style:normal}.eg i{top:0;transform:translateX(-50%)}.eg b{left:0;transform:translateY(-50%)}
 .gd{position:absolute;background:#ff2d95;z-index:91;pointer-events:none}
-.pg{position:absolute;top:0;bottom:0;left:50%;width:1920px;margin-left:-960px;pointer-events:none}.pg .it.ov{pointer-events:none}body.ed .pg .it.ov{pointer-events:auto}
+.pg{position:absolute;top:0;height:var(--pgh,100%);left:50%;width:1920px;margin-left:-960px;pointer-events:none}.pg .it.ov{pointer-events:none}body.ed .pg .it.ov{pointer-events:auto}
 .cv.wd{width:min(1920px,100%)}
 @media(max-width:700px){.pg{left:0;width:100%;margin-left:0}}
+#mn>.sp{display:none}
+body.r-beats #p-beats,body.r-album #p-album,body.r-projects #p-projects{display:block}
+body:not(.r-home) #mn>:not(.sp):not(h1){display:none!important}
+.nav nav a.act{background:var(--acc)}
+.fl{display:flex;flex-wrap:wrap;gap:.6rem;margin:0 0 1.5rem}
+.chip{font:700 .85rem var(--mo);border:3px solid var(--ink);background:#fff;color:var(--ink);padding:.3rem .8rem;cursor:pointer}.chip.on{background:var(--acc);box-shadow:3px 3px 0 var(--ink)}
+.gt{display:inline-block;font:700 .72rem var(--mo);border:2px solid var(--ink);padding:0 .4rem;margin:.3rem .3rem 0 0;background:var(--acc)}
+.alb{display:grid;grid-template-columns:minmax(200px,380px) 1fr;gap:2rem;align-items:start}
+.acv{aspect-ratio:1;border:3px solid var(--ink);background:var(--acc2) center/cover;box-shadow:6px 6px 0 var(--ink)}
+.alb h3{font:400 2rem/1.1 var(--hd);margin:.2rem 0}
+.pjs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2rem}
+.pj{border:3px solid var(--ink);background:#fff;box-shadow:6px 6px 0 var(--ink)}.pj .pc{aspect-ratio:1;background:var(--acc2) center/cover;border-bottom:3px solid var(--ink)}.pj .pb{padding:1rem}.pj h3{margin:0 0 .2rem;font:400 1.3rem var(--hd)}
+@media(max-width:700px){.alb{grid-template-columns:1fr}.nav nav a{margin-left:.55rem;font-size:.75rem}}
 </style>
 </head>
-<body>
+<body class="r-home">
 <div class="tk"><div class="mq" id="mq"></div></div>
-<div class="nav"><div class="w"><a class="logo ar" href="#"></a>
-<nav><a href="#beats">beats</a><a href="#licenses">licenses</a><a href="#payments">pay</a><a href="#faq">faq</a><a href="#contact">contact</a></nav></div></div>
+<div class="nav"><div class="w"><a class="logo ar" href="#/"></a>
+<nav id="nv"></nav></div></div>
 <main id="mn"><h1 class="vh ar"></h1>
+<section class="sp" id="p-beats"><div class="w"><h2 data-tx="all-beats-title">all beats</h2><div class="fl" id="gf"></div><div class="win"><div class="wt"><span>all-beats.exe</span><i><b></b><b></b></i></div><div class="wb" id="bl2"></div></div></div></section>
+<section class="sp" id="p-album"><div class="w"><h2 data-tx="album-title">album of the week</h2><div id="al"></div></div></section>
+<section class="sp" id="p-projects"><div class="w"><h2 data-tx="projects-title">projects</h2><div id="pj"></div></div></section>
 
-<section id="beats" data-blk="beats"><div class="w"><h2 data-tx="latest-beats">latest beats</h2><div class="win rv"><div class="wt"><span>beats.exe</span><i><b></b><b></b></i></div><div class="wb" id="bl"></div></div></div></section>
+
+<section id="beats" data-blk="beats"><div class="w"><h2 data-tx="latest-beats">latest beats</h2><div class="win rv"><div class="wt"><span>beats.exe</span><i><b></b><b></b></i></div><div class="wb" id="bl"></div></div><p class="more" id="more" style="margin-top:1.5rem"><a class="btn" href="#/beats" data-tx="view-all-beats">View all beats</a></p></div></section>
 
 <section id="licenses" data-blk="licenses"><div class="w"><h2 data-tx="pick-a-license">pick a license</h2><div class="lics" id="ll"></div></div></section>
 
@@ -177,6 +194,23 @@ const bgs=b=>[b.pat==="dots"?"radial-gradient(rgba(0,0,0,.12) 1px,transparent 1.
 const gv=(g,p)=>`--${p}x:${+g.x}%;--${p}y:${+g.y}%;--${p}w:${+g.w}%;--${p}fs:${+g.fs||4};--${p}r:${+g.r||0};`;
 const ihtml=(i,o,id,n)=>{if(i.f)lf(i.f);const st=gv(i.d,"d")+gv(i.m||i.d,"m")+`z-index:${+i.z||0};`+(i.c?`--c:${esc(i.c)};`:"")+(i.t==="text"&&i.f?`font-family:'${esc(i.f)}',sans-serif`:""),cl=`it ${i.t==="img"?"im":"tx"}${o==="o"?" ov":""}${i.sh?" sh":""}${i.hl?" hl":""}${i.btn?" bt":""}${i.an?" an-"+i.an:""}${i.hd?" xd":""}${i.hm?" xm":""}`,at=`data-o="${o}" data-b="${esc(id)}" data-i="${n}"`,b2=i.t==="img"?`<img alt="" draggable="false" src="${esc(i.src)}">`:esc(i.s);return i.link?`<a class="${cl}" ${at} style="${st}" href="${esc(i.link)}"${/^https?:/.test(i.link)?' target="_blank" rel="noopener"':""}>${b2}</a>`:`<div class="${cl}" ${at} style="${st}">${b2}</div>`};
 const cvh=(b,id)=>`<div class="cv${b.wide?" wd":""}" style="--ard:${esc(b.ar.d)};--arm:${esc(b.ar.m)};background:${bgs(b.bg).replace(/"/g,"'")}">${b.items.map((i,n)=>ihtml(i,"c",id,n)).join("")}</div>`;
+const PL=[["spotify","Spotify"],["apple","Apple Music"],["ytm","YouTube Music"],["amazon","Amazon Music"],["deezer","Deezer"],["tidal","Tidal"],["soundcloud","SoundCloud"],["bandcamp","Bandcamp"]];let GF=new Set(),GM="all";
+const bh=(b,i)=>{const mp=Math.min(...D.licenses.map(l=>+l.price));return`<article class="beat" data-row="${i}"><div class="cov" ${b.cover?`style="background-image:url('${esc(b.cover)}')"`:""}></div><div><h3>${esc(b.title)}</h3><div class="meta">${esc(b.bpm)} BPM &middot; ${(b.tags||[]).map(esc).join(" &middot; ")}</div>${(b.genres||[]).map(g=>`<span class="gt">${esc(g)}</span>`).join("")}</div><div class="act"><button class="pl" data-p="${i}" aria-label="Play ${esc(b.title)}"><svg class="tr" viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg><svg class="ps" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg></button><button class="btn sm" data-b="${i}">from ${S}${mp}</button></div></article>`};
+function gf(){const used=(D.genres||[]).filter(g=>D.beats.some(b=>(b.genres||[]).includes(g)));
+ $("#gf").innerHTML=used.map(g=>`<button class="chip${GF.has(g)?" on":""}" data-g="${esc(g)}">${esc(g)}</button>`).join("")+(GF.size>1?`<button class="chip" data-m="1">Match: ${GM==="all"?"all selected":"any selected"}</button>`:"")+(GF.size?'<button class="chip" data-x="1">Clear</button>':"")}
+function pgB(){const f=b=>!GF.size||(GM==="all"?[...GF].every(g=>(b.genres||[]).includes(g)):[...GF].some(g=>(b.genres||[]).includes(g))),L=D.beats.map((b,i)=>[b,i]).filter(x=>f(x[0]));
+ $("#bl2").innerHTML=L.length?L.map(x=>bh(x[0],x[1])).join(""):'<p class="empty">No beats match these genres.</p>'}
+$("#gf").onclick=e=>{const t=e.target.closest("button");if(!t)return;if(t.dataset.g){GF.has(t.dataset.g)?GF.delete(t.dataset.g):GF.add(t.dataset.g)}else if(t.dataset.m)GM=GM==="all"?"any":"all";else GF.clear();gf();pgB()};
+function alr(d){const a=d.album||{},L=PL.filter(x=>a.links&&a.links[x[0]]);
+ $("#al").innerHTML=a.title?`<div class="win"><div class="wt"><span>album-of-the-week.exe</span><i><b></b><b></b></i></div><div class="wb alb"><div class="acv"${a.cover?` style="background-image:url('${esc(a.cover)}')"`:""}></div><div>${a.week?`<div class="meta">${esc(a.week)}</div>`:""}<h3>${esc(a.title)}</h3><p>${esc([a.artist,a.year].filter(Boolean).join(" \u00b7 "))}</p>${a.note?`<p>${esc(a.note)}</p>`:""}<div class="links">${L.map(x=>`<a class="btn" href="${esc(a.links[x[0]])}" target="_blank" rel="noopener">${x[1]}</a>`).join("")}</div></div></div></div>`:'<p class="empty">Nothing here yet. Check back soon.</p>'}
+function pjr(d){const I=(d.projects||{}).items||[];
+ $("#pj").innerHTML=I.length?`<div class="pjs">${I.map(p=>`<div class="pj"><div class="pc"${p.cover?` style="background-image:url('${esc(p.cover)}')"`:""}></div><div class="pb"><h3>${esc(p.title)}</h3><div class="meta">${esc([p.role,p.year].filter(Boolean).join(" \u00b7 "))}</div>${p.desc?`<p>${esc(p.desc)}</p>`:""}<div class="links">${String(p.links||"").split("\n").map(x=>x.split("|")).filter(x=>x[1]&&x[1].trim()).map(x=>`<a class="btn sm" href="${esc(x[1].trim())}" target="_blank" rel="noopener">${esc(x[0].trim()||"Link")}</a>`).join("")}</div></div></div>`).join("")}</div>`:'<p class="empty">Nothing here yet. Check back soon.</p>'}
+function nav(){const L=[["#/","home"],["#/beats","beats"]];if((D.album||{}).on)L.push(["#/album","album"]);if((D.projects||{}).on)L.push(["#/projects","projects"]);$("#nv").innerHTML=L.map(x=>`<a href="${x[0]}">${x[1]}</a>`).join("")}
+function route(){if(!D)return;const h=location.hash,m=/^#\/(beats|album|projects)/.exec(h);let r=m?m[1]:"home";if(!ED&&(r==="album"||r==="projects")&&!(D[r]&&D[r].on))r="home";
+ document.body.classList.remove("r-home","r-beats","r-album","r-projects");document.body.classList.add("r-"+r);
+ document.querySelectorAll("#nv a").forEach(a=>a.classList.toggle("act",a.getAttribute("href")==="#/"+(r==="home"?"":r)));
+ if(r==="home"&&h.length>1&&h.indexOf("#/")!==0){const t=document.getElementById(h.slice(1));if(t)setTimeout(()=>t.scrollIntoView(),0)}else if(!ED)scrollTo(0,0);fixPg()}
+addEventListener("hashchange",route);
 const ED=window.name==="ed"||/[?&]edit/.test(location.search);
 if(ED){document.body.classList.add("ed");document.addEventListener("click",e=>{e.preventDefault();e.stopPropagation()},true)}
 else fetch("data.json?v="+Date.now()).then(r=>r.json()).then(render).catch(()=>{$("#bl").innerHTML='<p class="empty">Open this page from its GitHub Pages link to load the beats.</p>'});
@@ -194,24 +228,25 @@ function render(d){D=d;S=d.currency==="USD"?"$":"€";const t=d.theme||{};docume
  document.querySelectorAll("[data-blk]").forEach(e=>{e.style.display=d.layout.includes(e.dataset.blk)?"":"none"});
  let pg=$("#pg");if(!pg){pg=document.createElement("div");pg.id="pg";pg.className="pg"}mn.appendChild(pg);
  for(const id in d.over){const c=id==="page"?pg:d.canvases[id]?null:document.querySelector('[data-blk="'+id+'"]>.w');if(c)c.insertAdjacentHTML("beforeend",d.over[id].map((i,n)=>ihtml(i,"o",id,n)).join(""))}
- const min=Math.min(...d.licenses.map(l=>+l.price));
- $("#bl").innerHTML=d.beats.length?d.beats.map((b,i)=>`<article class="beat" id="b${i}"><div class="cov" ${b.cover?`style="background-image:url('${esc(b.cover)}')"`:""}></div><div><h3>${esc(b.title)}</h3><div class="meta">${esc(b.bpm)} BPM &middot; ${(b.tags||[]).map(esc).join(" &middot; ")}</div></div><div class="act"><button class="pl" data-p="${i}" aria-label="Play ${esc(b.title)}"><svg class="tr" viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg><svg class="ps" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg></button><button class="btn sm" data-b="${i}">from ${S}${min}</button></div></article>`).join(""):'<p class="empty">New beats are on the way.</p>';
+ $("#bl").innerHTML=d.beats.length?d.beats.slice(0,5).map((b,i)=>bh(b,i)).join(""):'<p class="empty">New beats are on the way.</p>';$("#more").style.display=d.beats.length?"":"none";
+ gf();pgB();alr(d);pjr(d);nav();route();
  $("#ll").innerHTML=d.licenses.map(l=>`<div class="lic${l.best?" best":""}"><h3>${esc(l.name)}</h3><div class="price">${S}${esc(l.price)}</div><ul>${l.features.map(f=>"<li>"+esc(f)+"</li>").join("")}</ul></div>`).join("");
  $("#lk").innerHTML=`<a class="btn" href="https://ig.me/m/${esc(d.instagram)}" target="_blank" rel="noopener">DM on Instagram</a>`+(d.youtube?`<a class="btn gh" href="${esc(d.youtube)}" target="_blank" rel="noopener">YouTube</a>`:"")+(d.email?`<a class="btn gh" href="mailto:${esc(d.email)}">${esc(d.email)}</a>`:"")+`<a class="btn gh" href="https://instagram.com/${esc(d.instagram)}" target="_blank" rel="noopener">@${esc(d.instagram)}</a>`;
  const rvs=document.querySelectorAll(".rv:not(.in)");if(d.anim!==false&&!ED&&"IntersectionObserver"in window){const o=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");o.unobserve(x.target)}}),{threshold:.12});rvs.forEach(e=>o.observe(e))}else rvs.forEach(e=>e.classList.add("in"));
+ fixPg();requestAnimationFrame(fixPg);
 }
 function play(i){const b=D.beats[i];
  if(cur===i){A.paused?A.play():A.pause();return}
  cur=i;A.src=b.audio;A.play().catch(()=>{$("#tm").textContent="Preview file not found"});
  $("#bt").textContent=b.title+" \u00b7 "+b.bpm+" BPM";document.body.classList.add("bar-on")}
 function mark(on){document.querySelectorAll(".beat,#bar").forEach(e=>e.classList.remove("on"));
- if(on){const r=$("#b"+cur);r&&r.classList.add("on");$("#bar").classList.add("on")}}
+ if(on){document.querySelectorAll('.beat[data-row="'+cur+'"]').forEach(r=>r.classList.add("on"));$("#bar").classList.add("on")}}
 A.onplay=()=>mark(true);A.onpause=()=>mark(false);
 A.ontimeupdate=()=>{$("#bi").style.width=(A.currentTime/(A.duration||1)*100)+"%";$("#tm").textContent=fmt(A.currentTime)+" / "+fmt(A.duration)};
 $("#bs").onclick=e=>{if(A.duration){const r=e.currentTarget.getBoundingClientRect();A.currentTime=(e.clientX-r.left)/r.width*A.duration}};
 $("#bp").onclick=()=>cur>-1&&play(cur);
 $("#bb").onclick=()=>cur>-1&&openBuy(cur);
-$("#bl").onclick=e=>{const p=e.target.closest("[data-p]"),b=e.target.closest("[data-b]");if(p)play(+p.dataset.p);if(b)openBuy(+b.dataset.b)};
+const lh=e=>{const p=e.target.closest("[data-p]"),b=e.target.closest("[data-b]");if(p)play(+p.dataset.p);if(b)openBuy(+b.dataset.b)};$("#bl").onclick=lh;$("#bl2").onclick=lh;
 const ppu=()=>String(D.paypal||"").trim().replace(/^https?:\/\/(www\.)?paypal\.(me|com\/paypalme)\//i,"").replace(/^@/,"").replace(/[\/?#].*$/,"");
 function openBuy(i){const b=D.beats[i];
  if(b.buy){window.open(b.buy,"_blank","noopener");return}
@@ -222,6 +257,9 @@ function openBuy(i){const b=D.beats[i];
   const m=encodeURIComponent(`Hi, I paid for "${b.title}" (${l.name} license).`);
   $("#rc").href=D.email?`mailto:${D.email}?subject=${encodeURIComponent(b.title+" - "+l.name)}&body=${m}`:"https://ig.me/m/"+D.instagram};
  $("#bo").onchange=upd;upd();$("#buy").showModal()}
+function fixPg(){const pg=$("#pg");if(pg)pg.style.setProperty("--pgh",$("#mn").offsetHeight+"px")}
+addEventListener("load",fixPg);addEventListener("resize",fixPg);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fixPg);
+if("ResizeObserver"in window)new ResizeObserver(()=>{if(!document.querySelector("details[open]"))fixPg()}).observe($("#mn"));
 window.render=render;
 </script>
 </body>
