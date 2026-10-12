@@ -2,265 +2,259 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Type beats for sale</title>
-<meta name="description" content="Type beats. Listen, pick a license and get the files.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Permanent+Marker&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Site admin</title>
 <style>
-:root{--paper:#f4f1e8;--ink:#0d0d0d;--acc:#ffd400;--acc2:#e63a1e;--hd:"Archivo Black","Arial Black",Impact,sans-serif;--mo:"Space Mono",ui-monospace,Consolas,monospace;--mk:"Permanent Marker","Comic Sans MS",cursive}
-*,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:70px}
-body{margin:0;background:radial-gradient(rgba(0,0,0,.1) 1px,transparent 1.3px) 0 0/7px 7px,var(--paper);color:var(--ink);font:400 1rem/1.6 var(--mo)}
-body.bar-on{padding-bottom:100px}
-a{color:inherit}
-:focus-visible{outline:3px solid var(--acc2);outline-offset:3px}
-.w{width:min(1080px,100% - 2.5rem);margin-inline:auto;position:relative}
-.tk{background:var(--ink);color:var(--acc);font:700 .82rem var(--mo);overflow:hidden;white-space:nowrap}
-.mq{display:inline-flex;animation:mq 30s linear infinite}.mq span{padding:.45rem 0}
-body:not(.anim) .mq{animation:none}@keyframes mq{to{transform:translateX(-50%)}}
-.nav{position:sticky;top:0;z-index:20;background:var(--paper);border-block:3px solid var(--ink)}
-.nav .w{display:flex;justify-content:space-between;align-items:center;height:58px}
-.logo{font:400 1.3rem var(--hd);text-decoration:none}
-.nav nav a{margin-left:1.2rem;text-decoration:none;font-weight:700;font-size:.9rem}
-.nav nav a:hover{background:var(--acc)}
-.hero{position:relative;padding:clamp(3rem,8vw,6rem) 0 3rem;overflow:hidden}
-.mark{font:400 clamp(3rem,15vw,10.5rem)/.88 var(--hd);letter-spacing:-.04em;margin:1rem 0 0;text-shadow:4px 4px 0 var(--acc),-3px -3px 0 var(--acc2);word-break:break-word}
-.mark:hover{animation:gl .35s steps(2) 3}@keyframes gl{50%{text-shadow:-6px 2px 0 var(--acc2),6px -2px 0 var(--acc)}}
-.adv{display:inline-block;background:#fff;border:3px solid var(--ink);padding:.15rem .6rem;font:700 .8rem var(--mo);transform:rotate(-2deg)}
-.adv b{display:block;background:var(--ink);color:#fff;margin:-.15rem -.6rem .2rem;padding:.1rem .6rem}
-.lede{max-width:34rem;font-size:1.1rem;margin:1.5rem 0 2rem;background:linear-gradient(transparent 60%,var(--acc) 60%) no-repeat;display:inline}
-.ban{display:block;width:100%;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);margin-top:2.5rem}
-.st{position:absolute;z-index:2;transform:rotate(var(--r));filter:drop-shadow(3px 3px 0 var(--ink));pointer-events:none}
-body.anim .st{animation:wob 3.5s ease-in-out infinite alternate}body.anim .st:nth-child(2n){animation-delay:-1.4s}
-@keyframes wob{to{transform:rotate(calc(var(--r) + 6deg)) translateY(-10px)}}
-.btn{display:inline-block;background:var(--acc);color:var(--ink);border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);padding:.65rem 1.2rem;font:700 1rem var(--mo);text-decoration:none;cursor:pointer;text-align:center;transition:transform .1s,box-shadow .1s}
-.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}.btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
-.btn.gh{background:#fff}.btn.sm{padding:.4rem .9rem;font-size:.9rem}
-.note{font-size:.85rem;margin-top:1.2rem}
-section{padding:2.5rem 0}
-h2{font:400 clamp(1.8rem,5vw,2.8rem)/1 var(--mk);margin:0 0 1.2rem;transform:rotate(-1.5deg);display:inline-block;background:var(--acc);border:3px solid var(--ink);padding:.2rem .8rem}
-.win{border:3px solid var(--ink);background:#fff;box-shadow:6px 6px 0 var(--ink)}
-.wt{display:flex;justify-content:space-between;align-items:center;background:var(--ink);color:var(--paper);padding:.3rem .8rem;font:700 .82rem var(--mo)}
-.wt i{display:flex;gap:4px}.wt b{width:12px;height:12px;border:2px solid var(--paper)}
-.wb{padding:1.2rem}
-.beat{display:grid;grid-template-columns:84px 1fr auto;gap:1rem;align-items:center;padding:.9rem 0;border-bottom:3px dashed var(--ink)}
-.beat:last-child{border:0}
-.cov{width:84px;height:84px;border:3px solid var(--ink);background:var(--acc2) center/cover}
-.beat h3{margin:0;font:400 1.35rem/1.1 var(--hd)}.meta{font-size:.85rem}
-.act{display:flex;gap:.7rem;align-items:center}
-.pl{width:50px;height:50px;border:3px solid var(--ink);background:var(--ink);color:var(--acc);cursor:pointer;display:grid;place-items:center;flex:none}
-.pl svg{width:20px;height:20px;fill:currentColor}.pl .ps,.on .pl .tr{display:none}.on .pl .ps{display:block}
-.beat.on{background:var(--acc)}
-.empty{margin:0}
-.lics{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2rem}
-.lic{border:3px solid var(--ink);background:#fff;padding:1.6rem;box-shadow:6px 6px 0 var(--ink);position:relative}
-.lic:nth-child(odd){transform:rotate(-.8deg)}.lic:nth-child(even){transform:rotate(.8deg)}.lic.best{background:var(--acc)}
-.lic::before{content:"";position:absolute;top:-14px;left:50%;width:90px;height:26px;background:rgba(255,255,255,.75);border:1px solid rgba(0,0,0,.3);transform:translateX(-50%) rotate(-3deg)}
-.lic h3{margin:0;font:400 1.4rem var(--hd)}.price{font:400 3.2rem/1.1 var(--hd);margin:.3rem 0 .8rem}
-.lic ul{list-style:none;padding:0;margin:0}.lic li{padding:.2rem 0 .2rem 1.4rem;position:relative}.lic li::before{content:"+";font-weight:700;position:absolute;left:0}
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;counter-reset:s}
-.steps div{counter-increment:s}.steps h3{margin:0 0 .3rem;font:400 1.2rem var(--hd)}.steps h3::before{content:counter(s);display:inline-grid;place-items:center;width:2rem;height:2rem;background:var(--ink);color:var(--acc);margin-right:.6rem}.steps p{margin:0}
-details{border-bottom:3px dashed var(--ink);padding:.9rem 0}details:last-child{border:0}summary{cursor:pointer;font-weight:700}details p{margin:.5rem 0 0}
-.links{display:flex;flex-wrap:wrap;gap:1rem}
-footer{background:var(--ink);color:var(--paper);padding:1.5rem 0 2.5rem;margin-top:3rem;font-size:.85rem}
-footer .w{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
-.rv{transition:opacity .6s,transform .6s}body.anim .rv:not(.in){opacity:0;transform:translateY(26px)}
-#bar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--ink);color:var(--paper);border-top:3px solid var(--acc);padding:.8rem 0 calc(.8rem + env(safe-area-inset-bottom,0px));display:none}
-body.bar-on #bar{display:block}
-#bar .w{display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center}
-#bar .pl{background:var(--acc);color:var(--ink);border-color:var(--acc)}
-#bt{font-weight:700}.trk{height:8px;background:#444;cursor:pointer;margin:.45rem 0 .2rem}.trk i{display:block;height:100%;width:0;background:var(--acc)}
-#tm{font-size:.75rem;color:#bbb}
-dialog{background:#fff;color:var(--ink);border:3px solid var(--ink);box-shadow:8px 8px 0 var(--acc2);padding:1.6rem;width:min(460px,92vw)}
-dialog::backdrop{background:rgba(0,0,0,.65)}
-dialog h3{margin:0 0 .3rem;font:400 1.6rem var(--hd)}
-.opt{display:grid;grid-template-columns:auto 1fr auto;gap:.8rem;align-items:center;border:3px solid var(--ink);padding:.7rem .9rem;margin:.7rem 0;cursor:pointer}
-.opt:has(input:checked){background:var(--acc)}.opt small{display:block}.opt em{font:400 1.2rem var(--hd);font-style:normal}
-.x{float:right;background:none;border:0;font-size:1.8rem;cursor:pointer;line-height:1}
-dialog .btn{display:block;width:100%;margin-top:.7rem}
-@media(max-width:600px){.beat{grid-template-columns:64px 1fr}.cov{width:64px;height:64px}.act{grid-column:1/-1}}
-@media(prefers-reduced-motion:reduce){.mq,.st,.mark:hover{animation:none!important}.rv{transition:none}html{scroll-behavior:auto}}
+:root{--bg:#1a2033;--sf:#232b45;--ln:#36406a;--tx:#edf0f8;--mu:#9aa5c4;--ac:#a5b8ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;padding-bottom:90px}
+.w{width:min(1500px,100% - 2rem);margin:0 auto}
+h1{font-size:1.6rem;margin:1.5rem 0 .2rem}h2{font-size:1.2rem;margin:2rem 0 .8rem}
+p,small{color:var(--mu)}small{display:block;margin-top:.3rem;word-break:break-all}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:1.2rem;margin:.8rem 0;display:grid;gap:.9rem}
+label{display:grid;gap:.3rem;font-weight:600;font-size:.92rem}label.row{display:flex;gap:.6rem;align-items:center}
+input,textarea,select{width:100%;background:var(--bg);color:var(--tx);border:1px solid var(--ln);border-radius:10px;padding:.65rem .8rem;font:inherit;font-weight:400}
+input[type=checkbox]{width:auto}input[type=file]{padding:.5rem}
+input:focus,textarea:focus,select:focus,button:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+button{font:inherit;font-weight:600;border:0;border-radius:999px;padding:.7rem 1.3rem;cursor:pointer;background:var(--tx);color:var(--bg)}
+button.sec{background:transparent;color:var(--tx);border:1px solid var(--ln)}button.del{background:transparent;color:#ff9b9b;border:1px solid #6a3640;justify-self:start}
+button:disabled{opacity:.5;cursor:wait}
+details{margin:1rem 0;color:var(--mu)}summary{cursor:pointer;color:var(--tx)}ol{padding-left:1.2rem}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--sf);border-top:1px solid var(--ln);padding:.8rem 0}
+.bar .w{display:flex;gap:1rem;align-items:center;justify-content:space-between}#st{color:var(--mu);font-size:.9rem}
+[hidden]{display:none!important}
 
-html{overflow-x:hidden}body{overflow-x:clip}
-.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-.hero{padding:0;overflow:visible}
-.cv{position:relative;container-type:inline-size;aspect-ratio:var(--ard,16/7);overflow:hidden;width:min(1280px,100%);margin:0 auto}
-.it{position:absolute;display:block;left:var(--dx);top:var(--dy);width:var(--dw);--fs:var(--dfs);--r:var(--dr);transform:rotate(calc(var(--r)*1deg));text-decoration:none;color:var(--ink)}
+.des{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:1rem;align-items:start}
+@media(max-width:900px){.des{grid-template-columns:1fr}}
+.des>.card{position:sticky;top:.5rem;max-height:calc(100vh - 1rem);overflow:auto;margin:0}
+.tb{display:flex;flex-wrap:wrap;gap:.5rem;margin:.5rem 0}
+.up{display:inline-block;cursor:pointer;border:1px solid var(--ln);border-radius:999px;padding:.7rem 1.3rem;font-weight:600;color:var(--tx)}
+.stage{background:#0d1020;border:1px dashed var(--ln);padding:1rem;overflow:auto}.cvw{margin:0 auto}
+.cv{position:relative;container-type:inline-size;aspect-ratio:var(--ar,16/7);background:radial-gradient(rgba(0,0,0,.1) 1px,transparent 1.3px) 0 0/7px 7px,var(--paper);color:var(--ink);outline:3px solid var(--ink);font-family:Arial,sans-serif}
+.it{position:absolute;display:block;transform:rotate(calc(var(--r)*1deg));cursor:move;touch-action:none;user-select:none;-webkit-user-select:none}
 .it.tx{font-size:calc(var(--fs)*1cqw);line-height:1.05;white-space:pre-wrap;word-break:break-word;color:var(--c,var(--ink))}
 .it.tx.sh{text-shadow:.035em .035em 0 var(--acc),-.025em -.025em 0 var(--acc2)}
 .it.hl{background:var(--acc);padding:.15em .35em}
 .it.bt{background:var(--acc);border:3px solid var(--ink);box-shadow:.2em .2em 0 var(--ink);padding:.4em .7em;text-align:center;font-weight:700}
-.it.im img{width:100%;display:block}.it.im.sh{filter:drop-shadow(3px 3px 0 var(--ink))}
-body.anim .an-w{animation:wob 3.5s ease-in-out infinite alternate}body.anim .an-s{animation:spn 14s linear infinite}body.anim .an-p{animation:pul 1.6s ease-in-out infinite}
-@keyframes wob{to{transform:rotate(calc(var(--r)*1deg + 6deg)) translateY(-1.2cqw)}}
-@keyframes spn{to{transform:rotate(calc(var(--r)*1deg + 360deg))}}
-@keyframes pul{50%{transform:rotate(calc(var(--r)*1deg)) scale(1.08)}}
-@media(max-width:700px){
- body{font-size:15px}.cv{aspect-ratio:var(--arm,4/5)}.w{width:calc(100% - 1.5rem)}
- section{padding:1.6rem 0}.wb{padding:.9rem}h2{font-size:1.6rem}
- .nav .w{height:52px}.logo{font-size:1.05rem}.nav nav a{margin-left:.7rem;font-size:.8rem}
- .beat{grid-template-columns:64px 1fr;gap:.7rem}.act{grid-column:1/-1}.act .btn{flex:1;padding:.7rem 1rem}
- .lic:nth-child(n){transform:none}.price{font-size:2.6rem}.lics{gap:1.6rem}.steps{grid-template-columns:1fr}
- #bar .w{gap:.6rem}#bb{padding:.4rem .6rem;font-size:.78rem}
- dialog{max-height:90vh;overflow:auto}footer .w{flex-direction:column}.btn{padding:.7rem 1rem}
-}
-.cs{padding:0}.it.xd{display:none}body.np{background:var(--paper)}
-@media(max-width:700px){.it{left:var(--mx);top:var(--my);width:var(--mw);--fs:var(--mfs);--r:var(--mr)}.it.xd{display:block}.it.xm{display:none}}
-main{position:relative}
-.ov{pointer-events:none}.ov[href]{pointer-events:auto}
-.it.tx.ov{font-size:calc(var(--fs)*min(1svw,12.8px))}
-body.ed .it{touch-action:none;user-select:none;-webkit-user-select:none;cursor:move}body.ed .ov{pointer-events:auto}
-@media(min-width:701px){body.ed .it.xd{display:block;opacity:.3}}
-@media(max-width:700px){body.ed .it.xm{display:block;opacity:.3}}
+.it.im img{width:100%;display:block;pointer-events:none}.it.im.sh{filter:drop-shadow(3px 3px 0 var(--ink))}
 .it.sel{outline:2px dashed #2a5bff;outline-offset:4px}
-.hd,.rh{position:absolute;width:18px;height:18px;background:#2a5bff;border:2px solid #fff;border-radius:50%;z-index:99}
-.hd{right:-13px;bottom:-13px;cursor:nwse-resize}.rh{left:calc(50% - 9px);top:-36px;cursor:grab}
-.eg{position:absolute;inset:0;pointer-events:none;z-index:90;background-image:linear-gradient(to right,rgba(42,91,255,.3) 1px,transparent 1px),linear-gradient(to bottom,rgba(42,91,255,.3) 1px,transparent 1px),linear-gradient(to right,transparent calc(50% - 1px),rgba(255,45,149,.8) calc(50% - 1px) calc(50% + 1px),transparent calc(50% + 1px)),linear-gradient(to bottom,transparent calc(50% - 1px),rgba(255,45,149,.8) calc(50% - 1px) calc(50% + 1px),transparent calc(50% + 1px));background-size:var(--s) 100%,100% var(--s),100% 100%,100% 100%}
-.eg i,.eg b{position:absolute;font:700 10px/1 monospace;color:#2a5bff;background:rgba(255,255,255,.9);padding:1px 3px;font-style:normal}.eg i{top:0;transform:translateX(-50%)}.eg b{left:0;transform:translateY(-50%)}
-.gd{position:absolute;background:#ff2d95;z-index:91;pointer-events:none}
-.pg{position:absolute;top:0;height:var(--pgh,100%);left:50%;width:1920px;margin-left:-960px;pointer-events:none}.pg .it.ov{pointer-events:none}body.ed .pg .it.ov{pointer-events:auto}
-.cv.wd{width:min(1920px,100%)}
-@media(max-width:700px){.pg{left:0;width:100%;margin-left:0}}
-#mn>.sp{display:none}
-body.r-beats #p-beats,body.r-album #p-album,body.r-projects #p-projects{display:block}
-body:not(.r-home) #mn>:not(.sp):not(h1){display:none!important}
-.nav nav a.act{background:var(--acc)}
-.fl{display:flex;flex-wrap:wrap;gap:.6rem;margin:0 0 1.5rem}
-.chip{font:700 .85rem var(--mo);border:3px solid var(--ink);background:#fff;color:var(--ink);padding:.3rem .8rem;cursor:pointer}.chip.on{background:var(--acc);box-shadow:3px 3px 0 var(--ink)}
-.gt{display:inline-block;font:700 .72rem var(--mo);border:2px solid var(--ink);padding:0 .4rem;margin:.3rem .3rem 0 0;background:var(--acc)}
-.alb{display:grid;grid-template-columns:minmax(200px,380px) 1fr;gap:2rem;align-items:start}
-.acv{aspect-ratio:1;border:3px solid var(--ink);background:var(--acc2) center/cover;box-shadow:6px 6px 0 var(--ink)}
-.alb h3{font:400 2rem/1.1 var(--hd);margin:.2rem 0}
-.pjs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2rem}
-.pj{border:3px solid var(--ink);background:#fff;box-shadow:6px 6px 0 var(--ink)}.pj .pc{aspect-ratio:1;background:var(--acc2) center/cover;border-bottom:3px solid var(--ink)}.pj .pb{padding:1rem}.pj h3{margin:0 0 .2rem;font:400 1.3rem var(--hd)}
-@media(max-width:700px){.alb{grid-template-columns:1fr}.nav nav a{margin-left:.55rem;font-size:.75rem}}
+.hd,.rh{position:absolute;width:16px;height:16px;background:#2a5bff;border:2px solid #fff;border-radius:50%}
+.hd{right:-12px;bottom:-12px;cursor:nwse-resize}.rh{left:calc(50% - 8px);top:-34px;cursor:grab}
+.row2{display:flex;justify-content:space-between;align-items:center;gap:.6rem;flex-wrap:wrap;border-bottom:1px solid var(--ln);padding:.5rem 0}.row2 span{display:flex;gap:.4rem;flex-wrap:wrap}.ghost{opacity:.3}#bgc{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.tb label{display:flex;gap:.5rem;align-items:center;flex-direction:row}.fw{margin:0 auto;overflow:hidden;background:#fff;border:1px solid var(--ln)}.fw iframe{border:0;background:#fff;display:block}
+.ro{position:sticky;top:0;z-index:5;background:var(--sf);border:1px solid var(--ln);padding:.5rem .8rem;font:600 .85rem ui-monospace,Consolas,monospace;margin:.5rem 0;word-break:break-word}
 </style>
 </head>
-<body class="r-home">
-<div class="tk"><div class="mq" id="mq"></div></div>
-<div class="nav"><div class="w"><a class="logo ar" href="#/"></a>
-<nav id="nv"></nav></div></div>
-<main id="mn"><h1 class="vh ar"></h1>
-<section class="sp" id="p-beats"><div class="w"><h2 data-tx="all-beats-title">all beats</h2><div class="fl" id="gf"></div><div class="win"><div class="wt"><span>all-beats.exe</span><i><b></b><b></b></i></div><div class="wb" id="bl2"></div></div></div></section>
-<section class="sp" id="p-album"><div class="w"><h2 data-tx="album-title">album of the week</h2><div id="al"></div></div></section>
-<section class="sp" id="p-projects"><div class="w"><h2 data-tx="projects-title">projects</h2><div id="pj"></div></div></section>
+<body>
+<div class="w">
+<h1>Site admin <small style="display:inline;font-size:.85rem">v3 · page designer</small></h1>
+<p>Edit your beats, prices and links. Changes go straight to your GitHub repository.</p>
 
+<div id="login">
+ <details open><summary>How to get your access token (one time)</summary><ol>
+  <li>On GitHub: your profile picture &rarr; Settings &rarr; Developer settings &rarr; Personal access tokens &rarr; Fine-grained tokens &rarr; Generate new token.</li>
+  <li>Repository access: <b>Only select repositories</b> and pick your site repository.</li>
+  <li>Permissions &rarr; Repository permissions &rarr; <b>Contents: Read and write</b>.</li>
+  <li>Generate it, copy it and paste it below. Never share it.</li></ol></details>
+ <div class="card">
+  <label>Repository (username/name)<input id="repo" placeholder="cloudisdeaf/beats"></label>
+  <label>Branch<input id="br" value="main"></label>
+  <label>Access token<input id="tk" type="password" autocomplete="off"></label>
+  <button id="go">Connect</button>
+  <small>The token is saved only in this browser.</small>
+ </div>
+</div>
 
-<section id="beats" data-blk="beats"><div class="w"><h2 data-tx="latest-beats">latest beats</h2><div class="win rv"><div class="wt"><span>beats.exe</span><i><b></b><b></b></i></div><div class="wb" id="bl"></div></div><p class="more" id="more" style="margin-top:1.5rem"><a class="btn" href="#/beats" data-tx="view-all-beats">View all beats</a></p></div></section>
+<div id="ed" hidden>
+ <h2>Page layout</h2><p>The page is a stack of blocks. Reorder or remove them, and add free canvases to place text, banners, images and stickers anywhere between sections.</p><div class="card" id="lay"></div>
+ <h2 id="dz">Designer</h2><p>Desktop and mobile have separate layouts: switch the view and arrange each one on its own. Drag items to move them, use the round handles to resize and rotate, press Delete to remove.</p>
+ <div class="tb"><button class="sec" id="vd">Desktop view</button><button class="sec" id="vm">Mobile view</button><button class="sec" id="adt">Add text</button><label class="up">Add image or sticker<input type="file" accept="image/*" id="adi" hidden></label><button class="sec" id="c2m">Copy desktop to mobile</button><button class="sec" id="m2d">Copy mobile to desktop</button></div>
+ <div class="card" id="bgc"></div>
+ <div class="tb"><label>Place new items on <select id="tgt"></select></label><label>Snap to grid <select id="snap"><option value="0">Off</option><option value="1">1%</option><option value="2.5">2.5%</option><option value="5" selected>5%</option><option value="10">10%</option></select></label><label>Preview screen width <select id="pw"><option value="1920" selected>1920 px</option><option value="1600">1600 px</option><option value="1440">1440 px</option><option value="1366">1366 px</option><option value="1280">1280 px</option></select></label><label><input type="checkbox" id="grid" checked> Show grid and rulers</label></div>
+ <div class="ro" id="ro">Click an item in the preview to select it.</div>
+ <div class="des"><div class="stage"><div class="fw" id="fw"><iframe id="fr" name="ed" title="Page preview"></iframe></div></div><div class="card" id="pn"></div></div>
+ <h2>Pages</h2><p>The Beats page is always on. Switch the other pages public or private: a private page disappears from the menu and cannot be opened.</p><div class="card" id="pgs"></div>
+ <h2>Album of the week</h2><div class="card" id="alb"></div>
+ <h2>Projects</h2><button class="sec" id="adp">Add a project</button><div id="prj"></div>
+ <h2>All items</h2><p>Every sticker, image and text on your page. Untick Mobile to hide an item on phones without touching the desktop.</p><div class="tb"><button class="sec" id="hm1">Hide every image on mobile</button><button class="sec" id="hm0">Show every item on mobile</button></div><div class="card" id="ly"></div>
+ <h2>Style</h2><div class="card" id="sty"></div>
+ <h2>Texts</h2><p>Change any other text on the page.</p><div class="card" id="txt"></div>
+ <h2>Site settings</h2><div class="card" id="set"></div>
+ <h2>Beats</h2><p>Upload only the preview with your voice tag. Newest beat goes first.</p>
+ <button class="sec" id="add">Add a beat</button><div id="bts"></div>
+ <h2>Licenses</h2><button class="sec" id="addlic">Add a license</button><div id="lic"></div>
+ <h2>Account</h2><button class="sec" id="out">Disconnect this browser</button>
+</div>
+</div>
 
-<section id="licenses" data-blk="licenses"><div class="w"><h2 data-tx="pick-a-license">pick a license</h2><div class="lics" id="ll"></div></div></section>
-
-<section id="payments" data-blk="payments"><div class="w"><h2 data-tx="how-to-pay">how to pay</h2><div class="win rv"><div class="wt"><span>checkout.txt</span><i><b></b><b></b></i></div><div class="wb"><div class="steps">
-<div><h3 data-tx="choose">Choose</h3><p data-tx="hit-the-price-button-on-a-beat">Hit the price button on a beat and pick your license.</p></div>
-<div><h3 data-tx="pay">Pay</h3><p data-tx="pay-on-paypal-the-money-goes-s">Pay on PayPal. The money goes straight to me.</p></div>
-<div><h3 data-tx="get-files">Get files</h3><p data-tx="send-me-the-receipt-i-reply-wi">Send me the receipt. I reply with the clean files and your written license.</p></div></div></div></div></div></section>
-
-<section data-blk="free"><div class="w"><h2 data-tx="free-use">free use</h2><div class="win rv"><div class="wb"><p style="margin:0" data-tx="non-profit-only-beats-marked-f">Non-profit only. Beats marked [FREE] on YouTube can be used in non-monetized projects such as SoundCloud or demos, with credit: (Prod. CloudIsDeaf). To release on streaming platforms or monetize, you need a license.</p></div></div></div></section>
-
-<section id="faq" data-blk="faq"><div class="w"><h2 data-tx="questions">questions</h2><div class="win rv"><div class="wb">
-<details><summary data-tx="what-do-i-get-after-paying">What do I get after paying?</summary><p data-tx="the-untagged-files-for-your-li">The untagged files for your license (MP3 and WAV, plus stems if your license includes them) and a written license with the beat title.</p></details>
-<details><summary data-tx="can-i-release-songs-made-with">Can I release songs made with your beats?</summary><p data-tx="yes-with-a-paid-license-the-fr">Yes, with a paid license. The free use is only for non-profit projects with credit.</p></details>
-<details><summary data-tx="what-happens-when-a-beat-is-so">What happens when a beat is sold exclusively?</summary><p data-tx="i-take-it-off-the-store-and-st">I take it off the store and stop selling it.</p></details>
-<details><summary data-tx="do-you-make-custom-beats">Do you make custom beats?</summary><p data-tx="yes-message-me-with-references">Yes. Message me with references and what you need.</p></details>
-</div></div></div></section>
-
-<section id="contact" data-blk="contact"><div class="w"><h2 data-tx="talk-to-me">talk to me</h2><div class="links" id="lk"></div></div></section>
-</main>
-<footer><div class="w"><span>&copy; <span id="yr"></span> <span class="ar"></span>. All rights reserved.</span><span>Do not re-upload or use the previews without a license.</span></div></footer>
-
-<div id="bar"><div class="w">
-<button class="pl" id="bp" aria-label="Play or pause"><svg class="tr" viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg><svg class="ps" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg></button>
-<div><div id="bt"></div><div class="trk" id="bs"><i id="bi"></i></div><div id="tm">0:00 / 0:00</div></div>
-<button class="btn sm" id="bb">Buy</button></div></div>
-
-<dialog id="buy"><button class="x" aria-label="Close" onclick="this.closest('dialog').close()">&times;</button>
-<h3 id="bn"></h3><div>Choose a license</div><div id="bo"></div>
-<a class="btn" id="pp" target="_blank" rel="noopener">Pay with PayPal</a>
-<a class="btn gh" id="rc" target="_blank" rel="noopener">Send me the receipt</a></dialog>
+<div class="bar"><div class="w"><span id="st"></span><button id="pub" hidden>Publish changes</button></div></div>
 
 <script>
 const $=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const fmt=s=>isFinite(s)?Math.floor(s/60)+":"+String(Math.floor(s%60)).padStart(2,"0"):"0:00";
-let D,S="€",cur=-1;const A=new Audio();A.preload="none";
-const lf=n=>{if(!n||document.getElementById("f"+n))return;const l=document.createElement("link");l.id="f"+n;l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family="+n.replace(/ /g,"+")+"&display=swap";document.head.appendChild(l)};
+let C=JSON.parse(localStorage.getItem("gh")||"{}"),D=null,F={};
+const log=t=>$("#st").textContent=t;
+const hdr=()=>({Authorization:"Bearer "+C.token,Accept:"application/vnd.github+json"});
+const url=p=>`https://api.github.com/repos/${C.repo}/contents/${p}`;
+const b64=f=>new Promise((ok,no)=>{const r=new FileReader();r.onload=()=>ok(r.result.split(",")[1]);r.onerror=no;r.readAsDataURL(f)});
+const enc=s=>btoa(unescape(encodeURIComponent(s))),dec=s=>decodeURIComponent(escape(atob(s.replace(/\n/g,""))));
+async function get(p){const r=await fetch(url(p)+"?ref="+encodeURIComponent(C.branch)+"&t="+Date.now(),{headers:hdr()});
+ if(r.status===404)return null;if(!r.ok)throw new Error("GitHub answered "+r.status+". Check the repository name and the token.");return r.json()}
+async function put(p,content,msg){const old=await get(p);
+ const r=await fetch(url(p),{method:"PUT",headers:hdr(),body:JSON.stringify({message:msg,content,branch:C.branch,...(old?{sha:old.sha}:{})})});
+ if(!r.ok)throw new Error(p+" failed ("+r.status+")")}
+async function load(){const f=await get("data.json");if(!f)throw new Error("data.json was not found in the repository.");
+ D=JSON.parse(dec(f.content));D.theme=Object.assign({paper:"#f4f1e8",ink:"#0d0d0d",acc:"#ffd400",acc2:"#e63a1e",hd:"Archivo Black",bd:"Space Mono"},D.theme);D.stickers=D.stickers||[];if(D.anim===undefined)D.anim=true;D.ticker=D.ticker||"new beats every week \u2022 tagged previews \u2022 clean files after payment \u2022 ";D.banner=D.banner||"";mig(D);cur=D.layout.find(k=>D.canvases[k])||"";D.texts=D.texts||{};$("#login").hidden=true;$("#ed").hidden=false;$("#pub").hidden=false;draw();design()}
+function draw(){
+ const s=(k,l,ph="")=>`<label>${l}<input data-k="${k}" value="${esc(D[k])}" placeholder="${ph}"></label>`;
+ const c=(k,l)=>`<label>${l}<input type="color" data-k="theme.${k}" value="${esc(D.theme[k])}"></label>`;
+ const fi=(f,i,o,l,cur)=>`<label>${l}<input type="file" accept="${f==="audio"?".mp3,audio/mpeg":"image/*"}" data-f="${f}" data-i="${i}" data-o="${o}"><small>${esc(cur||"Nothing uploaded")}</small></label>`;
+ const n=(k,l,v)=>`<label>${l}<input type="number" data-t="num" data-k="${k}" value="${esc(v)}"></label>`;
+ $("#set").innerHTML=s("artist","Artist name (logo, footer, page title)")+s("instagram","Instagram username (no @)")+s("youtube","YouTube channel URL")+s("email","Contact email (optional)")+s("paypal","PayPal.me username or link","e.g. cloudisdeaf")+`<label>Currency<select data-k="currency"><option${D.currency==="EUR"?" selected":""}>EUR</option><option${D.currency==="USD"?" selected":""}>USD</option></select></label>`;
+ $("#lic").innerHTML=D.licenses.map((l,i)=>`<div class="card"><label>Name<input data-k="licenses.${i}.name" value="${esc(l.name)}"></label>${n(`licenses.${i}.price`,"Price",l.price)}<label>What is included (one per line)<textarea rows="5" data-t="list" data-k="licenses.${i}.features">${esc(l.features.join("\n"))}</textarea></label><label class="row"><input type="checkbox" data-t="chk" data-k="licenses.${i}.best" ${l.best?"checked":""}> Highlight this license</label><button class="del" data-dellic="${i}">Remove license</button></div>`).join("");
+ $("#bts").innerHTML=D.beats.map((b,i)=>`<div class="card"><label>Title<input data-k="beats.${i}.title" value="${esc(b.title)}"></label>${n(`beats.${i}.bpm`,"BPM",b.bpm)}<label>Tags (comma separated)<input data-t="csv" data-k="beats.${i}.tags" value="${esc((b.tags||[]).join(", "))}"></label>${fi("audio",i,"beats","Preview MP3 (with voice tag)",b.audio)}${fi("cover",i,"beats","Cover image (optional)",b.cover)}<label>Checkout link (optional: BeatStars, Payhip... for automatic delivery)<input data-k="beats.${i}.buy" value="${esc(b.buy||"")}"></label>${gn(b,i)}<button class="del" data-del="${i}">Remove beat</button></div>`).join("")||"<p>No beats yet.</p>"}
+document.addEventListener("input",e=>{const t=e.target,k=t.dataset.k;if(!k)return;const p=k.split(".");let o=D;while(p.length>1)o=o[p.shift()];
+ let v=t.value;const ty=t.dataset.t;if(ty==="num")v=+v;if(ty==="list")v=v.split("\n").map(x=>x.trim()).filter(Boolean);if(ty==="csv")v=v.split(",").map(x=>x.trim()).filter(Boolean);if(ty==="chk")v=t.checked;o[p[0]]=v});
+document.addEventListener("change",e=>{const t=e.target;if(!t.dataset.f||!t.files[0])return;const f=t.files[0],k=t.dataset.f,dir=k==="audio"?"beats/":k==="cover"?"covers/":"img/",p=dir+f.name.toLowerCase().replace(/[^a-z0-9.\-]+/g,"-"),o=t.dataset.o;
+ F[p]=f;if(k!=="audio"){P[p]=URL.createObjectURL(f);rf()}(()=>{const base=o==="root"?D:o.split(".").reduce((x,q)=>x[q],D);return t.dataset.i===""||o==="root"?base:base[+t.dataset.i]})()[k]=p;t.nextElementSibling.textContent=p+" (uploads when you publish)"});
+document.addEventListener("click",e=>{const d=e.target.dataset;
+ if(d.del!==undefined&&confirm("Remove this beat from the site?")){D.beats.splice(+d.del,1);draw()}
+ if(d.dellic!==undefined&&confirm("Remove this license?")){D.licenses.splice(+d.dellic,1);draw()}
+ if(d.delst!==undefined){D.stickers.splice(+d.delst,1);draw()}});
+$("#addlic").onclick=()=>{D.licenses.push({name:"New license",price:50,features:["Describe what is included"]});draw()};
+const FONTS=["Archivo Black","Permanent Marker","Space Mono","Bebas Neue","Anton","Special Elite","VT323","Inter"],P={},BN={beats:"Latest beats",licenses:"Licenses",payments:"How to pay",free:"Free use",faq:"Questions",contact:"Contact"};let sel=null,view="d",cur="",W=null,T="page",tm;
 const defHero=d=>{const L=[],b=d.banner?1:0;if(b)L.push({t:"img",src:d.banner,x:2,y:3,w:96,r:0,sh:1});(d.stickers||[]).filter(s=>s.img).forEach(s=>L.push({t:"img",src:s.img,x:+s.x||0,y:+s.y||0,w:Math.max(3,Math.round((+s.w||140)/12.8)),r:+s.r||0,sh:1,an:"w"}));
  L.push({t:"text",s:d.artist||"CloudIsDeaf",x:4,y:b?46:14,w:92,fs:b?9:11,f:"Archivo Black",sh:1,r:0},{t:"text",s:d.tagline||"Type beats made for late nights.",x:4,y:b?72:62,w:55,fs:2.1,f:"Space Mono",hl:1,r:0},{t:"text",s:"hear the beats",x:4,y:b?85:80,w:20,fs:1.9,f:"Space Mono",btn:1,link:"#beats",r:0});
  if(!b&&!(d.stickers||[]).length)L.push({t:"text",s:"\u2605",x:84,y:4,w:12,fs:11,f:"Archivo Black",c:"#e63a1e",an:"s",r:0},{t:"text",s:"ADVISORY\nheavy 808s inside",x:70,y:72,w:22,fs:1.6,f:"Space Mono",hl:1,r:-4});
  return{ar:"16/7",arm:"4/5",items:L}};
-const mig=d=>{if(!d.canvases||!d.layout){const H=d.hero||defHero(d),c=i=>({x:i.x,y:i.y,w:i.w,fs:i.fs,r:i.r||0});d.canvases={hero:{name:"Top banner",ar:{d:H.ar||"16/7",m:H.arm||"4/5"},bg:{c:"",img:"",pat:"none"},items:H.items.map(i=>({...i,d:c(i),m:c(i)}))}};d.layout=["hero","beats","licenses","payments","free","faq","contact"]}};
-const bgs=b=>[b.pat==="dots"?"radial-gradient(rgba(0,0,0,.12) 1px,transparent 1.3px) 0 0/7px 7px":b.pat==="lines"?"repeating-linear-gradient(135deg,transparent 0 14px,rgba(0,0,0,.06) 14px 16px)":"",b.img?`url('${b.img}') center/cover`:"",b.c||"transparent"].filter(Boolean).join(",");
-const gv=(g,p)=>`--${p}x:${+g.x}%;--${p}y:${+g.y}%;--${p}w:${+g.w}%;--${p}fs:${+g.fs||4};--${p}r:${+g.r||0};`;
-const ihtml=(i,o,id,n)=>{if(i.f)lf(i.f);const st=gv(i.d,"d")+gv(i.m||i.d,"m")+`z-index:${+i.z||0};`+(i.c?`--c:${esc(i.c)};`:"")+(i.t==="text"&&i.f?`font-family:'${esc(i.f)}',sans-serif`:""),cl=`it ${i.t==="img"?"im":"tx"}${o==="o"?" ov":""}${i.sh?" sh":""}${i.hl?" hl":""}${i.btn?" bt":""}${i.an?" an-"+i.an:""}${i.hd?" xd":""}${i.hm?" xm":""}`,at=`data-o="${o}" data-b="${esc(id)}" data-i="${n}"`,b2=i.t==="img"?`<img alt="" draggable="false" src="${esc(i.src)}">`:esc(i.s);return i.link?`<a class="${cl}" ${at} style="${st}" href="${esc(i.link)}"${/^https?:/.test(i.link)?' target="_blank" rel="noopener"':""}>${b2}</a>`:`<div class="${cl}" ${at} style="${st}">${b2}</div>`};
-const cvh=(b,id)=>`<div class="cv${b.wide?" wd":""}" style="--ard:${esc(b.ar.d)};--arm:${esc(b.ar.m)};background:${bgs(b.bg).replace(/"/g,"'")}">${b.items.map((i,n)=>ihtml(i,"c",id,n)).join("")}</div>`;
-const PL=[["spotify","Spotify"],["apple","Apple Music"],["ytm","YouTube Music"],["amazon","Amazon Music"],["deezer","Deezer"],["tidal","Tidal"],["soundcloud","SoundCloud"],["bandcamp","Bandcamp"]];let GF=new Set(),GM="all";
-const bh=(b,i)=>{const mp=Math.min(...D.licenses.map(l=>+l.price));return`<article class="beat" data-row="${i}"><div class="cov" ${b.cover?`style="background-image:url('${esc(b.cover)}')"`:""}></div><div><h3>${esc(b.title)}</h3><div class="meta">${esc(b.bpm)} BPM &middot; ${(b.tags||[]).map(esc).join(" &middot; ")}</div>${(b.genres||[]).map(g=>`<span class="gt">${esc(g)}</span>`).join("")}</div><div class="act"><button class="pl" data-p="${i}" aria-label="Play ${esc(b.title)}"><svg class="tr" viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg><svg class="ps" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg></button><button class="btn sm" data-b="${i}">from ${S}${mp}</button></div></article>`};
-function gf(){const used=(D.genres||[]).filter(g=>D.beats.some(b=>(b.genres||[]).includes(g)));
- $("#gf").innerHTML=used.map(g=>`<button class="chip${GF.has(g)?" on":""}" data-g="${esc(g)}">${esc(g)}</button>`).join("")+(GF.size>1?`<button class="chip" data-m="1">Match: ${GM==="all"?"all selected":"any selected"}</button>`:"")+(GF.size?'<button class="chip" data-x="1">Clear</button>':"")}
-function pgB(){const f=b=>!GF.size||(GM==="all"?[...GF].every(g=>(b.genres||[]).includes(g)):[...GF].some(g=>(b.genres||[]).includes(g))),L=D.beats.map((b,i)=>[b,i]).filter(x=>f(x[0]));
- $("#bl2").innerHTML=L.length?L.map(x=>bh(x[0],x[1])).join(""):'<p class="empty">No beats match these genres.</p>'}
-$("#gf").onclick=e=>{const t=e.target.closest("button");if(!t)return;if(t.dataset.g){GF.has(t.dataset.g)?GF.delete(t.dataset.g):GF.add(t.dataset.g)}else if(t.dataset.m)GM=GM==="all"?"any":"all";else GF.clear();gf();pgB()};
-function alr(d){const a=d.album||{},L=PL.filter(x=>a.links&&a.links[x[0]]);
- $("#al").innerHTML=a.title?`<div class="win"><div class="wt"><span>album-of-the-week.exe</span><i><b></b><b></b></i></div><div class="wb alb"><div class="acv"${a.cover?` style="background-image:url('${esc(a.cover)}')"`:""}></div><div>${a.week?`<div class="meta">${esc(a.week)}</div>`:""}<h3>${esc(a.title)}</h3><p>${esc([a.artist,a.year].filter(Boolean).join(" \u00b7 "))}</p>${a.note?`<p>${esc(a.note)}</p>`:""}<div class="links">${L.map(x=>`<a class="btn" href="${esc(a.links[x[0]])}" target="_blank" rel="noopener">${x[1]}</a>`).join("")}</div></div></div></div>`:'<p class="empty">Nothing here yet. Check back soon.</p>'}
-function pjr(d){const I=(d.projects||{}).items||[];
- $("#pj").innerHTML=I.length?`<div class="pjs">${I.map(p=>`<div class="pj"><div class="pc"${p.cover?` style="background-image:url('${esc(p.cover)}')"`:""}></div><div class="pb"><h3>${esc(p.title)}</h3><div class="meta">${esc([p.role,p.year].filter(Boolean).join(" \u00b7 "))}</div>${p.desc?`<p>${esc(p.desc)}</p>`:""}<div class="links">${String(p.links||"").split("\n").map(x=>x.split("|")).filter(x=>x[1]&&x[1].trim()).map(x=>`<a class="btn sm" href="${esc(x[1].trim())}" target="_blank" rel="noopener">${esc(x[0].trim()||"Link")}</a>`).join("")}</div></div></div>`).join("")}</div>`:'<p class="empty">Nothing here yet. Check back soon.</p>'}
-function nav(){const L=[["#/","home"],["#/beats","beats"]];if((D.album||{}).on)L.push(["#/album","album"]);if((D.projects||{}).on)L.push(["#/projects","projects"]);$("#nv").innerHTML=L.map(x=>`<a href="${x[0]}">${x[1]}</a>`).join("")}
-function route(){if(!D)return;const h=location.hash,m=/^#\/(beats|album|projects)/.exec(h);let r=m?m[1]:"home";if(!ED&&(r==="album"||r==="projects")&&!(D[r]&&D[r].on))r="home";
- document.body.classList.remove("r-home","r-beats","r-album","r-projects");document.body.classList.add("r-"+r);
- document.querySelectorAll("#nv a").forEach(a=>a.classList.toggle("act",a.getAttribute("href")==="#/"+(r==="home"?"":r)));
- if(r==="home"&&h.length>1&&h.indexOf("#/")!==0){const t=document.getElementById(h.slice(1));if(t)setTimeout(()=>t.scrollIntoView(),0)}else if(!ED)scrollTo(0,0);fixPg()}
-addEventListener("hashchange",route);
-const ED=window.name==="ed"||/[?&]edit/.test(location.search);
-if(ED){document.body.classList.add("ed");document.addEventListener("click",e=>{e.preventDefault();e.stopPropagation()},true)}
-else fetch("data.json?v="+Date.now()).then(r=>r.json()).then(render).catch(()=>{$("#bl").innerHTML='<p class="empty">Open this page from its GitHub Pages link to load the beats.</p>'});
-function render(d){D=d;S=d.currency==="USD"?"$":"€";const t=d.theme||{};document.querySelectorAll(".cs,.it.ov").forEach(e=>e.remove());
- for(const[k,v]of Object.entries({paper:t.paper,ink:t.ink,acc:t.acc,acc2:t.acc2}))if(v)document.documentElement.style.setProperty("--"+k,v);
- document.body.classList.toggle("anim",d.anim!==false&&!ED);
- document.title=d.artist+" | Type beats for sale";$("#yr").textContent=new Date().getFullYear();
- document.querySelectorAll(".ar").forEach(e=>e.textContent=d.artist);
- const tx=(d.ticker||"new beats every week \u2022 tagged previews \u2022 clean files after payment \u2022 ").repeat(6);$("#mq").innerHTML=`<span>${esc(tx)}</span><span>${esc(tx)}</span>`;
- const th=d.theme||{};if(th.hd){lf(th.hd);document.documentElement.style.setProperty("--hd",`"${th.hd}",Impact,sans-serif`)}if(th.bd){lf(th.bd);document.documentElement.style.setProperty("--mo",`"${th.bd}",ui-monospace,sans-serif`)}
- document.querySelectorAll("[data-tx]").forEach(e=>{const v=(d.texts||{})[e.dataset.tx];if(v!==undefined)e.textContent=v});
- document.body.classList.toggle("np",(d.theme||{}).pat==="none");
- mig(d);const mn=$("#mn");d.over=d.over||{};
- d.layout.forEach(id=>{let el=null;const b=d.canvases[id];if(b){el=document.createElement("section");el.className="cs";el.id="c-"+id;el.innerHTML=cvh(b,id)}else el=document.querySelector('[data-blk="'+id+'"]');if(el)mn.appendChild(el)});
- document.querySelectorAll("[data-blk]").forEach(e=>{e.style.display=d.layout.includes(e.dataset.blk)?"":"none"});
- let pg=$("#pg");if(!pg){pg=document.createElement("div");pg.id="pg";pg.className="pg"}mn.appendChild(pg);
- for(const id in d.over){const c=id==="page"?pg:d.canvases[id]?null:document.querySelector('[data-blk="'+id+'"]>.w');if(c)c.insertAdjacentHTML("beforeend",d.over[id].map((i,n)=>ihtml(i,"o",id,n)).join(""))}
- $("#bl").innerHTML=d.beats.length?d.beats.slice(0,5).map((b,i)=>bh(b,i)).join(""):'<p class="empty">New beats are on the way.</p>';$("#more").style.display=d.beats.length?"":"none";
- gf();pgB();alr(d);pjr(d);nav();route();
- $("#ll").innerHTML=d.licenses.map(l=>`<div class="lic${l.best?" best":""}"><h3>${esc(l.name)}</h3><div class="price">${S}${esc(l.price)}</div><ul>${l.features.map(f=>"<li>"+esc(f)+"</li>").join("")}</ul></div>`).join("");
- $("#lk").innerHTML=`<a class="btn" href="https://ig.me/m/${esc(d.instagram)}" target="_blank" rel="noopener">DM on Instagram</a>`+(d.youtube?`<a class="btn gh" href="${esc(d.youtube)}" target="_blank" rel="noopener">YouTube</a>`:"")+(d.email?`<a class="btn gh" href="mailto:${esc(d.email)}">${esc(d.email)}</a>`:"")+`<a class="btn gh" href="https://instagram.com/${esc(d.instagram)}" target="_blank" rel="noopener">@${esc(d.instagram)}</a>`;
- const rvs=document.querySelectorAll(".rv:not(.in)");if(d.anim!==false&&!ED&&"IntersectionObserver"in window){const o=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");o.unobserve(x.target)}}),{threshold:.12});rvs.forEach(e=>o.observe(e))}else rvs.forEach(e=>e.classList.add("in"));
- fixPg();requestAnimationFrame(fixPg);
-}
-function play(i){const b=D.beats[i];
- if(cur===i){A.paused?A.play():A.pause();return}
- cur=i;A.src=b.audio;A.play().catch(()=>{$("#tm").textContent="Preview file not found"});
- $("#bt").textContent=b.title+" \u00b7 "+b.bpm+" BPM";document.body.classList.add("bar-on")}
-function mark(on){document.querySelectorAll(".beat,#bar").forEach(e=>e.classList.remove("on"));
- if(on){document.querySelectorAll('.beat[data-row="'+cur+'"]').forEach(r=>r.classList.add("on"));$("#bar").classList.add("on")}}
-A.onplay=()=>mark(true);A.onpause=()=>mark(false);
-A.ontimeupdate=()=>{$("#bi").style.width=(A.currentTime/(A.duration||1)*100)+"%";$("#tm").textContent=fmt(A.currentTime)+" / "+fmt(A.duration)};
-$("#bs").onclick=e=>{if(A.duration){const r=e.currentTarget.getBoundingClientRect();A.currentTime=(e.clientX-r.left)/r.width*A.duration}};
-$("#bp").onclick=()=>cur>-1&&play(cur);
-$("#bb").onclick=()=>cur>-1&&openBuy(cur);
-const lh=e=>{const p=e.target.closest("[data-p]"),b=e.target.closest("[data-b]");if(p)play(+p.dataset.p);if(b)openBuy(+b.dataset.b)};$("#bl").onclick=lh;$("#bl2").onclick=lh;
-const ppu=()=>String(D.paypal||"").trim().replace(/^https?:\/\/(www\.)?paypal\.(me|com\/paypalme)\//i,"").replace(/^@/,"").replace(/[\/?#].*$/,"");
-function openBuy(i){const b=D.beats[i];
- if(b.buy){window.open(b.buy,"_blank","noopener");return}
- $("#bn").textContent=b.title;
- $("#bo").innerHTML=D.licenses.map((l,k)=>`<label class="opt"><input type="radio" name="lic" value="${k}" ${k?"":"checked"}><span><b>${esc(l.name)}</b><small>${esc(l.features.slice(0,2).join(", "))}</small></span><em>${S}${esc(l.price)}</em></label>`).join("");
- const upd=()=>{const k=+($("input[name=lic]:checked")||{value:0}).value,l=D.licenses[k],pp=$("#pp"),u=ppu();
-  if(u){pp.href=`https://www.paypal.com/paypalme/${encodeURIComponent(u)}/${l.price}${D.currency||"EUR"}`;pp.style.display=""}else pp.style.display="none";
-  const m=encodeURIComponent(`Hi, I paid for "${b.title}" (${l.name} license).`);
-  $("#rc").href=D.email?`mailto:${D.email}?subject=${encodeURIComponent(b.title+" - "+l.name)}&body=${m}`:"https://ig.me/m/"+D.instagram};
- $("#bo").onchange=upd;upd();$("#buy").showModal()}
-function fixPg(){const pg=$("#pg");if(pg)pg.style.setProperty("--pgh",$("#mn").offsetHeight+"px")}
-addEventListener("load",fixPg);addEventListener("resize",fixPg);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fixPg);
-if("ResizeObserver"in window)new ResizeObserver(()=>{if(!document.querySelector("details[open]"))fixPg()}).observe($("#mn"));
-window.render=render;
+const mig=d=>{if(!d.canvases||!d.layout){const H=d.hero||defHero(d),c=i=>({x:i.x,y:i.y,w:i.w,fs:i.fs,r:i.r||0});d.canvases={hero:{name:"Top banner",ar:{d:H.ar||"16/7",m:H.arm||"4/5"},bg:{c:"",img:"",pat:"none"},items:H.items.map(i=>({...i,d:c(i),m:c(i)}))}};d.layout=["hero","beats","licenses","payments","free","faq","contact"]}delete d.hero;d.over=d.over||{};d.album=d.album||{on:false,week:"",title:"",artist:"",year:"",cover:"",note:"",links:{}};d.album.links=d.album.links||{};d.projects=d.projects||{on:false,items:[]};d.genres=d.genres||["Trap","R&B","Crank","Jerk","Melodic","Drill","Rage"];d.layout=d.layout.filter(k=>BN[k]||d.canvases[k])};
+const B=()=>D&&D.canvases[cur];
+const items=(b,o)=>o==="c"?(D.canvases[b]||{items:[]}).items:(D.over[b]=D.over[b]||[]);
+const it0=()=>sel&&items(sel.b,sel.o)[sel.i];
+const tn=id=>id==="page"?"Whole page":D.canvases[id]?D.canvases[id].name:BN[id]||id;
+const elOf=s=>W&&s&&W.document.querySelector(`.it[data-o="${s.o}"][data-b="${s.b}"][data-i="${s.i}"]`);
+const ctrEl=id=>{if(!W)return null;const d=W.document;return id==="page"?d.querySelector("#pg"):D.canvases[id]?d.querySelector("#c-"+id+" .cv"):d.querySelector('[data-blk="'+id+'"]>.w')};
+const prev=()=>JSON.parse(JSON.stringify(D,(k,v)=>(k==="src"||k==="img"||k==="cover")&&P[v]?P[v]:v));
+const addFile=f=>{const p="img/"+f.name.toLowerCase().replace(/[^a-z0-9.\-]+/g,"-");F[p]=f;P[p]=URL.createObjectURL(f);return p};
+const all=()=>[...Object.values(D.canvases).flatMap(c=>c.items),...Object.values(D.over).flat()];
+const rf=()=>{clearTimeout(tm);tm=setTimeout(rf0,70)};
+function fit(){const st=document.querySelector(".stage"),w=view==="m"?390:+$("#pw").value,av=st.clientWidth-26,s=av>0?Math.min(1,av/w):1,h=Math.round(innerHeight*.82),fw=$("#fw"),fr=$("#fr");
+ fw.style.width=Math.round(w*s)+"px";fw.style.height=h+"px";fr.style.width=w+"px";fr.style.height=Math.round(h/s)+"px";fr.style.transform="scale("+s+")";fr.style.transformOrigin="0 0"}
+addEventListener("resize",()=>{if(D)fit()});$("#pw").onchange=()=>rf0();
+function rf0(){if(!W||!W.render||!D)return;fit();$("#vd").style.outline=view==="d"?"2px solid #a5b8ff":"";$("#vm").style.outline=view==="m"?"2px solid #a5b8ff":"";
+ const b=W.document.body;b.classList.toggle("vm",view==="m");b.classList.toggle("vd",view==="d");const y=W.scrollY||0;W.render(prev());try{W.scrollTo(0,y)}catch(_){}decor();lyr()}
+function decor(){if(!W||!W.render)return;const d=W.document;d.querySelectorAll(".eg,.gd,.hd,.rh").forEach(e=>e.remove());
+ const el=elOf(sel);if(el&&it0()){el.classList.add("sel");el.insertAdjacentHTML("beforeend",'<span class="hd"></span><span class="rh"></span>')}
+ const C=el?el.offsetParent:ctrEl(T);
+ if(C&&$("#grid").checked){const s=+$("#snap").value||10;let h="";for(let p=0;p<=100;p+=10)h+=`<i style="left:${p}%">${p}</i><b style="top:${p}%">${p}</b>`;C.insertAdjacentHTML("beforeend",`<div class="eg" style="--s:${s}%">${h}</div>`)}
+ ro()}
+function ro(g){const i=it0(),el=elOf(sel),R=$("#ro");
+ if(!i){const C=ctrEl(T);R.textContent="New items go on: "+tn(T)+(C?" ("+C.offsetWidth+"\u00d7"+C.offsetHeight+" px)":"")+". Click an item in the preview to select it.";return}
+ const G=g||i[view]||i.d,C=el&&el.offsetParent;R.textContent=tn(sel.b)+(C?" \u00b7 "+C.offsetWidth+"\u00d7"+C.offsetHeight+" px":"")+" \u00b7 x "+G.x+"%  y "+G.y+"%  w "+G.w+"%  rot "+(G.r||0)+"\u00b0  layer "+(i.z||0)+" \u00b7 screen "+W.innerWidth+"px"}
+function setT(id){T=id;$("#tgt").value=id;if(D.canvases[id]&&cur!==id){cur=id;bgp();lay()}}
+function lay(){const L=D.layout,rm=Object.keys(BN).filter(k=>!L.includes(k));
+ $("#lay").innerHTML=L.map(id=>{const c=D.canvases[id];return`<div class="row2"><b>${esc(c?c.name:BN[id])}${c?" (free canvas"+(id===cur?", editing":"")+")":""}</b><span>${c?`<button class="sec" data-m="ed" data-id="${id}">Edit</button>`:""}<button class="sec" data-m="up" data-id="${id}">Up</button><button class="sec" data-m="dn" data-id="${id}">Down</button><button class="del" data-m="rm" data-id="${id}">Remove</button></span></div>`}).join("")+`<div class="tb"><button class="sec" id="adc">Add a free canvas</button>${rm.map(k=>`<button class="sec" data-m="back" data-id="${k}">Restore: ${BN[k]}</button>`).join("")}</div>`;
+ $("#tgt").innerHTML='<option value="page">Whole page (background)</option>'+L.map(id=>`<option value="${id}">${esc(tn(id))}</option>`).join("");T=L.includes(T)||T==="page"?T:"page";$("#tgt").value=T}
+$("#tgt").onchange=()=>{setT($("#tgt").value);decor()};$("#snap").onchange=decor;$("#grid").onchange=decor;
+$("#lay").addEventListener("click",e=>{const m=e.target.dataset.m,id=e.target.dataset.id,L=D.layout,n=L.indexOf(id),ct=L.indexOf("contact")>-1?L.indexOf("contact"):L.length;
+ if(e.target.id==="adc"){const k="c"+Date.now().toString(36);D.canvases[k]={name:"Canvas "+(Object.keys(D.canvases).length+1),ar:{d:"16/6",m:"1/1"},bg:{c:"",img:"",pat:"none"},items:[]};L.splice(ct,0,k);cur=k;T=k;sel=null}
+ else if(!m)return;
+ else if(m==="up"&&n>0)[L[n-1],L[n]]=[L[n],L[n-1]];
+ else if(m==="dn"&&n<L.length-1)[L[n+1],L[n]]=[L[n],L[n+1]];
+ else if(m==="rm"){if(!confirm("Remove this block from the page?"))return;L.splice(n,1);if(D.canvases[id]){delete D.canvases[id];sel=null;if(cur===id)cur=L.find(k=>D.canvases[k])||""}}
+ else if(m==="back")L.splice(ct,0,id);
+ else if(m==="ed"){cur=id;T=id;sel=null}
+ lay();bgp();pn();rf0()});
+function bgp(){const b=B(),p=$("#bgc");if(!b){p.innerHTML="<p>Add a free canvas in the page layout above to set its background and height.</p>";return}
+ const k=x=>`canvases.${cur}.${x}`;
+ p.innerHTML=`<label>Canvas name<input data-k="${k("name")}" value="${esc(b.name)}"></label><label>Shape on desktop (width/height)<input data-k="${k("ar.d")}" value="${esc(b.ar.d)}"></label><label>Shape on mobile (width/height)<input data-k="${k("ar.m")}" value="${esc(b.ar.m)}"></label><label>Background color<input type="color" data-k="${k("bg.c")}" value="${b.bg.c||"#ffffff"}"></label><button class="sec" data-m="nobg">Use page background</button><label>Background pattern<select data-k="${k("bg.pat")}">${[["none","None"],["dots","Dots"],["lines","Stripes"]].map(a=>`<option value="${a[0]}"${a[0]===b.bg.pat?" selected":""}>${a[1]}</option>`).join("")}</select></label><label class="row"><input type="checkbox" data-t="chk" data-k="${k("wide")}" ${b.wide?"checked":""}> Full width (edge to edge, up to 1920 px)</label><label>Background image<input type="file" accept="image/*" id="bgi"><small>${esc(b.bg.img||"None")}</small></label><button class="sec" data-m="nobi">Remove background image</button>`}
+$("#bgc").addEventListener("click",e=>{const m=e.target.dataset.m,b=B();if(!b)return;if(m==="nobg")b.bg.c="";else if(m==="nobi")b.bg.img="";else return;bgp();rf0()});
+$("#bgc").addEventListener("change",e=>{if(e.target.id==="bgi"&&e.target.files[0]){B().bg.img=addFile(e.target.files[0]);bgp();rf0()}});
+function pn(){const i=it0(),p=$("#pn");if(!i){p.innerHTML="<p>Select an item in the preview, or add one with the buttons above.</p>";return}
+ const G=i[view]||i.d,V=view==="d"?"desktop":"mobile",
+ f=(k,l,t="text",x="")=>`<label>${l}<input type="${t}" data-p="${k}" value="${esc(i[k]??"")}" ${x}></label>`,
+ gf=(k,l,x="")=>`<label>${l} (${V})<input type="number" data-g="${k}" value="${esc(G[k]??"")}" ${x}></label>`,
+ ck=(k,l)=>`<label class="row"><input type="checkbox" data-p="${k}" data-c="1" ${i[k]?"checked":""}> ${l}</label>`,
+ ab=(v,l)=>`<button class="sec" data-a="al" data-v="${v}">${l}</button>`;
+ p.innerHTML=`<p><b>${esc(tn(sel.b))}</b>: editing the ${V} layout</p>`+(i.t==="text"?`<label>Text<textarea rows="3" data-p="s">${esc(i.s)}</textarea></label><label>Font<select data-p="f">${FONTS.map(x=>`<option${x===i.f?" selected":""}>${x}</option>`).join("")}</select></label>`+gf("fs","Size",'step="0.1" min="0.5"')+`<label>Color<input type="color" data-p="c" value="${i.c||D.theme.ink}"></label>`+ck("sh","Punk shadow")+ck("hl","Highlighter")+ck("btn","Button style")+f("link","Link (optional, for example #beats)"):`<label>Replace image<input type="file" accept="image/*" id="rpl"></label>`+ck("sh","Drop shadow"))
+ +gf("x","X position (%)",'step="0.1"')+gf("y","Y position (%)",'step="0.1"')+gf("w","Width (%)",'step="0.5" min="2"')+gf("r","Rotation (degrees)")
+ +`<label>Layer (-5 behind page content, 15 in front)<input type="number" min="-5" max="15" step="1" data-p="z" value="${i.z||0}"></label>`+ck("hd","Hide on desktop")+ck("hm","Hide on mobile")+`<label>Animation<select data-p="an">${[["","None"],["w","Wobble"],["s","Spin"],["p","Pulse"]].map(a=>`<option value="${a[0]}"${a[0]===(i.an||"")?" selected":""}>${a[1]}</option>`).join("")}</select></label>`
+ +`<div class="tb">${ab("l","Left edge")}${ab("ch","Center horizontally")}${ab("r","Right edge")}${ab("t","Top edge")}${ab("cv","Center vertically")}${ab("b","Bottom edge")}</div><div class="tb"><button class="sec" data-a="fw">Layer +1</button><button class="sec" data-a="bk">Layer -1</button><button class="sec" data-a="dup">Duplicate</button><button class="sec" data-a="hidev">Hide on ${V}</button><button class="del" data-a="rm">Delete everywhere</button></div>`}
+function design(){const t=D.theme,o=v=>FONTS.map(x=>`<option${x===v?" selected":""}>${x}</option>`).join(""),c=(k,l)=>`<label>${l}<input type="color" data-k="theme.${k}" value="${esc(t[k])}"></label>`;
+ $("#sty").innerHTML=`<label>Heading font (titles of each section)<select data-k="theme.hd">${o(t.hd)}</select></label><label>Body font<select data-k="theme.bd">${o(t.bd)}</select></label>`+c("paper","Page background color")+c("ink","Text and border color")+c("acc","Accent color")+c("acc2","Second accent color")+`<label>Page background pattern<select data-k="theme.pat"><option value="dots"${t.pat!=="none"?" selected":""}>Dots</option><option value="none"${t.pat==="none"?" selected":""}>None</option></select></label><label>Scrolling strip text<input data-k="ticker" value="${esc(D.ticker)}"></label><label class="row"><input type="checkbox" data-t="chk" data-k="anim" ${D.anim?"checked":""}> Animations on</label>`;
+ lay();bgp();pn();pgs();if(!$("#fr").getAttribute("src"))$("#fr").src="index.html?edit=1&t="+Date.now();
+ fetch("index.html?t="+Date.now()).then(r=>r.text()).then(h=>{const d=new DOMParser().parseFromString(h,"text/html");
+  $("#txt").innerHTML=[...d.querySelectorAll("[data-tx]")].map(e=>`<label>${esc(e.textContent.trim().slice(0,45))}<textarea rows="2" data-x="${e.dataset.tx}">${esc(D.texts[e.dataset.tx]??e.textContent.trim())}</textarea></label>`).join("")||"<p>No texts found.</p>"}).catch(()=>{$("#txt").innerHTML="<p>Could not load the list of texts.</p>"})}
+document.addEventListener("input",e=>{if(e.target.dataset.k&&D)rf()});
+$("#txt").addEventListener("input",e=>{const k=e.target.dataset.x;if(k)D.texts[k]=e.target.value});
+$("#pn").addEventListener("input",e=>{const t=e.target,i=it0();if(!i)return;
+ if(t.dataset.g)(i[view]=i[view]||{...i.d})[t.dataset.g]=+t.value;else if(t.dataset.p)i[t.dataset.p]=t.dataset.c?t.checked:t.type==="number"?+t.value:t.value;else return;rf();ro()});
+$("#pn").addEventListener("change",e=>{if(e.target.id==="rpl"&&e.target.files[0]){it0().src=addFile(e.target.files[0]);rf0()}});
+$("#pn").addEventListener("click",e=>{const a=e.target.dataset.a,i=it0();if(!a||!i)return;const L=items(sel.b,sel.o),g=i[view]=i[view]||{...i.d};
+ if(a==="rm"){if(!confirm("Delete this item from desktop AND mobile?"))return;L.splice(sel.i,1);sel=null}else if(a==="hidev"){i[view==="d"?"hd":"hm"]=1}
+ else if(a==="dup"){const c=JSON.parse(JSON.stringify(i));["d","m"].forEach(k=>{c[k].x+=3;c[k].y+=3});L.push(c);sel={...sel,i:L.length-1}}
+ else if(a==="fw"||a==="bk")i.z=Math.max(-5,Math.min(15,(i.z||0)+(a==="fw"?1:-1)));
+ else if(a==="al"){const el=elOf(sel),C=el.offsetParent,w=el.offsetWidth/C.offsetWidth*100,h=el.offsetHeight/C.offsetHeight*100,v=e.target.dataset.v;
+  if(v==="l")g.x=0;if(v==="ch")g.x=+(50-w/2).toFixed(1);if(v==="r")g.x=+(100-w).toFixed(1);if(v==="t")g.y=0;if(v==="cv")g.y=+(50-h/2).toFixed(1);if(v==="b")g.y=+(100-h).toFixed(1)}
+ rf0();pn()});
+const nw=o=>{const id=ctrEl(T)?T:"page",oo=D.canvases[id]?"c":"o",C=ctrEl(id);let x=30,y=20;
+ if(C&&W){const r=C.getBoundingClientRect();x=Math.max(0,Math.min(85,(W.innerWidth/2-r.left)/r.width*100-8));y=Math.max(-10,Math.min(100,(W.innerHeight/2-r.top)/r.height*100-4))}
+ const g={x:+x.toFixed(1),y:+y.toFixed(1)};if(oo==="o"&&id==="page"&&view==="d")o.hm=1;o.d={...o.d,...g};o.m={...o.m,...g};const L=items(id,oo);L.push(o);sel={o:oo,b:id,i:L.length-1};T=id;$("#tgt").value=id;rf0();pn()};
+$("#adt").onclick=()=>nw({t:"text",s:"New text",f:D.theme.bd,z:0,d:{w:40,fs:4,r:0},m:{w:60,fs:6,r:0}});
+$("#adi").onchange=e=>{const f=e.target.files[0];if(!f)return;nw({t:"img",src:addFile(f),sh:1,z:1,d:{w:20,r:0},m:{w:35,r:0}});e.target.value=""};
+$("#vd").onclick=()=>{view="d";rf0();pn()};$("#vm").onclick=()=>{view="m";rf0();pn()};
+const cp=(a,z)=>{if(confirm("Copy the "+(a==="d"?"desktop":"mobile")+" layout of every item to "+(z==="d"?"desktop":"mobile")+"?")){all().forEach(i=>{i[z]={...(i[a]||i.d)}});rf0();pn()}};
+$("#c2m").onclick=()=>cp("d","m");$("#m2d").onclick=()=>cp("m","d");
+const refs=()=>[...Object.entries(D.canvases).flatMap(([b,c])=>c.items.map((it,i)=>({o:"c",b,i,it}))),...Object.entries(D.over).flatMap(([b,L])=>L.map((it,i)=>({o:"o",b,i,it})))];
+function lyr(){const L=$("#ly");if(!L||!D)return;
+ L.innerHTML=refs().map(r=>{const k=r.o+"|"+r.b+"|"+r.i;return`<div class="row2"><span><b>${esc(r.it.t==="img"?(r.it.src||"").split("/").pop():"\u201c"+String(r.it.s||"").slice(0,28)+"\u201d")}</b><small>on ${esc(tn(r.b))}</small></span><span><label class="row"><input type="checkbox" data-ly="d" data-ref="${k}" ${r.it.hd?"":"checked"}> Desktop</label><label class="row"><input type="checkbox" data-ly="m" data-ref="${k}" ${r.it.hm?"":"checked"}> Mobile</label><button class="sec" data-ly="s" data-ref="${k}">Select</button></span></div>`}).join("")||"<p>No items yet.</p>"}
+$("#ly").addEventListener("change",e=>{const t=e.target,v=t.dataset.ly;if(!v||v==="s")return;const[o,b,i]=t.dataset.ref.split("|");items(b,o)[+i][v==="d"?"hd":"hm"]=t.checked?0:1;rf0()});
+$("#ly").addEventListener("click",e=>{const t=e.target;if(t.dataset.ly!=="s")return;const[o,b,i]=t.dataset.ref.split("|");sel={o,b,i:+i};setT(b);rf0();pn();const el=elOf(sel);if(el&&el.scrollIntoView)el.scrollIntoView({block:"center"})});
+$("#hm1").onclick=()=>{refs().forEach(r=>{if(r.it.t==="img")r.it.hm=1});rf0()};$("#hm0").onclick=()=>{refs().forEach(r=>{r.it.hm=0});rf0()};
+const PL=[["spotify","Spotify"],["apple","Apple Music"],["ytm","YouTube Music"],["amazon","Amazon Music"],["deezer","Deezer"],["tidal","Tidal"],["soundcloud","SoundCloud"],["bandcamp","Bandcamp"]];
+const gn=(b,i)=>`<div><b>Genres</b><div class="tb">${D.genres.map(g=>`<label class="row"><input type="checkbox" data-gn="${i}" data-gv="${esc(g)}" ${(b.genres||[]).includes(g)?"checked":""}> ${esc(g)}</label>`).join("")}</div></div>`;
+document.addEventListener("change",e=>{const t=e.target;if(t.dataset.gn===undefined)return;const b=D.beats[+t.dataset.gn];b.genres=b.genres||[];const g=t.dataset.gv,ix=b.genres.indexOf(g);if(t.checked&&ix<0)b.genres.push(g);if(!t.checked&&ix>-1)b.genres.splice(ix,1);rf()});
+function pgs(){const A=D.album,J=D.projects,f=(k,l,v)=>`<label>${l}<input data-k="${k}" value="${esc(v||"")}"></label>`;
+ $("#pgs").innerHTML=`<label class="row"><input type="checkbox" data-t="chk" data-k="album.on" ${A.on?"checked":""}> Album of the week page is public</label><label class="row"><input type="checkbox" data-t="chk" data-k="projects.on" ${J.on?"checked":""}> Projects page is public</label><label>Preview page in the designer<select id="pgv"><option value="">Home</option><option value="beats">All beats</option><option value="album">Album of the week</option><option value="projects">Projects</option></select></label><label>Genres for the beats page (comma separated)<input data-t="csv" data-k="genres" value="${esc(D.genres.join(", "))}"></label>`;
+ $("#alb").innerHTML=f("album.week","Label (for example Week of Oct 12)",A.week)+f("album.title","Album title",A.title)+f("album.artist","Artist",A.artist)+f("album.year","Year",A.year)+`<label>Why this album<textarea rows="3" data-k="album.note">${esc(A.note)}</textarea></label><label>Cover<input type="file" accept="image/*" data-f="cover" data-i="" data-o="album"><small>${esc(A.cover||"No cover")}</small></label>`+PL.map(x=>`<label>${x[1]} link<input data-k="album.links.${x[0]}" value="${esc(A.links[x[0]]||"")}" placeholder="https://"></label>`).join("");
+ $("#prj").innerHTML=J.items.map((p,i)=>`<div class="card">${f(`projects.items.${i}.title`,"Title",p.title)}${f(`projects.items.${i}.role`,"Your role",p.role)}${f(`projects.items.${i}.year`,"Year",p.year)}<label>Description<textarea rows="3" data-k="projects.items.${i}.desc">${esc(p.desc)}</textarea></label><label>Cover<input type="file" accept="image/*" data-f="cover" data-i="${i}" data-o="projects.items"><small>${esc(p.cover||"No cover")}</small></label><label>Links (one per line: Label | URL)<textarea rows="3" data-k="projects.items.${i}.links">${esc(p.links)}</textarea></label><button class="del" data-delp="${i}">Remove project</button></div>`).join("")||"<p>No projects yet.</p>"}
+$("#pgs").addEventListener("change",e=>{if(e.target.id==="pgv"&&W)W.location.hash=e.target.value?"#/"+e.target.value:"#/"});
+$("#pgs").addEventListener("input",e=>{if(e.target.dataset.k==="genres")setTimeout(()=>{draw();rf()},0)});
+$("#adp").onclick=()=>{D.projects.items.unshift({title:"New project",role:"",year:"",desc:"",cover:"",links:""});pgs();rf()};
+$("#prj").addEventListener("click",e=>{const x=e.target.dataset.delp;if(x!==undefined&&confirm("Remove this project?")){D.projects.items.splice(+x,1);pgs();rf()}});
+function key(e){if(!sel||!D||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;const i=it0();if(!i)return;const g=i[view]=i[view]||{...i.d},st=e.shiftKey?2:.5;
+ if(e.key==="Delete"||e.key==="Backspace"){if(view==="m")i.hm=1;else if(confirm("Delete this item from the whole page? To only hide it, use the Desktop and Mobile checkboxes in All items.")){items(sel.b,sel.o).splice(sel.i,1);sel=null}}
+ else if(e.key.indexOf("Arrow")===0){e.preventDefault();if(e.key==="ArrowLeft")g.x=+(g.x-st).toFixed(1);if(e.key==="ArrowRight")g.x=+(g.x+st).toFixed(1);if(e.key==="ArrowUp")g.y=+(g.y-st).toFixed(1);if(e.key==="ArrowDown")g.y=+(g.y+st).toFixed(1)}
+ else return;rf0();pn()}
+document.addEventListener("keydown",key);
+const ap=(el,g)=>{for(const[k,v]of[["x",g.x+"%"],["y",g.y+"%"],["w",g.w+"%"],["r",g.r||0]])el.style.setProperty("--"+view+k,v)};
+function snp(x,y,el,C){const s=+$("#snap").value;if(!s)return[x,y,0,0];const w=el.offsetWidth/C.offsetWidth*100,h=el.offsetHeight/C.offsetHeight*100;x=Math.round(x/s)*s;y=Math.round(y/s)*s;let a=0,b=0;
+ if(Math.abs(x+w/2-50)<=1.2){x=50-w/2;a=1}if(Math.abs(y+h/2-50)<=1.2){y=50-h/2;b=1}return[x,y,a,b]}
+function pd(e){if(e.button>0)return;const hd=e.target.closest(".hd,.rh"),el=e.target.closest(".it[data-b]");
+ if(!el){const s=e.target.closest(".cs,[data-blk]");setT(s?(s.dataset.blk||s.id.slice(2)):"page");sel=null;decor();pn();return}
+ e.preventDefault();const o=el.dataset.o,b=el.dataset.b,n=+el.dataset.i;
+ if(!sel||sel.o!==o||sel.b!==b||sel.i!==n){sel={o,b,i:n};setT(b);decor();pn()}
+ const it=items(b,o)[n],g=(it[view]=it[view]||{...it.d}),C=el.offsetParent,r=C.getBoundingClientRect(),bb=el.getBoundingClientRect(),cx=bb.left+bb.width/2,cy=bb.top+bb.height/2,mode=hd?(hd.classList.contains("rh")?"r":"s"):"m",s0={x:e.clientX,y:e.clientY,ix:g.x,iy:g.y,iw:g.w};
+ try{el.setPointerCapture(e.pointerId)}catch(_){}
+ const mv=ev=>{const dx=(ev.clientX-s0.x)/r.width*100,dy=(ev.clientY-s0.y)/r.height*100;let va=0,ha=0;
+  if(mode==="m"){const q=snp(s0.ix+dx,s0.iy+dy,el,C);g.x=+q[0].toFixed(1);g.y=+q[1].toFixed(1);va=q[2];ha=q[3]}
+  else if(mode==="s"){const s=+$("#snap").value;let w=s0.iw+dx;if(s)w=Math.round(w/s)*s;g.w=Math.max(2,+w.toFixed(1))}
+  else{let a=Math.atan2(ev.clientY-cy,ev.clientX-cx)*180/Math.PI+90;g.r=ev.shiftKey?Math.round(a/15)*15:Math.round(a)}
+  ap(el,g);C.querySelectorAll(".gd").forEach(x=>x.remove());
+  if(va)C.insertAdjacentHTML("beforeend",'<div class="gd" style="left:50%;top:0;bottom:0;width:2px"></div>');if(ha)C.insertAdjacentHTML("beforeend",'<div class="gd" style="top:50%;left:0;right:0;height:2px"></div>');ro(g)},
+  up=()=>{W.removeEventListener("pointermove",mv);W.removeEventListener("pointerup",up);rf0();pn()};
+ W.addEventListener("pointermove",mv);W.addEventListener("pointerup",up)}
+$("#fr").addEventListener("load",()=>{W=$("#fr").contentWindow;if(!W||!W.render)return;W.document.addEventListener("pointerdown",pd,true);W.document.addEventListener("keydown",key);rf0()});
+$("#add").onclick=()=>{D.beats.unshift({title:"New beat",bpm:140,tags:[],audio:"",cover:""});draw()};
+$("#go").onclick=async()=>{C={repo:$("#repo").value.trim(),branch:$("#br").value.trim()||"main",token:$("#tk").value.trim()};
+ localStorage.setItem("gh",JSON.stringify(C));log("Connecting...");try{await load();log("Connected.")}catch(e){log("Error: "+e.message)}};
+$("#out").onclick=()=>{localStorage.removeItem("gh");location.reload()};
+$("#pub").onclick=async()=>{const b=$("#pub");b.disabled=true;
+ try{for(const[p,f]of Object.entries(F)){log("Uploading "+p+"...");await put(p,await b64(f),"Upload "+p)}F={};
+  log("Saving site data...");await put("data.json",enc(JSON.stringify(D,null,2)+"\n"),"Update site data");
+  log("Published. The site updates in about a minute.")}catch(e){log("Error: "+e.message)}b.disabled=false};
+$("#repo").value=C.repo||"";$("#br").value=C.branch||"main";
+if(C.token){log("Connecting...");load().then(()=>log("Connected.")).catch(e=>{log("Error: "+e.message)})}
 </script>
 </body>
 </html>
