@@ -855,7 +855,7 @@
     "payments": []
   },
   "album": {
-    "on": false,
+    "on": true,
     "week": "Week os Oct 12",
     "title": "Tierras Raras",
     "artist": "Dano, Mir Nicolas, Cero Unno, H de Perra",
