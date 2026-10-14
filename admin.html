@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>Site admin</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; media-src 'self' blob:; font-src 'self'; connect-src 'self' https://api.github.com https://*.workers.dev; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <style>
 :root{--bg:#1a2033;--sf:#232b45;--ln:#36406a;--tx:#edf0f8;--mu:#9aa5c4;--ac:#a5b8ff}
 *{box-sizing:border-box}
@@ -60,7 +61,7 @@ details{margin:1rem 0;color:var(--mu)}summary{cursor:pointer;color:var(--tx)}ol{
  <div class="card">
   <label>Repository (username/name)<input id="repo" placeholder="cloudisdeaf/beats"></label>
   <label>Branch<input id="br" value="main"></label>
-  <label>Access token<input id="tk" type="password" autocomplete="off"></label>
+  <label class="row"><input type="checkbox" id="rem"> Remember me on this device (leave it off on shared computers)</label><label>Access token<input id="tk" type="password" autocomplete="off"></label>
   <button id="go">Connect</button>
   <small>The token is saved only in this browser.</small>
  </div>
@@ -68,7 +69,7 @@ details{margin:1rem 0;color:var(--mu)}summary{cursor:pointer;color:var(--tx)}ol{
 
 <div id="ed" hidden>
  <h2>Page layout</h2><p>The page is a stack of blocks. Reorder or remove them, and add free canvases to place text, banners, images and stickers anywhere between sections.</p><div class="card" id="lay"></div>
- <h2 id="dz">Designer</h2><p>Desktop and mobile have separate layouts: switch the view and arrange each one on its own. Drag items to move them, use the round handles to resize and rotate, press Delete to remove.</p>
+ <h2 id="dz">Designer</h2><p>Desktop and mobile have separate layouts: switch the view and arrange each one on its own. Drag items to move them, use the round handles to resize and rotate. Delete removes an item (on mobile it only hides it).</p>
  <div class="tb"><button class="sec" id="vd">Desktop view</button><button class="sec" id="vm">Mobile view</button><button class="sec" id="adt">Add text</button><label class="up">Add image or sticker<input type="file" accept="image/*" id="adi" hidden></label><button class="sec" id="c2m">Copy desktop to mobile</button><button class="sec" id="m2d">Copy mobile to desktop</button></div>
  <div class="card" id="bgc"></div>
  <div class="tb"><label>Place new items on <select id="tgt"></select></label><label>Snap to grid <select id="snap"><option value="0">Off</option><option value="1">1%</option><option value="2.5">2.5%</option><option value="5" selected>5%</option><option value="10">10%</option></select></label><label>Preview screen width <select id="pw"><option value="1920" selected>1920 px</option><option value="1600">1600 px</option><option value="1440">1440 px</option><option value="1366">1366 px</option><option value="1280">1280 px</option></select></label><label><input type="checkbox" id="grid" checked> Show grid and rulers</label></div>
@@ -78,6 +79,10 @@ details{margin:1rem 0;color:var(--mu)}summary{cursor:pointer;color:var(--tx)}ol{
  <h2>Album of the week</h2><div class="card" id="alb"></div>
  <h2>Projects</h2><button class="sec" id="adp">Add a project</button><div id="prj"></div>
  <h2>All items</h2><p>Every sticker, image and text on your page. Untick Mobile to hide an item on phones without touching the desktop.</p><div class="tb"><button class="sec" id="hm1">Hide every image on mobile</button><button class="sec" id="hm0">Show every item on mobile</button></div><div class="card" id="ly"></div>
+ <h2>Shop (automatic delivery)</h2><p>Connect the order server (see SETUP.md). Without it, buyers pay through your PayPal.me link and you deliver by hand.</p><div class="card" id="shp"></div>
+ <h2>Legal details</h2><p>Shown on the Legal page (link in the footer). Fill them in before publishing, and ask a gestor if you are unsure what you must include.</p><div class="card" id="lgl"></div>
+ <h2>Translations</h2><p>English is the default. The built-in texts already come translated; here you can edit them or translate your own texts (hero texts, licenses, album notes, projects). Pick a language to also preview it above.</p>
+ <div class="card"><label>Language<select id="tl"><option value="en">English</option><option value="es">Español</option><option value="ca">Català</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="ja">日本語</option></select></label><div id="tlist"></div></div>
  <h2>Style</h2><div class="card" id="sty"></div>
  <h2>Texts</h2><p>Change any other text on the page.</p><div class="card" id="txt"></div>
  <h2>Site settings</h2><div class="card" id="set"></div>
@@ -92,7 +97,7 @@ details{margin:1rem 0;color:var(--mu)}summary{cursor:pointer;color:var(--tx)}ol{
 
 <script>
 const $=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-let C=JSON.parse(localStorage.getItem("gh")||"{}"),D=null,F={};
+let C={};try{C=JSON.parse(localStorage.getItem("gh")||sessionStorage.getItem("gh")||"{}")}catch(_){C={}}let D=null,F={};const uid=p=>p+"-"+Math.random().toString(36).slice(2,8);
 const log=t=>$("#st").textContent=t;
 const hdr=()=>({Authorization:"Bearer "+C.token,Accept:"application/vnd.github+json"});
 const url=p=>`https://api.github.com/repos/${C.repo}/contents/${p}`;
@@ -121,13 +126,13 @@ document.addEventListener("click",e=>{const d=e.target.dataset;
  if(d.del!==undefined&&confirm("Remove this beat from the site?")){D.beats.splice(+d.del,1);draw()}
  if(d.dellic!==undefined&&confirm("Remove this license?")){D.licenses.splice(+d.dellic,1);draw()}
  if(d.delst!==undefined){D.stickers.splice(+d.delst,1);draw()}});
-$("#addlic").onclick=()=>{D.licenses.push({name:"New license",price:50,features:["Describe what is included"]});draw()};
+$("#addlic").onclick=()=>{D.licenses.push({lid:uid("lic"),name:"New license",price:50,features:["Describe what is included"]});draw()};
 const FONTS=["Archivo Black","Permanent Marker","Space Mono","Bebas Neue","Anton","Special Elite","VT323","Inter"],P={},BN={beats:"Latest beats",licenses:"Licenses",payments:"How to pay",free:"Free use",faq:"Questions",contact:"Contact"};let sel=null,view="d",cur="",W=null,T="page",tm;
 const defHero=d=>{const L=[],b=d.banner?1:0;if(b)L.push({t:"img",src:d.banner,x:2,y:3,w:96,r:0,sh:1});(d.stickers||[]).filter(s=>s.img).forEach(s=>L.push({t:"img",src:s.img,x:+s.x||0,y:+s.y||0,w:Math.max(3,Math.round((+s.w||140)/12.8)),r:+s.r||0,sh:1,an:"w"}));
  L.push({t:"text",s:d.artist||"CloudIsDeaf",x:4,y:b?46:14,w:92,fs:b?9:11,f:"Archivo Black",sh:1,r:0},{t:"text",s:d.tagline||"Type beats made for late nights.",x:4,y:b?72:62,w:55,fs:2.1,f:"Space Mono",hl:1,r:0},{t:"text",s:"hear the beats",x:4,y:b?85:80,w:20,fs:1.9,f:"Space Mono",btn:1,link:"#beats",r:0});
  if(!b&&!(d.stickers||[]).length)L.push({t:"text",s:"\u2605",x:84,y:4,w:12,fs:11,f:"Archivo Black",c:"#e63a1e",an:"s",r:0},{t:"text",s:"ADVISORY\nheavy 808s inside",x:70,y:72,w:22,fs:1.6,f:"Space Mono",hl:1,r:-4});
  return{ar:"16/7",arm:"4/5",items:L}};
-const mig=d=>{if(!d.canvases||!d.layout){const H=d.hero||defHero(d),c=i=>({x:i.x,y:i.y,w:i.w,fs:i.fs,r:i.r||0});d.canvases={hero:{name:"Top banner",ar:{d:H.ar||"16/7",m:H.arm||"4/5"},bg:{c:"",img:"",pat:"none"},items:H.items.map(i=>({...i,d:c(i),m:c(i)}))}};d.layout=["hero","beats","licenses","payments","free","faq","contact"]}delete d.hero;d.over=d.over||{};d.album=d.album||{on:false,week:"",title:"",artist:"",year:"",cover:"",note:"",links:{}};d.album.links=d.album.links||{};d.projects=d.projects||{on:false,items:[]};d.genres=d.genres||["Trap","R&B","Crank","Jerk","Melodic","Drill","Rage"];d.layout=d.layout.filter(k=>BN[k]||d.canvases[k])};
+const mig=d=>{if(!d.canvases||!d.layout){const H=d.hero||defHero(d);if(d.hero&&(d.banner||(d.stickers||[]).length))H.items=[...defHero({banner:d.banner,stickers:d.stickers}).items.filter(i=>i.t==="img"),...H.items];const c=i=>({x:i.x,y:i.y,w:i.w,fs:i.fs,r:i.r||0});d.canvases={hero:{name:"Top banner",ar:{d:H.ar||"16/7",m:H.arm||"4/5"},bg:{c:"",img:"",pat:"none"},items:H.items.map(i=>({...i,d:c(i),m:c(i)}))}};d.layout=["hero","beats","licenses","payments","free","faq","contact"]}delete d.hero;d.over=d.over||{};d.licenses=Array.isArray(d.licenses)?d.licenses:[];d.beats=Array.isArray(d.beats)?d.beats:[];d.shop=d.shop||{api:""};d.licenses.forEach(l=>{l.lid=l.lid||uid("lic");l.features=Array.isArray(l.features)?l.features:[]});d.beats.forEach(b=>{b.id=b.id||uid("beat");b.files=b.files||{};b.genres=b.genres||[];b.tags=b.tags||[]});d.i18n=d.i18n||{};d.legal=d.legal||{who:"",email:""};d.album=d.album||{on:false,week:"",title:"",artist:"",year:"",cover:"",note:"",links:{}};d.album.links=d.album.links||{};d.projects=d.projects||{on:false,items:[]};d.genres=d.genres||["Trap","R&B","Crank","Jerk","Melodic","Drill","Rage"];d.layout=d.layout.filter(k=>BN[k]||d.canvases[k])};
 const B=()=>D&&D.canvases[cur];
 const items=(b,o)=>o==="c"?(D.canvases[b]||{items:[]}).items:(D.over[b]=D.over[b]||[]);
 const it0=()=>sel&&items(sel.b,sel.o)[sel.i];
@@ -182,7 +187,7 @@ function pn(){const i=it0(),p=$("#pn");if(!i){p.innerHTML="<p>Select an item in 
  +`<div class="tb">${ab("l","Left edge")}${ab("ch","Center horizontally")}${ab("r","Right edge")}${ab("t","Top edge")}${ab("cv","Center vertically")}${ab("b","Bottom edge")}</div><div class="tb"><button class="sec" data-a="fw">Layer +1</button><button class="sec" data-a="bk">Layer -1</button><button class="sec" data-a="dup">Duplicate</button><button class="sec" data-a="hidev">Hide on ${V}</button><button class="del" data-a="rm">Delete everywhere</button></div>`}
 function design(){const t=D.theme,o=v=>FONTS.map(x=>`<option${x===v?" selected":""}>${x}</option>`).join(""),c=(k,l)=>`<label>${l}<input type="color" data-k="theme.${k}" value="${esc(t[k])}"></label>`;
  $("#sty").innerHTML=`<label>Heading font (titles of each section)<select data-k="theme.hd">${o(t.hd)}</select></label><label>Body font<select data-k="theme.bd">${o(t.bd)}</select></label>`+c("paper","Page background color")+c("ink","Text and border color")+c("acc","Accent color")+c("acc2","Second accent color")+`<label>Page background pattern<select data-k="theme.pat"><option value="dots"${t.pat!=="none"?" selected":""}>Dots</option><option value="none"${t.pat==="none"?" selected":""}>None</option></select></label><label>Scrolling strip text<input data-k="ticker" value="${esc(D.ticker)}"></label><label class="row"><input type="checkbox" data-t="chk" data-k="anim" ${D.anim?"checked":""}> Animations on</label>`;
- lay();bgp();pn();pgs();if(!$("#fr").getAttribute("src"))$("#fr").src="index.html?edit=1&t="+Date.now();
+ lay();bgp();pn();pgs();shp();legal();if(!$("#fr").getAttribute("src"))$("#fr").src="index.html?edit=1&t="+Date.now();
  fetch("index.html?t="+Date.now()).then(r=>r.text()).then(h=>{const d=new DOMParser().parseFromString(h,"text/html");
   $("#txt").innerHTML=[...d.querySelectorAll("[data-tx]")].map(e=>`<label>${esc(e.textContent.trim().slice(0,45))}<textarea rows="2" data-x="${e.dataset.tx}">${esc(D.texts[e.dataset.tx]??e.textContent.trim())}</textarea></label>`).join("")||"<p>No texts found.</p>"}).catch(()=>{$("#txt").innerHTML="<p>Could not load the list of texts.</p>"})}
 document.addEventListener("input",e=>{if(e.target.dataset.k&&D)rf()});
@@ -212,16 +217,30 @@ $("#ly").addEventListener("change",e=>{const t=e.target,v=t.dataset.ly;if(!v||v=
 $("#ly").addEventListener("click",e=>{const t=e.target;if(t.dataset.ly!=="s")return;const[o,b,i]=t.dataset.ref.split("|");sel={o,b,i:+i};setT(b);rf0();pn();const el=elOf(sel);if(el&&el.scrollIntoView)el.scrollIntoView({block:"center"})});
 $("#hm1").onclick=()=>{refs().forEach(r=>{if(r.it.t==="img")r.it.hm=1});rf0()};$("#hm0").onclick=()=>{refs().forEach(r=>{r.it.hm=0});rf0()};
 const PL=[["spotify","Spotify"],["apple","Apple Music"],["ytm","YouTube Music"],["amazon","Amazon Music"],["deezer","Deezer"],["tidal","Tidal"],["soundcloud","SoundCloud"],["bandcamp","Bandcamp"]];
-const gn=(b,i)=>`<div><b>Genres</b><div class="tb">${D.genres.map(g=>`<label class="row"><input type="checkbox" data-gn="${i}" data-gv="${esc(g)}" ${(b.genres||[]).includes(g)?"checked":""}> ${esc(g)}</label>`).join("")}</div></div>`;
+const fl=(b,i)=>`<div><b>Private files for automatic delivery</b><small>Exact file names in your private storage (never upload clean files to GitHub). One per line.</small>${D.licenses.map(l=>`<label>${esc(l.name)}<textarea rows="3" data-k="beats.${i}.files.${l.lid}" placeholder="my-beat/my-beat.wav">${esc((b.files||{})[l.lid]||"")}</textarea></label>`).join("")}</div>`;
+const gn=(b,i)=>fl(b,i)+`<div><b>Genres</b><div class="tb">${D.genres.map(g=>`<label class="row"><input type="checkbox" data-gn="${i}" data-gv="${esc(g)}" ${(b.genres||[]).includes(g)?"checked":""}> ${esc(g)}</label>`).join("")}</div></div>`;
 document.addEventListener("change",e=>{const t=e.target;if(t.dataset.gn===undefined)return;const b=D.beats[+t.dataset.gn];b.genres=b.genres||[];const g=t.dataset.gv,ix=b.genres.indexOf(g);if(t.checked&&ix<0)b.genres.push(g);if(!t.checked&&ix>-1)b.genres.splice(ix,1);rf()});
 function pgs(){const A=D.album,J=D.projects,f=(k,l,v)=>`<label>${l}<input data-k="${k}" value="${esc(v||"")}"></label>`;
- $("#pgs").innerHTML=`<label class="row"><input type="checkbox" data-t="chk" data-k="album.on" ${A.on?"checked":""}> Album of the week page is public</label><label class="row"><input type="checkbox" data-t="chk" data-k="projects.on" ${J.on?"checked":""}> Projects page is public</label><label>Preview page in the designer<select id="pgv"><option value="">Home</option><option value="beats">All beats</option><option value="album">Album of the week</option><option value="projects">Projects</option></select></label><label>Genres for the beats page (comma separated)<input data-t="csv" data-k="genres" value="${esc(D.genres.join(", "))}"></label>`;
+ $("#pgs").innerHTML=`<label class="row"><input type="checkbox" data-t="chk" data-k="album.on" ${A.on?"checked":""}> Album of the week page is public</label><label class="row"><input type="checkbox" data-t="chk" data-k="projects.on" ${J.on?"checked":""}> Projects page is public</label><label>Preview page in the designer<select id="pgv"><option value="">Home</option><option value="beats">All beats</option><option value="album">Album of the week</option><option value="projects">Projects</option><option value="legal">Legal page</option></select></label><label>Genres for the beats page (comma separated)<input data-t="csv" data-k="genres" value="${esc(D.genres.join(", "))}"></label>`;
  $("#alb").innerHTML=f("album.week","Label (for example Week of Oct 12)",A.week)+f("album.title","Album title",A.title)+f("album.artist","Artist",A.artist)+f("album.year","Year",A.year)+`<label>Why this album<textarea rows="3" data-k="album.note">${esc(A.note)}</textarea></label><label>Cover<input type="file" accept="image/*" data-f="cover" data-i="" data-o="album"><small>${esc(A.cover||"No cover")}</small></label>`+PL.map(x=>`<label>${x[1]} link<input data-k="album.links.${x[0]}" value="${esc(A.links[x[0]]||"")}" placeholder="https://"></label>`).join("");
  $("#prj").innerHTML=J.items.map((p,i)=>`<div class="card">${f(`projects.items.${i}.title`,"Title",p.title)}${f(`projects.items.${i}.role`,"Your role",p.role)}${f(`projects.items.${i}.year`,"Year",p.year)}<label>Description<textarea rows="3" data-k="projects.items.${i}.desc">${esc(p.desc)}</textarea></label><label>Cover<input type="file" accept="image/*" data-f="cover" data-i="${i}" data-o="projects.items"><small>${esc(p.cover||"No cover")}</small></label><label>Links (one per line: Label | URL)<textarea rows="3" data-k="projects.items.${i}.links">${esc(p.links)}</textarea></label><button class="del" data-delp="${i}">Remove project</button></div>`).join("")||"<p>No projects yet.</p>"}
 $("#pgs").addEventListener("change",e=>{if(e.target.id==="pgv"&&W)W.location.hash=e.target.value?"#/"+e.target.value:"#/"});
 $("#pgs").addEventListener("input",e=>{if(e.target.dataset.k==="genres")setTimeout(()=>{draw();rf()},0)});
 $("#adp").onclick=()=>{D.projects.items.unshift({title:"New project",role:"",year:"",desc:"",cover:"",links:""});pgs();rf()};
 $("#prj").addEventListener("click",e=>{const x=e.target.dataset.delp;if(x!==undefined&&confirm("Remove this project?")){D.projects.items.splice(+x,1);pgs();rf()}});
+let TS=[];
+function shp(){const S=D.shop;$("#shp").innerHTML=`<label>Order server address (https://...workers.dev)<input data-k="shop.api" value="${esc(S.api||"")}" placeholder="https://beats-shop.yourname.workers.dev"></label><button class="sec" id="shpt">Test connection</button><small id="shpr"></small>`}
+$("#shp").addEventListener("click",async e=>{if(e.target.id!=="shpt")return;const u=String(D.shop.api||"").replace(/\/+$/,""),o=$("#shpr");if(!/^https:\/\//.test(u)){o.textContent="Enter an https address first.";return}o.textContent="Testing...";try{const r=await fetch(u+"/api/health"),j=await r.json();o.textContent=j.ok?"Connected. Missing settings: "+((j.missing||[]).join(", ")||"none"):"The server answered but is not ready."}catch(x){o.textContent="Could not reach the server."}});
+function legal(){const L=D.legal;$("#lgl").innerHTML=`<label>Who runs the site (name, tax ID, address)<textarea rows="3" data-k="legal.who">${esc(L.who)}</textarea></label><label>Contact email for privacy requests<input data-k="legal.email" value="${esc(L.email||"")}"></label>`}
+function strs(){const U=new Set(),S=new Set(),add=(st,x)=>{x=String(x||"").trim();if(x)st.add(x)};
+ add(U,D.ticker);Object.values(D.canvases).forEach(c=>c.items.forEach(i=>i.t==="text"&&add(U,i.s)));Object.values(D.over).forEach(L=>L.forEach(i=>i.t==="text"&&add(U,i.s)));
+ D.licenses.forEach(l=>{add(U,l.name);l.features.forEach(f=>add(U,f))});add(U,D.album.week);add(U,D.album.note);D.projects.items.forEach(p=>{add(U,p.role);add(U,p.desc)});Object.values(D.texts||{}).forEach(x=>add(U,x));
+ U.forEach(x=>S.add(x));if(W&&W.I18N)Object.keys(W.I18N.es).forEach(x=>add(S,x));return[...S]}
+function tl(){const lg=$("#tl").value;if(lg==="en"){$("#tlist").innerHTML="<p>English is the base language. Edit those texts in Texts and in the designer.</p>";return}
+ const I=(D.i18n[lg]=D.i18n[lg]||{}),B=(W&&W.I18N&&W.I18N[lg])||{};TS=strs();
+ $("#tlist").innerHTML=TS.map((s,n)=>`<label>${esc(s.slice(0,200))}<textarea rows="${s.length>90?3:1}" data-tr="${n}" placeholder="Not translated yet">${esc(I[s]!==undefined?I[s]:B[s]||"")}</textarea></label>`).join("")}
+$("#tlist").addEventListener("input",e=>{const n=e.target.dataset.tr;if(n===undefined)return;const lg=$("#tl").value,s=TS[+n],I=D.i18n[lg]=D.i18n[lg]||{};if(e.target.value.trim())I[s]=e.target.value;else delete I[s];rf()});
+$("#tl").onchange=()=>{tl();if(W&&W.setLang)W.setLang($("#tl").value)};
 function key(e){if(!sel||!D||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;const i=it0();if(!i)return;const g=i[view]=i[view]||{...i.d},st=e.shiftKey?2:.5;
  if(e.key==="Delete"||e.key==="Backspace"){if(view==="m")i.hm=1;else if(confirm("Delete this item from the whole page? To only hide it, use the Desktop and Mobile checkboxes in All items.")){items(sel.b,sel.o).splice(sel.i,1);sel=null}}
  else if(e.key.indexOf("Arrow")===0){e.preventDefault();if(e.key==="ArrowLeft")g.x=+(g.x-st).toFixed(1);if(e.key==="ArrowRight")g.x=+(g.x+st).toFixed(1);if(e.key==="ArrowUp")g.y=+(g.y-st).toFixed(1);if(e.key==="ArrowDown")g.y=+(g.y+st).toFixed(1)}
@@ -244,11 +263,11 @@ function pd(e){if(e.button>0)return;const hd=e.target.closest(".hd,.rh"),el=e.ta
   if(va)C.insertAdjacentHTML("beforeend",'<div class="gd" style="left:50%;top:0;bottom:0;width:2px"></div>');if(ha)C.insertAdjacentHTML("beforeend",'<div class="gd" style="top:50%;left:0;right:0;height:2px"></div>');ro(g)},
   up=()=>{W.removeEventListener("pointermove",mv);W.removeEventListener("pointerup",up);rf0();pn()};
  W.addEventListener("pointermove",mv);W.addEventListener("pointerup",up)}
-$("#fr").addEventListener("load",()=>{W=$("#fr").contentWindow;if(!W||!W.render)return;W.document.addEventListener("pointerdown",pd,true);W.document.addEventListener("keydown",key);rf0()});
-$("#add").onclick=()=>{D.beats.unshift({title:"New beat",bpm:140,tags:[],audio:"",cover:""});draw()};
+$("#fr").addEventListener("load",()=>{W=$("#fr").contentWindow;if(!W||!W.render)return;W.document.addEventListener("pointerdown",pd,true);W.document.addEventListener("keydown",key);rf0();tl()});
+$("#add").onclick=()=>{D.beats.unshift({id:uid("beat"),files:{},genres:[],title:"New beat",bpm:140,tags:[],audio:"",cover:""});draw()};
 $("#go").onclick=async()=>{C={repo:$("#repo").value.trim(),branch:$("#br").value.trim()||"main",token:$("#tk").value.trim()};
- localStorage.setItem("gh",JSON.stringify(C));log("Connecting...");try{await load();log("Connected.")}catch(e){log("Error: "+e.message)}};
-$("#out").onclick=()=>{localStorage.removeItem("gh");location.reload()};
+ try{(($("#rem")&&$("#rem").checked)?localStorage:sessionStorage).setItem("gh",JSON.stringify(C))}catch(_){}log("Connecting...");try{await load();log("Connected.")}catch(e){log("Error: "+e.message)}};
+$("#out").onclick=()=>{try{localStorage.removeItem("gh");sessionStorage.removeItem("gh")}catch(_){}location.reload()};
 $("#pub").onclick=async()=>{const b=$("#pub");b.disabled=true;
  try{for(const[p,f]of Object.entries(F)){log("Uploading "+p+"...");await put(p,await b64(f),"Upload "+p)}F={};
   log("Saving site data...");await put("data.json",enc(JSON.stringify(D,null,2)+"\n"),"Update site data");
