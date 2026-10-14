@@ -856,13 +856,21 @@
   },
   "album": {
     "on": false,
-    "week": "",
-    "title": "",
-    "artist": "",
-    "year": "",
-    "cover": "",
-    "note": "",
-    "links": {}
+    "week": "Week os Oct 12",
+    "title": "Tierras Raras",
+    "artist": "Dano, Mir Nicolas, Cero Unno, H de Perra",
+    "year": "2026",
+    "cover": "covers/ab67616d0000b2738c44bd65c04b4b2dcb697ce7.jpg",
+    "note": "Dano’s production is top-tier, blending warm, soul-sampled beats with a timeless boom-bap aesthetic. His smooth, effortless delivery and reflective lyrics show why he is one of the sharpest MCs in Spanish rap. The guest collaborators bring perfect chemistry, making the entire short project cohesive and replayable.",
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/album/62dItn8rl79P5mkC39G60z?si=71aitoc0TH2aM00A_9ZGJw",
+      "apple": "https://music.apple.com/es/album/tierras-raras-ep/1894821486",
+      "amazon": "https://amazon.es/music/player/albums/B0GXW3JPX3?marketplaceId=A1RKKUPIHCS9HS&musicTerritory=ES&ref=dm_sh_o4y37bwpKhvvQ06TMcOG5fEOC",
+      "ytm": "https://www.youtube.com/watch?v=NLr2TA_etvE&list=RDNLr2TA_etvE&start_radio=1&t=3s",
+      "deezer": "https://link.deezer.com/s/34FElMID4shV7Fk2gPWaZ",
+      "tidal": "https://tidal.com/album/517519294/u",
+      "soundcloud": "https://soundcloud.com/dano90052/sets/tierras-raras-1?si=3e72622ca2d048e69e3e0b80a641bf75&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+    }
   },
   "projects": {
     "on": false,
