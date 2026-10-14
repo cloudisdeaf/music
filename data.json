@@ -16,7 +16,8 @@
         "Credit: Prod. CloudIsDeaf",
         "No Content ID registration of the beat",
         "Beat stays available to other artists"
-      ]
+      ],
+      "lid": "lic-16qwzj"
     },
     {
       "name": "Non-exclusive DELUXE",
@@ -28,7 +29,8 @@
         "Credit: Prod. CloudIsDeaf",
         "No Content ID registration of the beat",
         "Beat stays available to other artists"
-      ]
+      ],
+      "lid": "lic-9c6vjq"
     },
     {
       "name": "Exclusive",
@@ -40,7 +42,8 @@
         "Beat removed from sale",
         "Only one buyer"
       ],
-      "best": false
+      "best": false,
+      "lid": "lic-ptgghf"
     }
   ],
   "beats": [
@@ -57,7 +60,9 @@
       "genres": [
         "Trap",
         "Melodic"
-      ]
+      ],
+      "id": "beat-wx8165",
+      "files": {}
     },
     {
       "title": "Brick sh*t",
@@ -72,7 +77,9 @@
       "genres": [
         "Trap",
         "Crank"
-      ]
+      ],
+      "id": "beat-3eskhh",
+      "files": {}
     },
     {
       "title": "Cluster",
@@ -87,7 +94,9 @@
       "genres": [
         "Trap",
         "Crank"
-      ]
+      ],
+      "id": "beat-p4fmji",
+      "files": {}
     },
     {
       "title": "4 the billz",
@@ -103,7 +112,9 @@
         "Trap",
         "R&B",
         "Melodic"
-      ]
+      ],
+      "id": "beat-n2mnx5",
+      "files": {}
     },
     {
       "title": "Nightfall",
@@ -118,7 +129,9 @@
       "genres": [
         "Trap",
         "Rage"
-      ]
+      ],
+      "id": "beat-nxntx8",
+      "files": {}
     },
     {
       "title": "Nights 4 Us",
@@ -133,7 +146,9 @@
       "genres": [
         "Trap",
         "R&B"
-      ]
+      ],
+      "id": "beat-dv1ma2",
+      "files": {}
     }
   ],
   "theme": {
@@ -156,7 +171,9 @@
   "anim": true,
   "ticker": "new beats every week • tagged previews • clean files after payment • ",
   "banner": "img/70x15.png",
-  "texts": {},
+  "texts": {
+    "legal-notice-p": "This website is operated by: Cloud. Contact: cloudisdeaf@gmail.com."
+  },
   "canvases": {
     "hero": {
       "name": "Top banner",
@@ -859,5 +876,13 @@
     "Melodic",
     "Drill",
     "Rage"
-  ]
+  ],
+  "shop": {
+    "api": ""
+  },
+  "i18n": {},
+  "legal": {
+    "who": "Jeremias Rodriguez Ruiz, Barcelona, Spain",
+    "email": "cloudisdeaf@gmail.com"
+  }
 }
