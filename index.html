@@ -146,6 +146,7 @@ body.r-thanks #p-thanks{display:block}
 #p-thanks input{font:inherit;border:3px solid var(--ink);padding:.5rem;width:100%;margin:.3rem 0 .8rem;background:#fff;color:var(--ink)}#p-thanks label{display:block}
 @media(max-width:700px){.nav nav{gap:.6rem}.nav .w{height:auto;flex-wrap:wrap;padding:.35rem 0;gap:.2rem .6rem}.nr{width:100%;justify-content:space-between}.nav nav a{font-size:.85rem}.lg{max-width:7rem}}
 </style>
+<link rel="stylesheet" href="fx.css?v=3">
 </head>
 <body class="r-home">
 <div class="tk"><div class="mq" id="mq"></div></div>
@@ -210,7 +211,7 @@ let D,S="€",cur=-1;const A=new Audio();A.preload="none";
 const lf=()=>{};
 const defHero=d=>{const L=[],b=d.banner?1:0;if(b)L.push({t:"img",src:d.banner,x:2,y:3,w:96,r:0,sh:1});(d.stickers||[]).filter(s=>s.img).forEach(s=>L.push({t:"img",src:s.img,x:+s.x||0,y:+s.y||0,w:Math.max(3,Math.round((+s.w||140)/12.8)),r:+s.r||0,sh:1,an:"w"}));
  L.push({t:"text",s:d.artist||"CloudIsDeaf",x:4,y:b?46:14,w:92,fs:b?9:11,f:"Archivo Black",sh:1,r:0},{t:"text",s:d.tagline||"Type beats made for late nights.",x:4,y:b?72:62,w:55,fs:2.1,f:"Space Mono",hl:1,r:0},{t:"text",s:"hear the beats",x:4,y:b?85:80,w:20,fs:1.9,f:"Space Mono",btn:1,link:"#beats",r:0});
- if(!b&&!(d.stickers||[]).length)L.push({t:"text",s:"\u2605",x:84,y:4,w:12,fs:11,f:"Archivo Black",c:"#e63a1e",an:"s",r:0},{t:"text",s:"ADVISORY\nheavy 808s inside",x:70,y:72,w:22,fs:1.6,f:"Space Mono",hl:1,r:-4});
+ if(!b&&!(d.stickers||[]).length)L.push({t:"text",s:"★",x:84,y:4,w:12,fs:11,f:"Archivo Black",c:"#e63a1e",an:"s",r:0},{t:"text",s:"ADVISORY\nheavy 808s inside",x:70,y:72,w:22,fs:1.6,f:"Space Mono",hl:1,r:-4});
  return{ar:"16/7",arm:"4/5",items:L}};
 const mig=d=>{if(!d.canvases||!d.layout){const H=d.hero||defHero(d);if(d.hero&&(d.banner||(d.stickers||[]).length))H.items=[...defHero({banner:d.banner,stickers:d.stickers}).items.filter(i=>i.t==="img"),...H.items];const c=i=>({x:i.x,y:i.y,w:i.w,fs:i.fs,r:i.r||0});d.canvases={hero:{name:"Top banner",ar:{d:H.ar||"16/7",m:H.arm||"4/5"},bg:{c:"",img:"",pat:"none"},items:H.items.map(i=>({...i,d:c(i),m:c(i)}))}};d.layout=["hero","beats","licenses","payments","free","faq","contact"]}};
 const bgs=b=>[b.pat==="dots"?"radial-gradient(rgba(0,0,0,.12) 1px,transparent 1.3px) 0 0/7px 7px":b.pat==="lines"?"repeating-linear-gradient(135deg,transparent 0 14px,rgba(0,0,0,.06) 14px 16px)":"",b.img?`url('${si(b.img)}') center/cover`:"",b.c||"transparent"].filter(Boolean).join(",");
@@ -231,9 +232,9 @@ function pgB(){const f=b=>!GF.size||(GM==="all"?[...GF].every(g=>(b.genres||[]).
  $("#bl2").innerHTML=L.length?L.map(x=>bh(x[0],x[1])).join(""):'<p class="empty">'+tr("No beats match these genres.")+'</p>'}
 $("#gf").onclick=e=>{const t=e.target.closest("button");if(!t)return;if(t.dataset.g){GF.has(t.dataset.g)?GF.delete(t.dataset.g):GF.add(t.dataset.g)}else if(t.dataset.m)GM=GM==="all"?"any":"all";else GF.clear();gf();pgB()};
 function alr(d){const a=d.album||{},L=PL.filter(x=>a.links&&a.links[x[0]]);
- $("#al").innerHTML=a.title?`<div class="win"><div class="wt"><span>album-of-the-week.exe</span><i><b></b><b></b></i></div><div class="wb alb"><div class="acv"${a.cover?` style="background-image:url('${esc(si(a.cover))}')"`:""}></div><div>${a.week?`<div class="meta">${esc(tr(a.week))}</div>`:""}<h3>${esc(a.title)}</h3><p>${esc([a.artist,a.year].filter(Boolean).join(" \u00b7 "))}</p>${a.note?`<p>${esc(tr(a.note))}</p>`:""}<div class="links">${L.map(x=>`<a class="btn" href="${esc(su(a.links[x[0]]))}" target="_blank" rel="noopener">${tr(x[1])}</a>`).join("")}</div></div></div></div>`:'<p class="empty">'+tr("Nothing here yet. Check back soon.")+'</p>'}
+ $("#al").innerHTML=a.title?`<div class="win"><div class="wt"><span>album-of-the-week.exe</span><i><b></b><b></b></i></div><div class="wb alb"><div class="acv"${a.cover?` style="background-image:url('${esc(si(a.cover))}')"`:""}></div><div>${a.week?`<div class="meta">${esc(tr(a.week))}</div>`:""}<h3>${esc(a.title)}</h3><p>${esc([a.artist,a.year].filter(Boolean).join(" · "))}</p>${a.note?`<p>${esc(tr(a.note))}</p>`:""}<div class="links">${L.map(x=>`<a class="btn" href="${esc(su(a.links[x[0]]))}" target="_blank" rel="noopener">${tr(x[1])}</a>`).join("")}</div></div></div></div>`:'<p class="empty">'+tr("Nothing here yet. Check back soon.")+'</p>'}
 function pjr(d){const I=(d.projects||{}).items||[];
- $("#pj").innerHTML=I.length?`<div class="pjs">${I.map(p=>`<div class="pj"><div class="pc"${p.cover?` style="background-image:url('${esc(si(p.cover))}')"`:""}></div><div class="pb"><h3>${esc(p.title)}</h3><div class="meta">${esc([tr(p.role),p.year].filter(Boolean).join(" \u00b7 "))}</div>${p.desc?`<p>${esc(tr(p.desc))}</p>`:""}<div class="links">${String(p.links||"").split("\n").map(x=>x.split("|")).filter(x=>x[1]&&x[1].trim()).map(x=>`<a class="btn sm" href="${esc(su(x[1].trim()))}" target="_blank" rel="noopener">${esc(x[0].trim()||"Link")}</a>`).join("")}</div></div></div>`).join("")}</div>`:'<p class="empty">'+tr("Nothing here yet. Check back soon.")+'</p>'}
+ $("#pj").innerHTML=I.length?`<div class="pjs">${I.map(p=>`<div class="pj"><div class="pc"${p.cover?` style="background-image:url('${esc(si(p.cover))}')"`:""}></div><div class="pb"><h3>${esc(p.title)}</h3><div class="meta">${esc([tr(p.role),p.year].filter(Boolean).join(" · "))}</div>${p.desc?`<p>${esc(tr(p.desc))}</p>`:""}<div class="links">${String(p.links||"").split("\n").map(x=>x.split("|")).filter(x=>x[1]&&x[1].trim()).map(x=>`<a class="btn sm" href="${esc(su(x[1].trim()))}" target="_blank" rel="noopener">${esc(x[0].trim()||"Link")}</a>`).join("")}</div></div></div>`).join("")}</div>`:'<p class="empty">'+tr("Nothing here yet. Check back soon.")+'</p>'}
 function nav(){const L=[["#/","home"],["#/beats","beats"]];if((D.album||{}).on)L.push(["#/album","album"]);if((D.projects||{}).on)L.push(["#/projects","projects"]);$("#nv").innerHTML=L.map(x=>`<a href="${x[0]}">${tr(x[1])}</a>`).join("")}
 function route(){if(!D)return;const h=location.hash,m=/^#\/(beats|album|projects|legal|thanks|downloads)/.exec(h);let r=m?m[1]:"home";if(r==="downloads")r="thanks";if(!ED&&r==="thanks"&&!API())r="home";if(!ED&&(r==="album"||r==="projects")&&!(D[r]&&D[r].on))r="home";
  document.body.classList.remove("r-home","r-beats","r-album","r-projects","r-legal","r-thanks");document.body.classList.add("r-"+r);
@@ -269,7 +270,7 @@ function render0(d){d=sane(d);D=d;S=d.currency==="USD"?"$":"€";const t=d.theme
  document.body.classList.toggle("anim",d.anim!==false&&!ED);
  document.title=d.artist+" | Type beats for sale";$("#yr").textContent=new Date().getFullYear();
  document.querySelectorAll(".ar").forEach(e=>e.textContent=d.artist);
- const tx=tr(d.ticker||"new beats every week \u2022 tagged previews \u2022 clean files after payment \u2022 ").repeat(6);$("#mq").innerHTML=`<span>${esc(tx)}</span><span>${esc(tx)}</span>`;
+ const tx=tr(d.ticker||"new beats every week • tagged previews • clean files after payment • ").repeat(6);$("#mq").innerHTML=`<span>${esc(tx)}</span><span>${esc(tx)}</span>`;
  const th=d.theme||{};if(th.hd){lf(th.hd);document.documentElement.style.setProperty("--hd",`"${th.hd}",Impact,sans-serif`)}if(th.bd){lf(th.bd);document.documentElement.style.setProperty("--mo",`"${th.bd}",ui-monospace,sans-serif`)}
  document.querySelectorAll("[data-tx]").forEach(e=>{if(e.dataset.en===undefined)e.dataset.en=e.textContent;const v=(d.texts||{})[e.dataset.tx];e.textContent=fill(tr(v!==undefined?v:e.dataset.en))});
  document.body.classList.toggle("np",(d.theme||{}).pat==="none");
@@ -284,11 +285,12 @@ function render0(d){d=sane(d);D=d;S=d.currency==="USD"?"$":"€";const t=d.theme
  $("#lk").innerHTML=`<a class="btn" href="https://ig.me/m/${esc(d.instagram)}" target="_blank" rel="noopener">${tr("DM on Instagram")}</a>`+(d.youtube?`<a class="btn gh" href="${esc(su(d.youtube))}" target="_blank" rel="noopener">YouTube</a>`:"")+(d.email?`<a class="btn gh" href="mailto:${esc(d.email)}">${esc(d.email)}</a>`:"")+`<a class="btn gh" href="https://instagram.com/${esc(d.instagram)}" target="_blank" rel="noopener">@${esc(d.instagram)}</a>`;
  const rvs=document.querySelectorAll(".rv:not(.in)");if(d.anim!==false&&!ED&&"IntersectionObserver"in window){const o=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");o.unobserve(x.target)}}),{threshold:.12});rvs.forEach(e=>o.observe(e))}else rvs.forEach(e=>e.classList.add("in"));
  fixPg();requestAnimationFrame(fixPg);
+ try{if(window.fxInit)window.fxInit(d)}catch(e){console.warn("fx",e)}
 }
 function play(i){const b=D.beats[i];
  if(cur===i){A.paused?A.play():A.pause();return}
  cur=i;A.src=b.audio;A.play().catch(()=>{$("#tm").textContent=tr("Preview file not found")});
- $("#bt").textContent=b.title+" \u00b7 "+b.bpm+" BPM";document.body.classList.add("bar-on")}
+ $("#bt").textContent=b.title+" · "+b.bpm+" BPM";document.body.classList.add("bar-on")}
 function mark(on){document.querySelectorAll(".beat,#bar").forEach(e=>e.classList.remove("on"));
  if(on){document.querySelectorAll('.beat[data-row="'+cur+'"]').forEach(r=>r.classList.add("on"));$("#bar").classList.add("on")}}
 A.onplay=()=>mark(true);A.onpause=()=>mark(false);
@@ -312,5 +314,6 @@ addEventListener("load",fixPg);addEventListener("resize",fixPg);if(document.font
 if("ResizeObserver"in window)new ResizeObserver(()=>{if(!document.querySelector("details[open]"))fixPg()}).observe($("#mn"));
 window.render=render;
 </script>
+<script src="fx.js?v=3"></script>
 </body>
 </html>
