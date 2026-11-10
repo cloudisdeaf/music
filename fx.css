@@ -1,0 +1,138 @@
+/* =====================================================================
+   CloudIsDeaf — fx.css  (v3)
+   Capa de mejoras: tipografía, rejilla y movimiento. Sin ilustraciones figurativas.
+   Mantiene la estética actual (papel, amarillo, ventanas, marcador, sombras duras).
+   Para desactivar todo: quitar <link href="fx.css"> y <script src="fx.js"> de index.html
+   ===================================================================== */
+:root{--fx-red:#e63a1e;--fx-pop:cubic-bezier(.2,1.5,.4,1)}
+
+/* ---------- keyframes ---------- */
+@keyframes fxPop{0%{transform:rotate(-9deg) scale(.5);opacity:0}60%{transform:rotate(1deg) scale(1.09);opacity:1}100%{transform:rotate(-1.5deg) scale(1);opacity:1}}
+@keyframes fxEq{0%,100%{background-size:4px 35%,4px 90%,4px 55%}25%{background-size:4px 85%,4px 40%,4px 100%}50%{background-size:4px 50%,4px 100%,4px 30%}75%{background-size:4px 95%,4px 50%,4px 75%}}
+@keyframes fxBarIn{from{transform:translateY(105%)}}
+@keyframes fxDlg{from{transform:scale(.86) rotate(-2.5deg);opacity:0}}
+@keyframes fxFade{from{opacity:0}}
+@keyframes fxDown{from{opacity:0;transform:translateY(-8px)}}
+@keyframes fxCaret{50%{opacity:0}}
+@keyframes fxRoute{from{opacity:0;transform:translateY(16px)}}
+@keyframes fxSway{from{transform:translateX(-50%) rotate(-6deg)}to{transform:translateX(-50%) rotate(3deg)}}
+@keyframes fxRow{from{opacity:0;translate:-26px 0}to{opacity:1;translate:0 0}}
+@keyframes fxPress{0%,100%{scale:1}15%{scale:1.12}}
+@keyframes fxStamp{0%,88%,100%{rotate:4deg}94%{rotate:-3deg}}
+
+/* ---------- barra de progreso de scroll ---------- */
+#fx-prog{position:absolute;left:0;right:0;bottom:-7px;height:4px;background:var(--fx-red);transform-origin:0 50%;transform:scaleX(0);pointer-events:none}
+
+/* ---------- cabecera: etiquetas con datos reales ---------- */
+.cs.fx-host{position:relative}
+.fx-hero{position:absolute;left:50%;top:0;width:min(1280px,100%);height:100%;transform:translateX(-50%);pointer-events:none;z-index:3}
+.fx-chips{display:flex;gap:.55rem;flex-wrap:wrap}
+.fx-chip{font:700 .78rem/1 var(--mo);background:#fff;color:var(--ink);border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);padding:.42rem .6rem;rotate:var(--r,0deg);transition:rotate .2s var(--fx-pop),translate .2s;white-space:nowrap}
+.fx-chip:nth-child(1){--r:-2deg;background:var(--acc)}
+.fx-chip:nth-child(2){--r:1.5deg}
+.fx-chip:nth-child(3){--r:-1deg;background:var(--ink);color:var(--acc)}
+.fx-chip:hover{rotate:0deg;translate:0 -3px}
+.fx-hch{position:absolute;left:27.5%;top:76%;pointer-events:auto}
+.fx-hch .fx-chip{font-size:clamp(.6rem,.95vw,.78rem)}
+.fx-chm{display:none}
+
+/* ---------- títulos de sección ---------- */
+body.anim:not(.fx-rm) .fx-h2:not(.fx-in){opacity:0}
+body.anim:not(.fx-rm) .fx-h2.fx-in{animation:fxPop .55s var(--fx-pop) both}
+
+/* ---------- ventanas (el cuadradito de la izquierda las minimiza) ---------- */
+.wt span::after{content:"_";margin-left:1px}
+body.anim .wt span::after{animation:fxCaret 1s steps(1) infinite}
+.wt i b{position:relative;transition:background .15s}
+.wt i b:first-child{cursor:pointer}
+.wt i b:first-child::after{content:"";position:absolute;inset:-7px}
+.wt i b:first-child:hover{background:var(--acc)}
+.win.fx-min .wb{display:none}
+.win.fx-min .wt i b:first-child{background:var(--acc)}
+body.anim .rv:not(.in){transform:translateY(28px) scale(.97) rotate(-.4deg)}
+
+/* ---------- navegación ---------- */
+.nav nav a{display:inline-block;transition:rotate .15s var(--fx-pop)}
+.nav nav a:hover{rotate:-3deg}
+body.anim .sp .w{animation:fxRoute .45s both}
+
+/* ---------- filas de beats ---------- */
+#bl,#bl2{counter-reset:fxb}
+.beat{position:relative;isolation:isolate;counter-increment:fxb;transition:background .2s}
+.beat:not(.on):hover{background:rgba(255,212,0,.16)}
+.beat h3::before{content:counter(fxb,decimal-leading-zero);display:block;font:700 .68rem/1 var(--mo);letter-spacing:.14em;margin-bottom:.3rem;opacity:.55}
+.cov{transition:rotate .25s var(--fx-pop),scale .25s var(--fx-pop)}
+.beat:hover .cov{rotate:-3deg;scale:1.05}
+.beat.on::after{content:"";position:absolute;left:0;bottom:-3px;height:5px;width:calc(var(--pr,0)*1%);background:var(--ink);z-index:1}
+body.anim .beat.on .pl{animation:fxPress var(--bt,.65s) ease-in-out infinite}
+.beat .pl{transition:scale .15s var(--fx-pop)}
+.beat .pl:hover{scale:1.1}
+.beat.on h3::after,body.bar-on #bar.on #bt::after{content:"";display:inline-block;width:18px;height:15px;margin-left:.6rem;vertical-align:-1px;
+ background-image:linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor);
+ background-repeat:no-repeat;background-position:0 100%,7px 100%,14px 100%;background-size:4px 60%,4px 90%,4px 45%}
+body.anim .beat.on h3::after,body.anim #bar.on #bt::after{animation:fxEq calc(var(--bt,.65s)*.7) steps(1,end) infinite}
+@supports (animation-timeline:view()){
+ body.anim:not(.fx-rm) .beat{animation:fxRow linear both;animation-timeline:view();animation-range:entry 0% entry 70%}
+}
+
+/* ---------- licencias ---------- */
+.lic{transition:transform .25s var(--fx-pop),box-shadow .25s}
+.lic:nth-child(odd):hover,.lic:nth-child(even):hover{transform:rotate(0) translate(-3px,-9px);box-shadow:10px 15px 0 var(--ink)}
+body.anim .lic::before{animation:fxSway 4.5s ease-in-out infinite alternate}
+.lic li::before{transition:rotate .2s var(--fx-pop)}
+.lic li:hover::before{rotate:90deg}
+.lic.best[data-fxbest]::after{content:attr(data-fxbest);position:absolute;right:-12px;top:-18px;background:var(--ink);color:var(--acc);font:700 .72rem/1 var(--mo);letter-spacing:.06em;padding:.45rem .65rem;box-shadow:3px 3px 0 var(--fx-red);rotate:4deg}
+body.anim .lic.best[data-fxbest]::after{animation:fxStamp 4s ease-in-out infinite}
+
+/* ---------- pasos de pago ---------- */
+.steps h3::before{transition:rotate .2s var(--fx-pop),scale .2s var(--fx-pop)}
+.steps>div:hover h3::before{rotate:-12deg;scale:1.2}
+
+/* ---------- FAQ ---------- */
+summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font:400 1.7rem/1 var(--hd);transition:rotate .25s var(--fx-pop);flex:none}
+details[open] summary::after{rotate:45deg}
+details[open] p{animation:fxDown .3s both}
+summary:hover{background:linear-gradient(transparent 62%,var(--acc) 62%) no-repeat}
+
+/* ---------- botones, chips, tarjetas ---------- */
+.chip{transition:translate .15s var(--fx-pop),background .15s}
+.chip:hover{translate:0 -2px}
+.links .btn:hover{rotate:-1.2deg}
+.acv{transition:rotate .3s var(--fx-pop)}
+.acv:hover{rotate:-2.5deg}
+.pj{transition:translate .25s var(--fx-pop),box-shadow .25s}
+.pj:hover{translate:-3px -6px;box-shadow:10px 12px 0 var(--ink)}
+
+/* ---------- barra del reproductor y diálogo de compra ---------- */
+body.bar-on #bar{animation:fxBarIn .45s var(--fx-pop)}
+.trk{position:relative;transition:height .15s}
+.trk:hover{height:12px}
+.trk i{position:relative}
+.trk i::after{content:"";position:absolute;right:-7px;top:50%;width:14px;height:14px;margin-top:-7px;background:var(--acc);border:3px solid var(--paper);box-sizing:border-box}
+dialog[open]{animation:fxDlg .35s var(--fx-pop)}
+dialog[open]::backdrop{animation:fxFade .25s}
+.opt{transition:translate .15s var(--fx-pop)}
+.opt:hover{translate:3px 0}
+
+/* ---------- partículas al darle a play ---------- */
+.fx-pt{position:fixed;z-index:60;width:11px;height:11px;border:2px solid var(--ink);pointer-events:none}
+.fx-pt1{border-radius:50%}
+.fx-pt2{clip-path:polygon(50% 0,100% 100%,0 100%);border:0;width:14px;height:14px}
+.fx-pt3{rotate:45deg}
+
+/* ---------- nombre gigante dentro del footer ---------- */
+footer{position:relative;overflow:hidden}
+.fx-big{display:block;width:100%;white-space:nowrap;text-align:center;font:400 12vw/.84 var(--hd);color:var(--acc);letter-spacing:-.03em;margin:0 0 1.6rem;padding:.04em 0 0;user-select:none}
+.fx-big>span{display:inline-block}
+body:not(.r-home) .fx-big{display:none}
+
+/* ---------- móvil ---------- */
+@media(max-width:700px){
+ .fx-hch{display:none}
+ .fx-chm{display:flex;margin:.2rem 0 1rem}
+}
+
+/* ---------- accesibilidad: sin movimiento ---------- */
+body.fx-rm *,body.fx-rm *::before,body.fx-rm *::after{animation:none!important}
