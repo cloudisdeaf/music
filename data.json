@@ -974,6 +974,32 @@
         "hm": true,
         "an": "w",
         "hd": true
+      },
+      {
+        "t": "text",
+        "s": "1$ = 1/4 Kebab",
+        "st": "scrap",
+        "tp": 1,
+        "f": "Special Elite",
+        "z": 3,
+        "d": {
+          "w": 22,
+          "fs": 1.2,
+          "r": -3,
+          "x": 5,
+          "y": 40
+        },
+        "m": {
+          "w": 80,
+          "fs": 4,
+          "r": -3,
+          "x": 42.4,
+          "y": 4.6
+        },
+        "hm": 1,
+        "sh": false,
+        "hl": false,
+        "btn": false
       }
     ],
     "free": [
