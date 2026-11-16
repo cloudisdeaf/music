@@ -21,8 +21,8 @@ const INK="#0d0d0d",RED="#e8321c",YEL="#ffd400",BLU="#1b46c9";
 
 /* ---------- traducciones de los textos de partida (se cambian en «Translations») ---------- */
 const T={
- es:{"TYPE BEATS\nFOR SALE!":"TYPE BEATS\n¡EN VENTA!","Heavy 808s inside.\nPlay the latest beat?":"808s pesados dentro.\n¿Escuchar el último beat?","Yes, please":"Sí, dale","Pause":"Pausar","Licenses from {p}":"Licencias desde {p}","Click the picture to play":"Haz clic en la imagen para escuchar","Hear beats":"Escuchar beats","untagged files after payment":"archivos sin tag tras el pago","pick one":"elige una","Some beats cooked up late at night. Press play and let it clear your mind.":"Beats cocinados de madrugada. Dale al play y deja que te despeje la cabeza."},
- ca:{"TYPE BEATS\nFOR SALE!":"TYPE BEATS\nEN VENDA!","Heavy 808s inside.\nPlay the latest beat?":"808s pesants a dins.\nEscoltar l'últim beat?","Yes, please":"Sí, endavant","Pause":"Pausar","Licenses from {p}":"Llicències des de {p}","Click the picture to play":"Fes clic a la imatge per escoltar","Hear beats":"Escoltar beats","untagged files after payment":"arxius sense tag després del pagament","pick one":"tria'n una","Some beats cooked up late at night. Press play and let it clear your mind.":"Beats cuinats de matinada. Prem play i deixa que t'aclareixi el cap."}
+ es:{"TYPE BEATS\nFOR SALE!":"TYPE BEATS\n¡EN VENTA!","Heavy 808s inside.\nPlay the latest beat?":"808s pesados dentro.\n¿Escuchar el último beat?","Yes, please":"Sí, dale","Pause":"Pausar","Licenses from {p}":"Licencias desde {p}","Click the picture to play":"Haz clic en la imagen para escuchar","Hear beats":"Escuchar beats","untagged files after payment":"archivos sin tag tras el pago","pick one":"elige una","NO TAGS\nONCE PAID!":"SIN TAGS\n¡AL PAGAR!","DROP IT\nEVERYWHERE":"SUÉLTALO\nDONDE QUIERAS","Some beats cooked up late at night. Press play and let it clear your mind.":"Beats cocinados de madrugada. Dale al play y deja que te despeje la cabeza."},
+ ca:{"TYPE BEATS\nFOR SALE!":"TYPE BEATS\nEN VENDA!","Heavy 808s inside.\nPlay the latest beat?":"808s pesants a dins.\nEscoltar l'últim beat?","Yes, please":"Sí, endavant","Pause":"Pausar","Licenses from {p}":"Llicències des de {p}","Click the picture to play":"Fes clic a la imatge per escoltar","Hear beats":"Escoltar beats","untagged files after payment":"arxius sense tag després del pagament","pick one":"tria'n una","NO TAGS\nONCE PAID!":"SENSE TAGS\nEN PAGAR!","DROP IT\nEVERYWHERE":"PUBLICA-HO\nON VULGUIS","Some beats cooked up late at night. Press play and let it clear your mind.":"Beats cuinats de matinada. Prem play i deixa que t'aclareixi el cap."}
 };
 if(window.I18N)for(const l in T)window.I18N[l]=Object.assign({},T[l],window.I18N[l]||{});
 // texto editable desde «Texts» (render0 ya lo deja traducido en #fx2-tx)
@@ -70,6 +70,23 @@ const ICO=k=>k==="exe"?'<svg viewBox="0 0 38 38" aria-hidden="true"><rect x="3.5
 const PLAY='<svg class="tr" viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg><svg class="ps" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>';
 const SEL='<span class="fx2-sel" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b></span>';
 const TAPE='<i class="fx2-tape" aria-hidden="true"></i>';
+const SK='stroke="#0d0d0d" stroke-linejoin="round" stroke-linecap="round"';
+const VFACE='<svg class="fx2-vf" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="#0d0d0d" stroke="#fff" stroke-width="5"/><circle cx="50" cy="50" r="33" fill="none" stroke="#fff" stroke-width="1.5" opacity=".5"/><circle cx="50" cy="50" r="20" fill="#ffd400"/><circle cx="43" cy="46" r="3.4" fill="#0d0d0d"/><circle cx="57" cy="46" r="3.4" fill="#0d0d0d"/><path d="M41 55q9 8 18 0" fill="none" stroke="#0d0d0d" stroke-width="3" stroke-linecap="round"/></svg>';
+const SIC={
+ tag:'<svg class="ic ic-tag" viewBox="0 0 120 120" aria-hidden="true"><path d="M30 8h44l34 34-56 62L18 72z" transform="rotate(8 60 60)" fill="#ffd400" '+SK+' stroke-width="7"/><circle cx="48" cy="34" r="7" fill="#fff" '+SK+' stroke-width="5"/><path d="M48 34C30 10 12 20 6 4" fill="none" '+SK+' stroke-width="5"/><path d="M22 28l80 76M100 26L26 104" stroke="#e8321c" stroke-width="13" stroke-linecap="round"/></svg>',
+ jack:'<svg class="ic ic-jack" viewBox="0 0 520 90" aria-hidden="true"><g '+SK+' stroke-width="6"><path d="M-10 45h86" fill="none" stroke-width="16"/><rect x="70" y="14" width="150" height="62" rx="12" fill="#0d0d0d"/><path d="M96 26v38M116 26v38M136 26v38M156 26v38" stroke="#fffdf4" stroke-width="5"/><rect x="220" y="24" width="34" height="42" fill="#fff"/><rect x="254" y="31" width="150" height="28" fill="#fff"/><path d="M300 31v28M318 31v28M366 31v28" fill="none"/><path d="M404 31h34q10 0 16 6l22 2q16 6 0 12l-22 2q-6 6-16 6h-34z" fill="#fff"/></g></svg>',
+ tape:'<svg class="ic ic-tape" viewBox="0 0 130 90" aria-hidden="true"><g '+SK+' stroke-width="6" fill="none"><rect x="5" y="6" width="120" height="78" rx="9" fill="#fffdf4"/><rect x="22" y="20" width="86" height="36" rx="6" fill="#ffd400"/><circle cx="46" cy="38" r="11" fill="#fff"/><circle cx="84" cy="38" r="11" fill="#fff"/><path d="M34 84l8-16h46l8 16"/></g></svg>',
+ bolt:'<svg class="ic ic-bolt" viewBox="0 0 100 100" aria-hidden="true"><path fill="#ffd400" '+SK+' stroke-width="6" d="M60 6 20 56h24l-8 38 44-54H55z"/></svg>',
+ note:'<svg class="ic ic-note" viewBox="0 0 100 100" aria-hidden="true"><g '+SK+' stroke-width="8" fill="none"><path d="M46 74V16l36-9v20l-36 9"/><ellipse cx="30" cy="76" rx="19" ry="14" fill="#0d0d0d" transform="rotate(-18 30 76)"/></g></svg>',
+ star:'<svg class="ic ic-star" viewBox="0 0 100 100" aria-hidden="true"><path fill="#e8321c" '+SK+' stroke-width="6" d="M50 4l9 27 28-10-16 25 25 16-29 4 3 29-20-21-20 21 3-29-29-4 25-16-16-25 28 10z"/></svg>'
+};
+function hand(txt,seed,vo){
+ const r=rng(seed);
+ return String(txt).split(" ").map(w=>'<span class="fx2-hw">'+[...w].map(c=>{
+  if(vo&&!vo.d&&(c==="O"||c==="o")){vo.d=1;return VFACE}
+  return '<i style="--a:'+(r()*9-4.5).toFixed(1)+'deg;--y:'+(r()*.1-.05).toFixed(3)+'em;--k:'+(.93+r()*.18).toFixed(2)+'">'+esc(c)+'</i>';
+ }).join("")+'</span>').join(" ");
+}
 
 /* ---------- dar forma a los elementos del diseñador ---------- */
 const itemOf=el=>{const o=el.dataset.o,b=el.dataset.b,i=+el.dataset.i;try{return o==="c"?D.canvases[b].items[i]:D.over[b][i]}catch(e){return null}};
@@ -103,6 +120,11 @@ function dress(){
   else if(st==="burst"){el.setAttribute("aria-hidden","true");el.innerHTML='<span class="fx2-burst" style="clip-path:'+burst(key,12+(+el.dataset.i)%4)+'"></span>'}
   else if(st==="cur"){el.setAttribute("aria-hidden","true");el.innerHTML=CUR}
   else if(st==="ico")el.innerHTML=ICO(/\.exe$/i.test(s.trim())?"exe":"txt")+"<span>"+esc(s)+"</span>";
+  else if(st==="stk"){
+   const sp=String(it.sub||"").split("|"),vo=it.ic==="vinylO"?{d:0}:null;
+   el.style.background=it.bg||YEL;
+   el.innerHTML='<p class="t" aria-label="'+esc(s.replace(/\n/g," "))+'">'+s.split("\n").map((ln,n)=>'<span aria-hidden="true">'+hand(ln,key+n,vo)+'</span>').join("")+'</p>'+(SIC[it.ic]||"")+((sp[0]||sp[1])?'<span class="fp" aria-hidden="true"><span>'+esc(sp[0]||"")+'</span><span>'+esc(sp[1]||"")+'</span></span>':"");
+  }
   else if(st==="dlg"||st==="dlgs"){
    const L=s.split("\n"),head=L.shift()||"",rest=L.join(" "),art=esc(String(D.artist||"")),P=price();
    const msg='<div class="fx2-db"><i aria-hidden="true"></i><p><b>'+esc(head)+'</b>'+esc(rest)+'</p></div>';
@@ -183,6 +205,19 @@ function bind(){
  if("MutationObserver"in window)["#bl","#bl2"].forEach(s=>{const e=q(s);if(e)new MutationObserver(rows).observe(e,{childList:true})});
 }
 
+/* ---------- otras páginas (Beats, Álbum, Proyectos, Legal, Pedidos): capas y fondo editables desde el panel ---------- */
+function pages(d){
+ for(const id in (d.over||{})){
+  if(!/^p-/.test(id))continue;
+  const host=q("#"+id+">.w");if(!host||typeof ihtml!=="function")continue;
+  host.insertAdjacentHTML("beforeend",d.over[id].map((i,n)=>{try{return ihtml(i,"o",id,n)}catch(e){return""}}).join(""));
+ }
+ qa("main>.sp").forEach(sc=>{
+  const b=(d.pbg||{})[sc.id],on=b&&(b.c||b.img||(b.pat&&b.pat!=="none"));
+  sc.style.background=on&&typeof bgs==="function"?bgs(Object.assign({c:"",img:"",pat:"none"},b)):"";
+ });
+}
+
 /* ---------- punto de entrada: envolvemos fxInit (lo llama render0() tras cada render) ---------- */
 const prev=window.fxInit;
 window.fxInit=function(d){
@@ -190,7 +225,7 @@ window.fxInit=function(d){
  try{
   if(!d||!d.beats||!d.licenses)return;
   body.classList.add("fx2");
-  defs();bind();cta();heads();wins();rows();dress();
+  defs();bind();cta();heads();wins();rows();pages(d);dress();
  }catch(e){console.warn("fx2:",e)}
 };
 // si data.json llegó antes que este archivo, el primer render ya pasó: nos aplicamos ahora

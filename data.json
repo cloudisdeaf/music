@@ -451,10 +451,104 @@
           "hm": false
         }
       ]
+    },
+    "stk": {
+      "name": "Bumper stickers",
+      "ar": {
+        "d": "16/4.6",
+        "m": "9/10.4"
+      },
+      "bg": {
+        "c": "",
+        "img": "",
+        "pat": "none"
+      },
+      "wide": true,
+      "items": [
+        {
+          "t": "text",
+          "s": "NO TAGS\nONCE PAID!",
+          "st": "stk",
+          "bg": "#ffffff",
+          "c": "#e8321c",
+          "f": "Archivo Black",
+          "sub": "Prod. CloudIsDeaf.|© 2026 CloudIsDeaf",
+          "ic": "tag",
+          "link": "#licenses",
+          "z": 3,
+          "d": {
+            "x": 4,
+            "y": 14,
+            "w": 34,
+            "fs": 3.4,
+            "r": -7
+          },
+          "m": {
+            "x": 4,
+            "y": 2,
+            "w": 88,
+            "fs": 8.4,
+            "r": -4
+          }
+        },
+        {
+          "t": "text",
+          "s": "MP3 + WAV",
+          "st": "stk",
+          "bg": "#ffd400",
+          "c": "#0d0d0d",
+          "f": "Anton",
+          "sub": "Prod. CloudIsDeaf.|© 2026 CloudIsDeaf",
+          "ic": "jack",
+          "link": "#licenses",
+          "z": 3,
+          "d": {
+            "x": 35,
+            "y": 42,
+            "w": 34,
+            "fs": 5.2,
+            "r": 5
+          },
+          "m": {
+            "x": 8,
+            "y": 33,
+            "w": 86,
+            "fs": 12.4,
+            "r": 3.5
+          }
+        },
+        {
+          "t": "text",
+          "s": "DROP IT\nEVERYWHERE",
+          "st": "stk",
+          "bg": "#1b46c9",
+          "c": "#ffffff",
+          "f": "Anton",
+          "sub": "Prod. CloudIsDeaf.|© 2026 CloudIsDeaf",
+          "ic": "vinylO",
+          "link": "#licenses",
+          "z": 3,
+          "d": {
+            "x": 68,
+            "y": 6,
+            "w": 28,
+            "fs": 3.8,
+            "r": -3
+          },
+          "m": {
+            "x": 3,
+            "y": 64,
+            "w": 90,
+            "fs": 10,
+            "r": -2.5
+          }
+        }
+      ]
     }
   },
   "layout": [
     "hero",
+    "stk",
     "beats",
     "licenses",
     "cmv14rgm4",

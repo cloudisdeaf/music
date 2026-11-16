@@ -1,0 +1,7 @@
+Tipografias autoalojadas (sin CDN).
+- Latin Modern Roman: GUST Font License (version de Computer Modern usada por LaTeX). Fichero tomado del paquete npm latex.css.
+- El resto proceden de los paquetes npm @fontsource/* y estan bajo SIL Open Font License 1.1
+  (Anton, Archivo Black, Bebas Neue, Inter, Permanent Marker, Space Mono, Special Elite, VT323, Libre Baskerville,
+  EB Garamond, Instrument Serif, DM Serif Display, Abril Fatface, Gloock, Playfair Display, Shrikhand, Bowlby One,
+  Lilita One, Chango, Bungee, Alfa Slab One, Rubik Mono One, Climate Crisis, Rubik Dirt, Rubik Glitch, Unbounded,
+  Syne, Dela Gothic One, Rock Salt, Gochi Hand, Caveat Brush, Courier Prime, IBM Plex Mono, Press Start 2P, Silkscreen).

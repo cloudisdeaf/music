@@ -133,6 +133,23 @@ body.fx-play:not(.ed) .fx2-cvw:hover::after{content:"❚❚"}
 .fx2-pal>span{display:grid;grid-template-columns:repeat(14,1fr);gap:0;flex:1;max-width:61cqw}
 .fx2-pal i{aspect-ratio:1;border:1px solid;border-color:#808080 #fff #fff #808080;box-shadow:inset 1px 1px #0a0a0a}
 .it .fx2-sel{inset:-7% -13% -5% -15%}
+/* pegatinas de parachoques (item.st = "stk") */
+.fx2-hw{display:inline-block;white-space:nowrap}
+.fx2-hw i{display:inline-block;font-style:normal;transform:translateY(var(--y)) rotate(var(--a)) scale(var(--k))}
+.fx2-vf{width:.86em;height:.86em;vertical-align:-.1em;margin:0 .02em}
+.it.fx2s-stk{padding:.3em .42em .16em;line-height:.98;text-transform:uppercase;letter-spacing:-.01em;outline:1.5px solid rgba(0,0,0,.55);white-space:normal;word-break:normal;text-decoration:none;transition:scale .25s var(--fx-pop)}
+.it.fx2s-stk .t{margin:0;position:relative;z-index:1}
+.it.fx2s-stk .t>span{display:block}
+.it.fx2s-stk .fp{display:flex;justify-content:space-between;gap:1em;font:700 .19em/1 Inter,Arial,sans-serif;letter-spacing:.03em;margin-top:.55em;position:relative;z-index:2;white-space:nowrap}
+.it.fx2s-stk .ic{position:absolute;pointer-events:none;height:auto;z-index:2}
+.it.fx2s-stk .ic-tag{right:.25em;top:.1em;width:1.7em;rotate:9deg}
+.it.fx2s-stk .ic-jack{left:12%;top:26%;width:76%;rotate:-4deg}
+.it.fx2s-stk .ic-tape{right:.2em;top:.1em;width:2em;rotate:6deg}
+.it.fx2s-stk .ic-bolt,.it.fx2s-stk .ic-note,.it.fx2s-stk .ic-star{right:.2em;top:.1em;width:1.45em;rotate:12deg}
+a.it.fx2s-stk:hover{scale:1.04}
+/* capa «Whole page»: se adapta al ancho real de la pantalla (antes era un lienzo fijo de 1920 px que recortaba en pantallas pequeñas) */
+body.fx2 .pg{width:min(1920px,100%);margin-left:0;left:calc((100% - min(1920px,100%))/2)}
+@media(min-width:701px){body.fx2 .pg .it.tx.ov{font-size:calc(var(--fs)*min(100svw,1920px)*.0066667)}}
 .it .fx2-cut{--ar:auto}
 .it .fx2-cut img{aspect-ratio:auto}
 
