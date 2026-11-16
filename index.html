@@ -147,6 +147,7 @@ body.r-thanks #p-thanks{display:block}
 @media(max-width:700px){.nav nav{gap:.6rem}.nav .w{height:auto;flex-wrap:wrap;padding:.35rem 0;gap:.2rem .6rem}.nr{width:100%;justify-content:space-between}.nav nav a{font-size:.85rem}.lg{max-width:7rem}}
 </style>
 <link rel="stylesheet" href="fx.css?v=3">
+<link rel="stylesheet" href="fx2.css?v=2">
 </head>
 <body class="r-home">
 <div class="tk"><div class="mq" id="mq"></div></div>
@@ -182,6 +183,7 @@ body.r-thanks #p-thanks{display:block}
 </main>
 <footer><div class="w"><span>&copy; <span id="yr"></span> <span class="ar"></span>. <span data-tx="all-rights-reserved">All rights reserved.</span></span><span data-tx="do-not-re-upload-previews">Do not re-upload or use the previews without a license.</span><a href="#/legal" data-tx="legal-notice-privacy-terms">Legal notice, privacy and terms</a><a href="#/downloads" id="fd" style="display:none" data-tx="my-downloads">My downloads</a></div></footer>
 
+<div hidden id="fx2-tx"><span data-tx="fx2-yes">Yes, please</span><span data-tx="fx2-pause">Pause</span><span data-tx="fx2-lic">Licenses from {p}</span><span data-tx="fx2-paint">Click the picture to play</span><span data-tx="fx2-cta">Hear beats</span></div>
 <div id="bar"><div class="w">
 <button class="pl" id="bp" aria-label="Play or pause"><svg class="tr" viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg><svg class="ps" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg></button>
 <div><div id="bt"></div><div class="trk" id="bs"><i id="bi"></i></div><div id="tm">0:00 / 0:00</div></div>
@@ -315,5 +317,6 @@ if("ResizeObserver"in window)new ResizeObserver(()=>{if(!document.querySelector(
 window.render=render;
 </script>
 <script src="fx.js?v=3"></script>
+<script src="fx2.js?v=2"></script>
 </body>
 </html>
