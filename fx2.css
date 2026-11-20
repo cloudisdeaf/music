@@ -32,8 +32,6 @@ body.fx2 footer{margin-top:0}
 .fx2-rw{display:inline-block;white-space:nowrap;margin-right:.2em}
 .fx2-rw i{display:inline-block;font-style:normal;font-weight:700;line-height:1;padding:.12em .17em .09em;margin:0 .012em;transform:translateY(var(--y)) rotate(var(--a)) scale(var(--k))}
 body.fx2 main h2{font:400 clamp(2rem,5.6vw,4.3rem)/1.25 var(--hd);letter-spacing:0;text-transform:none;color:var(--ink);background:none;border:0;padding:0;transform:rotate(-1.6deg);transform-origin:0 100%;display:block;margin:0 0 clamp(1.4rem,3vw,2.4rem);opacity:1!important;animation:none!important}
-body.fx2.anim:not(.fx-rm) h2.fx-h2:not(.fx-in) .fx2-rw i{opacity:0}
-body.fx2.anim:not(.fx-rm) h2.fx-h2.fx-in .fx2-rw i{animation:fx2Let .4s var(--fx-pop) both;animation-delay:var(--d)}
 
 /* ---------- Windows 95 ---------- */
 .w95,body.fx2 .win,body.fx2 dialog{background:var(--g95);color:#000;border:2px solid;border-color:#dfdfdf #0a0a0a #0a0a0a #dfdfdf;box-shadow:inset 1px 1px #fff,inset -1px -1px #808080,7px 9px 0 rgba(0,0,0,.2);padding:3px;font:400 13px/1.35 var(--w95)}

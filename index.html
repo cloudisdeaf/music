@@ -79,6 +79,10 @@ dialog h3{margin:0 0 .3rem;font:400 1.6rem var(--hd)}
 .opt:has(input:checked){background:var(--acc)}.opt small{display:block}.opt em{font:400 1.2rem var(--hd);font-style:normal}
 .x{float:right;background:none;border:0;font-size:1.8rem;cursor:pointer;line-height:1}
 dialog .btn{display:block;width:100%;margin-top:.7rem}
+#rcp{margin-top:.9rem;padding-top:.8rem;border-top:2px dashed var(--ink)}#rcp p{margin:0 0 .6rem}
+#rcm{display:block;width:100%;resize:none;font:inherit;font-size:.85rem;line-height:1.4;padding:.5rem;border:2px solid var(--ink);background:#fff;color:var(--ink)}
+.rcl{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.6rem}dialog .rcl .btn{margin:0;width:100%;padding:.45rem .5rem}
+#rca{margin:.6rem 0 0;word-break:break-all;user-select:all}#rca:empty{display:none}
 @media(max-width:600px){.beat{grid-template-columns:64px 1fr}.cov{width:64px;height:64px}.act{grid-column:1/-1}}
 @media(prefers-reduced-motion:reduce){.mq,.st,.mark:hover{animation:none!important}.rv{transition:none}html{scroll-behavior:auto}}
 
@@ -192,11 +196,24 @@ body.r-thanks #p-thanks{display:block}
 <dialog id="buy"><button class="x" aria-label="Close" onclick="this.closest('dialog').close()">&times;</button>
 <h3 id="bn"></h3><div data-tx="choose-a-license">Choose a license</div><div id="bo"></div><p class="meta" data-tx="checkout-note" style="margin:.8rem 0">By paying you accept the terms of sale and ask me to start delivering the digital files right away.</p><a class="meta" href="#/legal" data-tx="terms-link" onclick="this.closest('dialog').close()">Terms of sale</a>
 <a class="btn" id="pp" target="_blank" rel="noopener" data-tx="pay-with-paypal">Pay with PayPal</a>
-<a class="btn gh" id="rc" target="_blank" rel="noopener" data-tx="send-receipt">Send me the receipt</a></dialog>
+<button type="button" class="btn gh" id="rc" aria-expanded="false" aria-controls="rcp" data-tx="send-receipt">I already paid: send the receipt</button>
+<div id="rcp" hidden><p class="meta" data-tx="receipt-how">After paying on PayPal, send me the receipt with this message. I send your clean files and written license within 12 hours.</p>
+<textarea id="rcm" rows="3" readonly aria-label="Message"></textarea>
+<div class="rcl"><button type="button" class="btn sm" id="rcc" data-tx="copy-message">Copy message</button><a class="btn sm gh" id="rci" target="_blank" rel="noopener">Instagram</a><a class="btn sm gh" id="rcg" target="_blank" rel="noopener">Gmail</a><a class="btn sm gh" id="rce" data-tx="email-app">Email app</a></div>
+<p class="meta" id="rca"></p></div></dialog>
 
 <script src="i18n.js"></script>
 <script>
 const $=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+// textos del comprobante de pago (se pueden sobrescribir en «Translations» del panel)
+(function(){const K=["I already paid: send the receipt","After paying on PayPal, send me the receipt with this message. I send your clean files and written license within 12 hours.",'Hi, I paid for "{b}" ({l} license, {p}). Here is my PayPal receipt.',"Copy message","Copied!","Email app","Send me the PayPal receipt with the «I already paid» button and I send your clean files and written license within 12 hours."],
+ V={es:["Ya he pagado: enviar comprobante","Cuando pagues en PayPal, mándame el comprobante con este mensaje. Te envío los archivos limpios y la licencia por escrito en menos de 12 horas.","Hola, he pagado «{b}» (licencia {l}, {p}). Te adjunto el comprobante de PayPal.","Copiar mensaje","¡Copiado!","App de correo","Mándame el comprobante de PayPal con el botón «Ya he pagado» y te envío los archivos limpios y la licencia por escrito en menos de 12 horas."],
+ ca:["Ja he pagat: enviar comprovant","Quan paguis a PayPal, envia'm el comprovant amb aquest missatge. T'envio els arxius nets i la llicència per escrit en menys de 12 hores.","Hola, he pagat «{b}» (llicència {l}, {p}). T'adjunto el comprovant de PayPal.","Copiar missatge","Copiat!","App de correu","Envia'm el comprovant de PayPal amb el botó «Ja he pagat» i t'envio els arxius nets i la llicència per escrit en menys de 12 hores."],
+ fr:["J'ai payé : envoyer le reçu","Après avoir payé sur PayPal, envoie-moi le reçu avec ce message. Je t'envoie les fichiers propres et la licence écrite en moins de 12 heures.","Salut, j'ai payé « {b} » (licence {l}, {p}). Voici mon reçu PayPal.","Copier le message","Copié !","Appli mail","Envoie-moi le reçu PayPal avec le bouton « J'ai payé » et je t'envoie les fichiers propres et la licence écrite en moins de 12 heures."],
+ de:["Bezahlt: Beleg senden","Schick mir nach der Zahlung bei PayPal den Beleg mit dieser Nachricht. Du bekommst die sauberen Dateien und die schriftliche Lizenz innerhalb von 12 Stunden.","Hi, ich habe „{b}“ bezahlt (Lizenz {l}, {p}). Hier ist mein PayPal-Beleg.","Nachricht kopieren","Kopiert!","Mail-App","Schick mir den PayPal-Beleg über den Button „Bezahlt“ und du bekommst die sauberen Dateien und die schriftliche Lizenz innerhalb von 12 Stunden."],
+ ja:["支払い済み：領収書を送る","PayPalでお支払い後、このメッセージと一緒に領収書を送ってください。12時間以内にタグなしファイルと書面のライセンスをお送りします。","こんにちは。「{b}」（{l}ライセンス、{p}）を支払いました。PayPalの領収書を送ります。","メッセージをコピー","コピーしました","メールアプリ","「支払い済み」ボタンからPayPalの領収書を送ってください。12時間以内にタグなしファイルと書面のライセンスをお送りします。"]};
+ const I=window.I18N=window.I18N||{};for(const l in V){I[l]=I[l]||{};K.forEach((k,n)=>{if(!I[l][k])I[l][k]=V[l][n]})}})();
+const MANUAL_STEP="Send me the PayPal receipt with the «I already paid» button and I send your clean files and written license within 12 hours.";
 const fmt=s=>isFinite(s)?Math.floor(s/60)+":"+String(Math.floor(s%60)).padStart(2,"0"):"0:00";
 const num=(v,f)=>Number.isFinite(+v)&&v!==""&&v!==null?+v:f;
 const geo=g=>({x:num(g&&g.x,0),y:num(g&&g.y,0),w:Math.max(1,num(g&&g.w,20)),fs:num(g&&g.fs,4),r:num(g&&g.r,0)});
@@ -275,6 +292,8 @@ function render0(d){d=sane(d);D=d;S=d.currency==="USD"?"$":"€";const t=d.theme
  const tx=tr(d.ticker||"new beats every week • tagged previews • clean files after payment • ").repeat(6);$("#mq").innerHTML=`<span>${esc(tx)}</span><span>${esc(tx)}</span>`;
  const th=d.theme||{};if(th.hd){lf(th.hd);document.documentElement.style.setProperty("--hd",`"${th.hd}",Impact,sans-serif`)}if(th.bd){lf(th.bd);document.documentElement.style.setProperty("--mo",`"${th.bd}",ui-monospace,sans-serif`)}
  document.querySelectorAll("[data-tx]").forEach(e=>{if(e.dataset.en===undefined)e.dataset.en=e.textContent;const v=(d.texts||{})[e.dataset.tx];e.textContent=fill(tr(v!==undefined?v:e.dataset.en))});
+ // sin API de tienda la entrega es manual: el paso 3 no puede prometer enlace automático
+ {const e=document.querySelector('[data-tx="send-me-the-receipt-i-reply-wi"]');if(e&&!API()&&(d.texts||{})[e.dataset.tx]===undefined)e.textContent=tr(MANUAL_STEP)}
  document.body.classList.toggle("np",(d.theme||{}).pat==="none");
  mig(d);const mn=$("#mn");d.over=d.over||{};
  d.layout.forEach(id=>{let el=null;const b=d.canvases[id];if(b){el=document.createElement("section");el.className="cs";el.id="c-"+id;el.innerHTML=cvh(b,id)}else el=document.querySelector('[data-blk="'+id+'"]');if(el)mn.appendChild(el)});
@@ -308,9 +327,21 @@ function openBuy(i){const b=D.beats[i];
  $("#bo").innerHTML=D.licenses.map((l,k)=>`<label class="opt"><input type="radio" name="lic" value="${k}" ${k?"":"checked"}><span><b>${esc(tr(l.name))}</b><small>${esc(l.features.slice(0,2).map(tr).join(", "))}</small></span><em>${S}${esc(l.price)}</em></label>`).join("");
  const upd=()=>{const k=+($("input[name=lic]:checked")||{value:0}).value,l=D.licenses[k],pp=$("#pp"),u=ppu();
   if(API()&&b.id&&l.lid){pp.href="#";pp.dataset.bid=b.id;pp.dataset.lid=l.lid;pp.style.display=""}else{delete pp.dataset.bid;if(u){pp.href=`https://www.paypal.com/paypalme/${encodeURIComponent(u)}/${l.price}${D.currency||"EUR"}`;pp.style.display=""}else pp.style.display="none"}
-  const m=encodeURIComponent(`Hi, I paid for "${b.title}" (${l.name} license).`);
-  $("#rc").href=D.email?`mailto:${D.email}?subject=${encodeURIComponent(b.title+" - "+l.name)}&body=${m}`:"https://ig.me/m/"+D.instagram};
+  // comprobante: solo hace falta cuando la entrega no es automática (sin API de tienda)
+  const msg=tr(RCM).replace("{b}",b.title).replace("{l}",tr(l.name)).replace("{p}",S+l.price),sub=b.title+" - "+tr(l.name),em=String(D.email||"").trim(),ig=String(D.instagram||"").trim().replace(/^@/,"");
+  $("#rc").style.display=API()&&b.id&&l.lid?"none":"";$("#rcm").value=msg;$("#rcc").textContent=tr("Copy message");
+  const sh=(s,u)=>{const a=$(s);if(u){a.href=u;a.style.display=""}else{a.removeAttribute("href");a.style.display="none"}};
+  sh("#rci",ig?"https://ig.me/m/"+encodeURIComponent(ig):"");
+  sh("#rcg",em?"https://mail.google.com/mail/?view=cm&fs=1&to="+encodeURIComponent(em)+"&su="+encodeURIComponent(sub)+"&body="+encodeURIComponent(msg):"");
+  sh("#rce",em?"mailto:"+em+"?subject="+encodeURIComponent(sub)+"&body="+encodeURIComponent(msg):"");
+  $("#rca").textContent=em};
+ $("#rcp").hidden=true;$("#rc").setAttribute("aria-expanded","false");
  $("#bo").onchange=upd;upd();$("#buy").showModal()}
+const RCM='Hi, I paid for "{b}" ({l} license, {p}). Here is my PayPal receipt.';
+$("#rc").onclick=()=>{const p=$("#rcp"),o=p.hidden;p.hidden=!o;$("#rc").setAttribute("aria-expanded",String(o));if(o)p.scrollIntoView({block:"nearest"})};
+$("#rcc").onclick=async()=>{const t=$("#rcm"),b=$("#rcc");let ok=false;
+ try{await navigator.clipboard.writeText(t.value);ok=true}catch(e){try{t.focus();t.select();ok=document.execCommand("copy")}catch(_){}}
+ b.textContent=ok?tr("Copied!"):tr("Copy message");if(!ok){t.focus();t.select()}};
 function fixPg(){const pg=$("#pg");if(pg)pg.style.setProperty("--pgh",$("#mn").offsetHeight+"px")}
 addEventListener("load",fixPg);addEventListener("resize",fixPg);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fixPg);
 if("ResizeObserver"in window)new ResizeObserver(()=>{if(!document.querySelector("details[open]"))fixPg()}).observe($("#mn"));
