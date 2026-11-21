@@ -48,6 +48,24 @@
   ],
   "beats": [
     {
+      "id": "beat-rr0hqn",
+      "files": {},
+      "genres": [
+        "Trap",
+        "Jerk",
+        "Rage"
+      ],
+      "title": "[FREE] EsDeeKid x fakemink Type Beat \"i Need U\" Jerk Trap",
+      "bpm": 190,
+      "tags": [
+        "esDeeKid",
+        "fakemink",
+        "OsamaSon"
+      ],
+      "audio": "beats/esdeekid-type-beat-190bpm-d-m.mp3",
+      "cover": "covers/descarga-48-.jpg"
+    },
+    {
       "title": "Cash Carti",
       "bpm": 163,
       "tags": [
