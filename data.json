@@ -48,6 +48,22 @@
   ],
   "beats": [
     {
+      "id": "beat-0rvhh2",
+      "files": {},
+      "genres": [
+        "Melodic"
+      ],
+      "title": "Love me",
+      "bpm": 90,
+      "tags": [
+        "Westsidegunn",
+        "Madlib",
+        "Freddie Gibbs"
+      ],
+      "audio": "beats/i-want-you-boombap.mp3",
+      "cover": "covers/90bopmda.png"
+    },
+    {
       "id": "beat-rr0hqn",
       "files": {},
       "genres": [
