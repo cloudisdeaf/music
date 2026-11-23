@@ -1038,7 +1038,7 @@
       {
         "t": "img",
         "src": "img/baskiatreportpfp-removebg-preview.png",
-        "sh": 1,
+        "sh": false,
         "z": 1,
         "d": {
           "w": 15,
