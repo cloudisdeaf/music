@@ -1,217 +1,624 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Site admin</title>
+<title>Estudio · CloudIsDeaf</title>
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; media-src 'self' blob:; font-src 'self'; connect-src 'self' https://api.github.com https://*.workers.dev; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
-<style>
-:root{--bg:#1a2033;--sf:#232b45;--ln:#36406a;--tx:#edf0f8;--mu:#9aa5c4;--ac:#a5b8ff}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;padding-bottom:90px}
-.w{width:min(1500px,100% - 2rem);margin:0 auto}
-h1{font-size:1.6rem;margin:1.5rem 0 .2rem}h2{font-size:1.2rem;margin:2rem 0 .8rem}
-p,small{color:var(--mu)}small{display:block;margin-top:.3rem;word-break:break-all}
-.card{background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:1.2rem;margin:.8rem 0;display:grid;gap:.9rem}
-label{display:grid;gap:.3rem;font-weight:600;font-size:.92rem}label.row{display:flex;gap:.6rem;align-items:center}
-input,textarea,select{width:100%;background:var(--bg);color:var(--tx);border:1px solid var(--ln);border-radius:10px;padding:.65rem .8rem;font:inherit;font-weight:400}
-input[type=checkbox]{width:auto}input[type=file]{padding:.5rem}
-input:focus,textarea:focus,select:focus,button:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
-button{font:inherit;font-weight:600;border:0;border-radius:999px;padding:.7rem 1.3rem;cursor:pointer;background:var(--tx);color:var(--bg)}
-button.sec{background:transparent;color:var(--tx);border:1px solid var(--ln)}button.del{background:transparent;color:#ff9b9b;border:1px solid #6a3640;justify-self:start}
-button:disabled{opacity:.5;cursor:wait}
-details{margin:1rem 0;color:var(--mu)}summary{cursor:pointer;color:var(--tx)}ol{padding-left:1.2rem}
-.bar{position:fixed;left:0;right:0;bottom:0;background:var(--sf);border-top:1px solid var(--ln);padding:.8rem 0}
-.bar .w{display:flex;gap:1rem;align-items:center;justify-content:space-between}#st{color:var(--mu);font-size:.9rem}
-[hidden]{display:none!important}
-
-.des{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:1rem;align-items:start}
-@media(max-width:900px){.des{grid-template-columns:1fr}}
-.des>.card{position:sticky;top:.5rem;max-height:calc(100vh - 1rem);overflow:auto;margin:0}
-.tb{display:flex;flex-wrap:wrap;gap:.5rem;margin:.5rem 0}
-.up{display:inline-block;cursor:pointer;border:1px solid var(--ln);border-radius:999px;padding:.7rem 1.3rem;font-weight:600;color:var(--tx)}
-.stage{background:#0d1020;border:1px dashed var(--ln);padding:1rem;overflow:auto}.cvw{margin:0 auto}
-.cv{position:relative;container-type:inline-size;aspect-ratio:var(--ar,16/7);background:radial-gradient(rgba(0,0,0,.1) 1px,transparent 1.3px) 0 0/7px 7px,var(--paper);color:var(--ink);outline:3px solid var(--ink);font-family:Arial,sans-serif}
-.it{position:absolute;display:block;transform:rotate(calc(var(--r)*1deg));cursor:move;touch-action:none;user-select:none;-webkit-user-select:none}
-.it.tx{font-size:calc(var(--fs)*1cqw);line-height:1.05;white-space:pre-wrap;word-break:break-word;color:var(--c,var(--ink))}
-.it.tx.sh{text-shadow:.035em .035em 0 var(--acc),-.025em -.025em 0 var(--acc2)}
-.it.hl{background:var(--acc);padding:.15em .35em}
-.it.bt{background:var(--acc);border:3px solid var(--ink);box-shadow:.2em .2em 0 var(--ink);padding:.4em .7em;text-align:center;font-weight:700}
-.it.im img{width:100%;display:block;pointer-events:none}.it.im.sh{filter:drop-shadow(3px 3px 0 var(--ink))}
-.it.sel{outline:2px dashed #2a5bff;outline-offset:4px}
-.hd,.rh{position:absolute;width:16px;height:16px;background:#2a5bff;border:2px solid #fff;border-radius:50%}
-.hd{right:-12px;bottom:-12px;cursor:nwse-resize}.rh{left:calc(50% - 8px);top:-34px;cursor:grab}
-.row2{display:flex;justify-content:space-between;align-items:center;gap:.6rem;flex-wrap:wrap;border-bottom:1px solid var(--ln);padding:.5rem 0}.row2 span{display:flex;gap:.4rem;flex-wrap:wrap}.ghost{opacity:.3}#bgc{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-.tb label{display:flex;gap:.5rem;align-items:center;flex-direction:row}.fw{margin:0 auto;overflow:hidden;background:#fff;border:1px solid var(--ln)}.fw iframe{border:0;background:#fff;display:block}
-.ro{position:sticky;top:0;z-index:5;background:var(--sf);border:1px solid var(--ln);padding:.5rem .8rem;font:600 .85rem ui-monospace,Consolas,monospace;margin:.5rem 0;word-break:break-word}
-.fpv{font-size:1.45rem;line-height:1.25;padding:.35rem .7rem;background:#fff;color:#111;border-radius:8px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.tb select{width:auto}.tb button:disabled{opacity:.35;cursor:default}
-body.fcs .w>h1,body.fcs .w>p,body.fcs #login,body.fcs #ed>*:not(.dsg),body.fcs .dsg>h2,body.fcs .dsg>p{display:none}
-body.fcs .w{width:calc(100% - 1.2rem)}body.fcs .des{grid-template-columns:minmax(0,1fr) 340px}
-</style>
 <link rel="stylesheet" href="fonts/fonts.css">
+<style>
+:root{--pa:#f4f1e8;--cd:#fffdf8;--ink:#0d0d0d;--mu:#6d685c;--ln:#ddd6c4;--ln2:#c4bba3;--y:#ffd400;--r:#e63a1e;--ok:#1f7a4d;--sb:#121211;--hd:'Archivo Black',Impact,sans-serif;--mo:'Space Mono',ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--pa);color:var(--ink);font:15px/1.5 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+[hidden]{display:none!important}
+a{color:inherit}
+h2{font:400 1.15rem var(--hd);margin:0 0 .2rem;letter-spacing:-.01em}
+h3{font:700 1rem Inter,sans-serif;margin:0}
+p{margin:.2rem 0}
+.mu,small{color:var(--mu)}small{display:block;margin-top:.15rem;word-break:break-all;font-size:.82rem}
+label small,.lb+small,.cvz small,.aud small{font:400 12.5px/1.4 Inter,system-ui,sans-serif;text-transform:none;letter-spacing:0}
+
+/* Formularios */
+label{display:grid;gap:5px;font:700 11px/1.3 var(--mo);text-transform:uppercase;letter-spacing:.06em;color:var(--mu)}
+#tlist label,#txt label{font:600 13.5px/1.4 Inter,system-ui,sans-serif;text-transform:none;letter-spacing:0;color:var(--ink)}
+label.row{display:flex;gap:.55rem;align-items:center;font:500 14px Inter,sans-serif;text-transform:none;letter-spacing:0;color:var(--ink);cursor:pointer}
+input,textarea,select{width:100%;background:#fff;color:var(--ink);border:1px solid var(--ln2);border-radius:6px;padding:.6rem .75rem;font:400 15px Inter,system-ui,sans-serif;text-transform:none;letter-spacing:0}
+textarea{resize:vertical;line-height:1.45}
+input[type=checkbox]{width:18px;height:18px;accent-color:var(--ink);flex:none;padding:0}
+input[type=color]{padding:3px;height:42px;cursor:pointer}
+input:focus,textarea:focus,select:focus,button:focus-visible,a:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+button,.btn{font:600 14px Inter,sans-serif;border:1px solid var(--ink);background:var(--cd);color:var(--ink);border-radius:6px;padding:.55rem .95rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap;line-height:1.2}
+button:hover,.btn:hover{background:#fff6c2}
+button.pri,.btn.pri{background:var(--ink);color:var(--pa);box-shadow:3px 3px 0 var(--y)}
+button.pri:hover{background:#2a2a28}
+button.del{color:var(--r);border-color:#e63a1e80;background:transparent}button.del:hover{background:#ffe9e4}
+button.gh{border-color:transparent;background:transparent}button.gh:hover{background:#0000000d}
+button:disabled{opacity:.4;cursor:default;background:var(--cd)}
+button.ic{padding:.35rem .55rem;min-width:32px;justify-content:center}
+.up{display:inline-flex;cursor:pointer;border:1px solid var(--ink);border-radius:6px;padding:.55rem .95rem;font:600 14px Inter,sans-serif;color:var(--ink);background:var(--cd);text-transform:none;letter-spacing:0}
+.up:hover{background:#fff6c2}
+.card{background:var(--cd);border:1px solid var(--ln);border-radius:10px;padding:1.1rem;display:grid;gap:.9rem}
+.card+.card{margin-top:.8rem}
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.9rem}
+.tb{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center}
+.tb label{display:flex;gap:.45rem;align-items:center;flex-direction:row}
+.tb select{width:auto;padding:.4rem .5rem;font-size:14px}
+.fpv{font-size:1.4rem;line-height:1.25;padding:.35rem .7rem;background:#fff;border:1px solid var(--ln);color:#111;border-radius:6px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.row2{display:flex;justify-content:space-between;align-items:center;gap:.6rem;flex-wrap:wrap;border-bottom:1px solid var(--ln);padding:.55rem 0}.row2:last-of-type{border-bottom:0}.row2 span{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center}
+.lead{color:var(--mu);margin:0 0 1rem;max-width:70ch}
+.sec-h{display:flex;align-items:end;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin:1.6rem 0 .7rem}.sec-h:first-child{margin-top:0}
+
+/* Acceso */
+#login{min-height:100vh;display:grid;place-items:center;padding:1.5rem;background:radial-gradient(rgba(0,0,0,.09) 1px,transparent 1.3px) 0 0/8px 8px,var(--pa)}
+#login .box{width:min(460px,100%);background:var(--cd);border:2px solid var(--ink);box-shadow:8px 8px 0 var(--ink);border-radius:4px;padding:1.6rem;display:grid;gap:1rem}
+#login .logo{font:400 2rem/1 var(--hd)}
+#login .logo span{background:var(--y);padding:0 .2em}
+#login details{color:var(--mu);font-size:.9rem}#login summary{cursor:pointer;color:var(--ink);font-weight:600}#login ol{padding-left:1.2rem}
+
+/* Estructura de la app */
+.app{display:grid;grid-template-columns:236px minmax(0,1fr);min-height:100vh}
+#side{position:sticky;top:0;height:100vh;overflow:auto;background:var(--sb);color:#ece7da;padding:18px 12px 24px;display:flex;flex-direction:column}
+#side .logo{font:400 21px/1 var(--hd);padding:4px 10px 0;letter-spacing:-.01em}
+#side .logo small{font:400 10.5px var(--mo);color:#9b968a;text-transform:uppercase;letter-spacing:.14em;margin-top:6px}
+.qs{margin:14px 4px 4px;display:flex;justify-content:space-between;align-items:center;background:#ffffff10;border:1px solid #ffffff1c;color:#bdb8ab;border-radius:6px;padding:.5rem .7rem;font:500 13px Inter,sans-serif}
+.qs:hover{background:#ffffff1c}.qs kbd{font:11px var(--mo);opacity:.7}
+.grp{font:700 10px var(--mo);text-transform:uppercase;letter-spacing:.16em;color:#7f7a6f;margin:18px 10px 5px}
+#nav a{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:6px;text-decoration:none;font-weight:500;font-size:14.5px;color:#ddd8cb}
+#nav a:hover{background:#ffffff14;color:#fff}
+#nav a.on{background:var(--y);color:var(--ink);font-weight:700}
+#nav a .ico{width:18px;text-align:center;font-size:14px;opacity:.85}
+#nav a .n{margin-left:auto;font:700 11px var(--mo);opacity:.75}
+#side .foot{margin-top:auto;padding:16px 10px 0;font:11px var(--mo);color:#7f7a6f;line-height:1.6}
+#side .foot a{color:#bdb8ab}
+main{min-width:0}
+.top{position:sticky;top:0;z-index:30;height:62px;display:flex;align-items:center;gap:.8rem;padding:0 22px;background:rgba(244,241,232,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--ln)}
+#vt{font:400 21px var(--hd);margin:0;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
+#dirty{font:700 11px var(--mo);text-transform:uppercase;letter-spacing:.06em;padding:.35rem .6rem;border-radius:999px;border:1px solid var(--ln2);color:var(--mu);white-space:nowrap}
+#dirty.on{background:var(--y);border-color:var(--ink);color:var(--ink)}
+#st{font-size:13px;color:var(--mu);max-width:34ch;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#mb{display:none}
+.view{padding:24px 26px 60px;max-width:1260px}
+
+/* Inicio */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.8rem}
+.tile{background:var(--cd);border:1px solid var(--ln);border-radius:10px;padding:1rem 1.1rem;display:grid;gap:.15rem;text-decoration:none;cursor:pointer}
+.tile:hover{border-color:var(--ink)}
+.tile .k{font:700 10.5px var(--mo);text-transform:uppercase;letter-spacing:.1em;color:var(--mu)}
+.tile .v{font:400 2rem/1.1 var(--hd)}
+.tile .s{font-size:13px;color:var(--mu)}
+.qa{display:flex;flex-wrap:wrap;gap:.5rem}
+.todo{display:grid;gap:0}
+.todo a{display:flex;gap:.7rem;align-items:center;padding:.65rem .2rem;border-bottom:1px solid var(--ln);text-decoration:none}
+.todo a:last-child{border-bottom:0}.todo a:hover{background:#fff6c2}
+.dot{width:9px;height:9px;border-radius:50%;flex:none;background:var(--r)}.dot.ok{background:var(--ok)}.dot.i{background:var(--ln2)}
+.cols{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:1rem}
+.bar{height:6px;background:var(--ln);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:var(--ink)}
+
+/* Beats */
+.bw{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:1rem;align-items:start}
+.btool{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin-bottom:.7rem}
+.btool input[type=search]{flex:1;min-width:180px}.btool select{width:auto}
+.blist{background:var(--cd);border:1px solid var(--ln);border-radius:10px;overflow:hidden}
+.brow{display:grid;grid-template-columns:18px 46px 34px minmax(0,1fr) auto auto;gap:.7rem;align-items:center;padding:.55rem .8rem;border-bottom:1px solid var(--ln);cursor:pointer;background:var(--cd)}
+.brow:last-child{border-bottom:0}.brow:hover{background:#fffbe6}.brow.on{background:#fff3b0;box-shadow:inset 4px 0 0 var(--ink)}
+.brow.hid .bt,.brow.hid .th{opacity:.45}
+.brow.drag{opacity:.4}.brow.over{box-shadow:inset 0 3px 0 var(--ink)}
+.grip{cursor:grab;color:var(--ln2);font-weight:700;letter-spacing:-2px;user-select:none}
+.th{width:46px;height:46px;border-radius:4px;background:#e8e2d1 center/cover;border:1px solid var(--ln)}
+.pp{width:34px;height:34px;border-radius:50%;padding:0;justify-content:center;font-size:12px}
+.pp.on{background:var(--y)}
+.bt{min-width:0}.bt b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bt small{margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;word-break:normal}
+.flags{display:flex;gap:.3rem;flex-wrap:wrap;justify-content:flex-end}
+.tag{font:700 10px var(--mo);text-transform:uppercase;letter-spacing:.05em;padding:.2rem .45rem;border-radius:999px;border:1px solid var(--ln2);color:var(--mu);font-style:normal;white-space:nowrap}
+.tag.warn{border-color:#e63a1e70;color:var(--r)}.tag.dk{background:var(--ink);color:var(--pa);border-color:var(--ink)}
+.ra{display:flex;gap:.25rem}
+.drop{border:2px dashed var(--ln2);border-radius:10px;padding:1rem;text-align:center;color:var(--mu);margin-top:.8rem;font-size:14px}
+.drop.over,.cvz.over,.aud.over{border-color:var(--ink);background:#fff6c2;color:var(--ink)}
+#bd{position:sticky;top:76px;max-height:calc(100vh - 90px);overflow:auto;background:var(--cd);border:1px solid var(--ln);border-radius:10px}
+#bd .in{padding:1rem 1.1rem;display:grid;gap:.85rem}
+.bdh{display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--cd);padding:.7rem 1.1rem;border-bottom:1px solid var(--ln);z-index:2}
+.bdh b{font:400 1rem var(--hd)}
+.emp{padding:2.2rem 1.4rem;text-align:center;color:var(--mu)}
+.emp b{display:block;font:400 1.1rem var(--hd);color:var(--ink);margin-bottom:.3rem}
+.cvz{display:grid;grid-template-columns:110px 1fr;gap:.8rem;align-items:center;border:2px dashed transparent;border-radius:8px;padding:2px}
+.cvz .im{width:110px;aspect-ratio:1;border-radius:6px;background:#e8e2d1 center/cover;border:1px solid var(--ln);display:grid;place-items:center;color:var(--mu);font:11px var(--mo)}
+.aud{border:2px dashed var(--ln);border-radius:8px;padding:.7rem;display:grid;gap:.5rem}
+.aud audio{width:100%;height:36px}
+.lb{font:700 11px var(--mo);text-transform:uppercase;letter-spacing:.06em;color:var(--mu)}
+.chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.35rem}
+.chip{display:inline-flex;align-items:center;gap:.35rem;border:1px solid var(--ln2);border-radius:999px;padding:.28rem .7rem;font:500 13.5px Inter,sans-serif;text-transform:none;letter-spacing:0;color:var(--ink);cursor:pointer;background:#fff}
+.chip input{display:none}.chip:has(input:checked){background:var(--ink);color:var(--pa);border-color:var(--ink)}
+.chip button{border:0;background:none;padding:0 .1rem;font-size:15px;line-height:1;color:inherit}
+.bdf{display:flex;gap:.5rem;flex-wrap:wrap;border-top:1px solid var(--ln);padding-top:.9rem}
+details.sub{border:1px solid var(--ln);border-radius:8px;padding:.6rem .8rem}details.sub summary{cursor:pointer;font-weight:600}details.sub[open] summary{margin-bottom:.6rem}
+
+/* Licencias */
+.lics{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:.9rem}
+.lic{position:relative}
+.lic .pr{display:flex;align-items:center;gap:.4rem}
+.lic.best{border:2px solid var(--ink);box-shadow:5px 5px 0 var(--y)}
+
+/* Pestañas */
+.tabs{display:flex;gap:.3rem;border-bottom:1px solid var(--ln);margin-bottom:1rem;flex-wrap:wrap}
+.tabs button{border:0;border-bottom:3px solid transparent;border-radius:0;background:none;padding:.6rem .8rem;font-weight:600;color:var(--mu)}
+.tabs button.on{border-bottom-color:var(--ink);color:var(--ink)}
+.tabs button:hover{background:#0000000a}
+
+/* Editor visual: se conserva el motor, cambia solo la colocación */
+.view[data-v=disenar]{max-width:none;padding:10px 14px;height:calc(100vh - 62px);display:flex;flex-direction:column;gap:8px}
+.dtb{display:flex;flex-wrap:wrap;gap:.4rem .9rem;align-items:center;background:var(--cd);border:1px solid var(--ln);border-radius:10px;padding:.5rem .7rem}
+.dtb .gp{display:flex;gap:.3rem;align-items:center;flex-wrap:wrap}
+.dtb .gl{font:700 10px var(--mo);text-transform:uppercase;letter-spacing:.1em;color:var(--mu);margin-right:.15rem}
+.dtb button,.dtb .up{padding:.38rem .65rem;font-size:13px}
+.dtb select{width:auto;padding:.32rem .45rem;font-size:13px}
+.dtb label{display:flex;flex-direction:row;align-items:center;gap:.35rem;font-size:10px}
+.dtb .sp{width:1px;align-self:stretch;background:var(--ln)}
+.dtb button.on{background:var(--y)}
+.ro{background:var(--ink);color:#f4f1e8;padding:.42rem .8rem;font:600 12px var(--mo);border-radius:6px;word-break:break-word}
+.des{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:.7rem}
+.stage{background:radial-gradient(#ffffff14 1px,transparent 1.3px) 0 0/10px 10px,#1c1c1a;border-radius:10px;padding:12px;overflow:auto;min-height:0}
+.fw{margin:0 auto;overflow:hidden;background:#fff;box-shadow:0 10px 40px #0007}.fw iframe{border:0;background:#fff;display:block}
+.dside{overflow:auto;min-height:0;display:grid;gap:.7rem;align-content:start}
+.dside>.card{margin:0}
+.dside details.card summary{cursor:pointer;font-weight:700}
+#bgc{grid-template-columns:1fr}
+body.fcs .app{grid-template-columns:1fr}body.fcs #side,body.fcs .top{display:none}
+body.fcs .view[data-v=disenar]{height:100vh}
+
+/* Paleta rápida */
+#qk{position:fixed;inset:0;z-index:80;background:#0d0d0d80;display:grid;place-items:start center;padding-top:12vh}
+#qk .bx{width:min(560px,94vw);background:var(--cd);border:2px solid var(--ink);box-shadow:8px 8px 0 var(--ink);border-radius:6px;overflow:hidden}
+#qk input{border:0;border-bottom:1px solid var(--ln);border-radius:0;padding:1rem;font-size:17px}
+#qk ul{list-style:none;margin:0;padding:.3rem;max-height:50vh;overflow:auto}
+#qk li{padding:.55rem .8rem;border-radius:4px;cursor:pointer;display:flex;justify-content:space-between;gap:1rem}
+#qk li small{margin:0}
+#qk li.on{background:var(--y)}
+
+#toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:var(--pa);padding:.7rem 1.1rem;border-radius:6px;font-weight:600;z-index:90;box-shadow:4px 4px 0 var(--y);max-width:92vw}
+
+@media(max-width:1100px){.bw{grid-template-columns:1fr}#bd{position:fixed;inset:0;top:0;max-height:none;border-radius:0;z-index:60;display:none}#bd.open{display:block}.cols{grid-template-columns:1fr}}
+@media(max-width:900px){
+ .app{grid-template-columns:1fr}
+ #side{position:fixed;left:0;top:0;bottom:0;width:260px;z-index:70;transform:translateX(-100%);transition:transform .2s}
+ body.navopen #side{transform:none;box-shadow:0 0 0 100vmax #0007}
+ #mb{display:inline-flex}
+ .top{padding:0 12px;gap:.5rem}#st{display:none}#vt{font-size:17px}
+ .view{padding:16px 14px 60px}
+ .des{grid-template-columns:1fr;grid-template-rows:62vh auto}.view[data-v=disenar]{height:auto}
+ .brow{grid-template-columns:40px 34px minmax(0,1fr) auto;gap:.55rem}.brow .grip,.brow .ra{display:none}.th{width:40px;height:40px}
+ .top .btn.web{display:none}
+}
+@media(max-width:600px){
+ .flags .tag:not(.warn){display:none}
+ #dirty{font-size:9.5px;padding:.3rem .45rem}#pub{padding:.5rem .7rem;font-size:13px}
+ .brow{grid-template-columns:40px 34px minmax(0,1fr)}.flags{grid-column:3;justify-content:flex-start}.flags:empty{display:none}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
 </head>
 <body>
-<div class="w">
-<h1>Site admin <small style="display:inline;font-size:.85rem">v5 · page designer + collage</small></h1>
-<p>Edit your beats, prices and links. Changes go straight to your GitHub repository.</p>
 
+<!-- ACCESO -->
 <div id="login">
- <details open><summary>How to get your access token (one time)</summary><ol>
-  <li>On GitHub: your profile picture &rarr; Settings &rarr; Developer settings &rarr; Personal access tokens &rarr; Fine-grained tokens &rarr; Generate new token.</li>
-  <li>Repository access: <b>Only select repositories</b> and pick your site repository.</li>
-  <li>Permissions &rarr; Repository permissions &rarr; <b>Contents: Read and write</b>.</li>
-  <li>Generate it, copy it and paste it below. Never share it.</li></ol></details>
- <div class="card">
-  <label>Repository (username/name)<input id="repo" placeholder="cloudisdeaf/beats"></label>
-  <label>Branch<input id="br" value="main"></label>
-  <label class="row"><input type="checkbox" id="rem"> Remember me on this device (leave it off on shared computers)</label><label>Access token<input id="tk" type="password" autocomplete="off"></label>
-  <button id="go">Connect</button>
-  <small>The token is saved only in this browser.</small>
+ <div class="box">
+  <div class="logo"><span>CloudIsDeaf</span><br>estudio</div>
+  <p class="mu">Panel para gestionar la web: beats, licencias, diseño y páginas. Los cambios se guardan en tu repositorio de GitHub.</p>
+  <label>Repositorio (usuario/nombre)<input id="repo" placeholder="cloudisdeaf/music"></label>
+  <label>Rama<input id="br" value="main"></label>
+  <label>Token de acceso<input id="tk" type="password" autocomplete="off"></label>
+  <label class="row"><input type="checkbox" id="rem"> Recordarme en este dispositivo (no lo marques en ordenadores compartidos)</label>
+  <button id="go" class="pri">Entrar</button>
+  <button id="loc" class="gh" hidden>Abrir la copia local sin publicar (modo prueba)</button>
+  <small id="lst"></small>
+  <details><summary>Cómo conseguir el token (solo una vez)</summary><ol>
+   <li>En GitHub: tu foto → Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token.</li>
+   <li>Repository access: <b>Only select repositories</b> y elige el repositorio de la web.</li>
+   <li>Permissions → Repository permissions → <b>Contents: Read and write</b>.</li>
+   <li>Genéralo, cópialo y pégalo arriba. No lo compartas nunca. Se guarda solo en este navegador.</li></ol></details>
  </div>
 </div>
 
-<div id="ed" hidden>
- <h2>Page layout</h2><p>The page is a stack of blocks. Reorder or remove them, and add free canvases to place text, banners, images and stickers anywhere between sections.</p><div class="card" id="lay"></div>
- <div class="dsg"><h2 id="dz">Designer</h2><p>Desktop and mobile have separate layouts: switch the view and arrange each one on its own. Drag items to move them, use the round handles to resize and rotate. Delete removes an item (on mobile it only hides it). To design the other pages (All beats, Album, Projects, Legal, Orders) pick them in “Place new items on”: the preview jumps to that page and you can add and arrange items on it in both the desktop and the mobile view. Ctrl+Z undoes, Ctrl+Y redoes.</p>
- <div class="tb"><button class="sec" id="und" disabled>Undo</button><button class="sec" id="red" disabled>Redo</button><button class="sec" id="fcs">Focus mode</button><button class="sec" id="vd">Desktop view</button><button class="sec" id="vm">Mobile view</button><button class="sec" id="adt">Add text</button><label class="up">Add image or sticker<input type="file" accept="image/*" id="adi" hidden></label><button class="sec" id="adk">Add bumper sticker</button><button class="sec" id="adw">Add Windows dialog</button><button class="sec" id="adb">Add starburst</button><button class="sec" id="adr">Add ransom text</button><button class="sec" id="ads">Add paper strip</button><button class="sec" id="c2m">Copy desktop to mobile</button><button class="sec" id="m2d">Copy mobile to desktop</button></div>
- <div class="card" id="bgc"></div>
- <div class="tb"><label>Place new items on <select id="tgt"></select></label><label>Snap to grid <select id="snap"><option value="0">Off</option><option value="1">1%</option><option value="2.5">2.5%</option><option value="5" selected>5%</option><option value="10">10%</option></select></label><label>Preview screen width <select id="pw"><option value="0" selected>This window</option><option value="1920">1920 px</option><option value="1600">1600 px</option><option value="1440">1440 px</option><option value="1366">1366 px</option><option value="1280">1280 px</option></select></label><label>Zoom <select id="zm"><option value="fit" selected>Fit</option><option value="1">100%</option><option value="0.75">75%</option><option value="0.5">50%</option></select></label><label>Preview language <select id="pl"></select></label><label><input type="checkbox" id="ani"> Animate preview</label><label><input type="checkbox" id="grid" checked> Show grid and rulers</label></div>
- <div class="ro" id="ro">Click an item in the preview to select it.</div>
- <div class="des"><div class="stage"><div class="fw" id="fw"><iframe id="fr" name="ed" title="Page preview"></iframe></div></div><div class="card" id="pn"></div></div></div>
- <h2>Pages</h2><p>The Beats page is always on. Switch the other pages public or private: a private page disappears from the menu and cannot be opened.</p><div class="card" id="pgs"></div>
- <h2>Album of the week</h2><div class="card" id="alb"></div>
- <h2>Projects</h2><button class="sec" id="adp">Add a project</button><div id="prj"></div>
- <h2>All items</h2><p>Every sticker, image and text on your page. Untick Mobile to hide an item on phones without touching the desktop.</p><div class="tb"><button class="sec" id="hm1">Hide every image on mobile</button><button class="sec" id="hm0">Show every item on mobile</button></div><div class="card" id="ly"></div>
- <h2>Shop (automatic delivery)</h2><p>Connect the order server (see SETUP.md). Without it, buyers pay through your PayPal.me link and you deliver by hand.</p><div class="card" id="shp"></div>
- <h2>Legal details</h2><p>Shown on the Legal page (link in the footer). Fill them in before publishing, and ask a gestor if you are unsure what you must include.</p><div class="card" id="lgl"></div>
- <h2>Translations</h2><p>English is the default. The built-in texts already come translated; here you can edit them or translate your own texts (hero texts, licenses, album notes, projects). Pick a language to also preview it above.</p>
- <div class="card"><label>Language<select id="tl"><option value="en">English</option><option value="es">Español</option><option value="ca">Català</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="ja">日本語</option></select></label><div id="tlist"></div></div>
- <h2>Style</h2><div class="card" id="sty"></div>
- <h2>Texts</h2><p>Change any other text on the page.</p><div class="card" id="txt"></div>
- <h2>Site settings</h2><div class="card" id="set"></div>
- <h2>Beats</h2><p>Upload only the preview with your voice tag. Newest beat goes first.</p>
- <button class="sec" id="add">Add a beat</button><div id="bts"></div>
- <h2>Licenses</h2><button class="sec" id="addlic">Add a license</button><div id="lic"></div>
- <h2>Account</h2><button class="sec" id="out">Disconnect this browser</button>
-</div>
+<!-- APLICACIÓN -->
+<div class="app" id="ed" hidden>
+ <aside id="side">
+  <div class="logo">CloudIsDeaf<small>estudio</small></div>
+  <button class="qs" id="qsb" type="button">Buscar o ir a… <kbd>Ctrl K</kbd></button>
+  <nav id="nav">
+   <a href="#/inicio" data-v="inicio"><span class="ico">⌂</span>Inicio</a>
+   <div class="grp">Catálogo</div>
+   <a href="#/beats" data-v="beats"><span class="ico">♪</span>Beats<span class="n" id="nb"></span></a>
+   <a href="#/licencias" data-v="licencias"><span class="ico">§</span>Licencias<span class="n" id="nl"></span></a>
+   <div class="grp">Diseño</div>
+   <a href="#/disenar" data-v="disenar"><span class="ico">✎</span>Editor visual</a>
+   <a href="#/estructura" data-v="estructura"><span class="ico">☰</span>Estructura de la portada</a>
+   <a href="#/capas" data-v="capas"><span class="ico">◫</span>Capas y elementos</a>
+   <a href="#/estilo" data-v="estilo"><span class="ico">◐</span>Colores y tipografías</a>
+   <div class="grp">Contenido</div>
+   <a href="#/paginas" data-v="paginas"><span class="ico">▤</span>Páginas, álbum y proyectos</a>
+   <a href="#/textos" data-v="textos"><span class="ico">¶</span>Textos de la web</a>
+   <a href="#/traducciones" data-v="traducciones"><span class="ico">文</span>Traducciones</a>
+   <div class="grp">Negocio</div>
+   <a href="#/ajustes" data-v="ajustes"><span class="ico">@</span>Datos y redes</a>
+   <a href="#/tienda" data-v="tienda"><span class="ico">€</span>Tienda y legal</a>
+   <a href="#/cuenta" data-v="cuenta"><span class="ico">⚙</span>Cuenta y copias</a>
+  </nav>
+  <div class="foot">Ctrl+S publica · Ctrl+Z deshace<br><a href="admin-clasico.html">Panel clásico (v5)</a></div>
+ </aside>
+
+ <main>
+  <header class="top">
+   <button id="mb" class="ic" aria-label="Abrir menú">☰</button>
+   <h1 id="vt">Inicio</h1>
+   <span id="st"></span>
+   <span id="dirty">Sin cambios</span>
+   <a class="btn web" href="./" target="_blank" rel="noopener">Ver web ↗</a>
+   <button id="pub" class="pri" hidden>Publicar</button>
+  </header>
+
+  <!-- INICIO -->
+  <section class="view" data-v="inicio">
+   <div id="dsh"></div>
+  </section>
+
+  <!-- BEATS -->
+  <section class="view" data-v="beats" hidden>
+   <div class="sec-h"><div><h2>Catálogo de beats</h2><p class="mu">El primero de la lista es el primero en la tienda. Arrastra para cambiar el orden. Sube solo la preview con tu tag de voz.</p></div><button id="add" class="pri">+ Añadir beat</button></div>
+   <div class="bw">
+    <div>
+     <div class="btool">
+      <input type="search" id="bq" placeholder="Buscar por título o artista tipo…">
+      <select id="bfg" aria-label="Filtrar"></select>
+      <select id="bso" aria-label="Ordenar"><option value="ord">Orden de la tienda</option><option value="az">Título A–Z</option><option value="bpm">BPM</option></select>
+     </div>
+     <div class="blist" id="bts"></div>
+     <div class="drop" id="bdrop">Suelta aquí uno o varios MP3 para crear beats nuevos (el título y los BPM se sacan del nombre del archivo), o <label class="up" style="display:inline-flex;margin-left:.3rem">elige archivos<input type="file" id="bmp" accept=".mp3,audio/mpeg" multiple hidden></label></div>
+     <div class="card" style="margin-top:1rem"><div><h3>Géneros</h3><p class="mu">Son los filtros de la página «All beats». Solo se muestran los que tienen algún beat.</p></div><div id="gen"></div></div>
+    </div>
+    <aside id="bd"></aside>
+   </div>
+  </section>
+
+  <!-- LICENCIAS -->
+  <section class="view" data-v="licencias" hidden>
+   <div class="sec-h"><div><h2>Licencias</h2><p class="mu">Aparecen en este orden en la web. La tienda muestra «desde» el precio más bajo.</p></div><button class="pri" id="addlic">+ Añadir licencia</button></div>
+   <div class="lics" id="lic"></div>
+  </section>
+
+  <!-- EDITOR VISUAL -->
+  <section class="view" data-v="disenar" hidden>
+   <div class="dtb">
+    <div class="gp"><span class="gl">Historial</span><button id="und" disabled title="Ctrl+Z">↶ Deshacer</button><button id="red" disabled title="Ctrl+Y">↷ Rehacer</button></div>
+    <div class="sp"></div>
+    <div class="gp"><span class="gl">Vista</span><button id="vd">Escritorio</button><button id="vm">Móvil</button><button id="fcs">Pantalla completa</button></div>
+    <div class="sp"></div>
+    <div class="gp"><span class="gl">Añadir</span><button id="adt">Texto</button><label class="up">Imagen o pegatina<input type="file" accept="image/*" id="adi" hidden></label><button id="adk">Pegatina de parachoques</button><button id="adw">Ventana Windows</button><button id="adb">Estallido</button><button id="adr">Texto recortado</button><button id="ads">Tira de papel</button></div>
+   </div>
+   <div class="dtb">
+    <label>Colocar en <select id="tgt"></select></label>
+    <label>Imán <select id="snap"><option value="0">No</option><option value="1">1%</option><option value="2.5">2,5%</option><option value="5" selected>5%</option><option value="10">10%</option></select></label>
+    <label>Ancho <select id="pw"><option value="0" selected>Esta ventana</option><option value="1920">1920 px</option><option value="1600">1600 px</option><option value="1440">1440 px</option><option value="1366">1366 px</option><option value="1280">1280 px</option></select></label>
+    <label>Zoom <select id="zm"><option value="fit" selected>Ajustar</option><option value="1">100%</option><option value="0.75">75%</option><option value="0.5">50%</option></select></label>
+    <label>Idioma <select id="pl"></select></label>
+    <label><input type="checkbox" id="ani"> Animar</label>
+    <label><input type="checkbox" id="grid" checked> Cuadrícula</label>
+    <div class="sp"></div>
+    <button id="c2m" title="Copia la colocación de escritorio a móvil">Escritorio → móvil</button><button id="m2d" title="Copia la colocación de móvil a escritorio">Móvil → escritorio</button>
+   </div>
+   <div class="ro" id="ro">Haz clic en un elemento de la vista previa para seleccionarlo.</div>
+   <div class="des">
+    <div class="stage"><div class="fw" id="fw"><iframe id="fr" name="ed" title="Vista previa de la página"></iframe></div></div>
+    <div class="dside">
+     <div class="card" id="pn"></div>
+     <details class="card" id="bgw"><summary>Fondo y forma de la zona</summary><div class="card" id="bgc" style="border:0;padding:0"></div></details>
+    </div>
+   </div>
+  </section>
+
+  <!-- ESTRUCTURA -->
+  <section class="view" data-v="estructura" hidden>
+   <h2>Estructura de la portada</h2>
+   <p class="lead">La portada es una pila de bloques. Cámbialos de orden, quítalos o añade lienzos libres para poner textos, imágenes y pegatinas donde quieras entre secciones. «Editar» abre ese lienzo en el editor visual.</p>
+   <div class="card" id="lay"></div>
+  </section>
+
+  <!-- CAPAS -->
+  <section class="view" data-v="capas" hidden>
+   <h2>Capas y elementos</h2>
+   <p class="lead">Todas las pegatinas, imágenes y textos de la web. Desmarca Móvil para ocultar algo solo en el teléfono sin tocar el escritorio. «Seleccionar» te lleva al elemento en el editor.</p>
+   <div class="tb" style="margin-bottom:.8rem"><input type="search" id="lyq" placeholder="Filtrar elementos…" style="max-width:320px"><button id="hm1">Ocultar todas las imágenes en móvil</button><button id="hm0">Mostrar todo en móvil</button></div>
+   <div class="card" id="ly"></div>
+  </section>
+
+  <!-- ESTILO -->
+  <section class="view" data-v="estilo" hidden>
+   <h2>Colores y tipografías</h2>
+   <p class="lead">El estilo general de toda la web. Cada cambio se ve al momento en el editor visual.</p>
+   <div class="cols"><div class="card" id="sty"></div><div id="swp"></div></div>
+  </section>
+
+  <!-- PÁGINAS -->
+  <section class="view" data-v="paginas" hidden>
+   <div class="tabs" id="ptabs"><button data-tab="vis" class="on">Visibilidad</button><button data-tab="alb">Álbum de la semana</button><button data-tab="prj">Proyectos</button></div>
+   <div data-pt="vis"><p class="lead">La página Beats siempre está activa. Las demás pueden ser públicas o privadas: una página privada desaparece del menú y no se puede abrir.</p><div class="card" id="pgs"></div></div>
+   <div data-pt="alb" hidden><p class="lead">El álbum que recomiendas esta semana. Los enlaces vacíos no se muestran.</p><div class="card" id="alb"></div></div>
+   <div data-pt="prj" hidden><div class="sec-h"><p class="mu" style="margin:0">Trabajos y colaboraciones. Se muestran en este orden.</p><button class="pri" id="adp">+ Añadir proyecto</button></div><div id="prj"></div></div>
+  </section>
+
+  <!-- TEXTOS -->
+  <section class="view" data-v="textos" hidden>
+   <h2>Textos de la web</h2>
+   <p class="lead">Cualquier otro texto fijo de la página (secciones, botones, preguntas frecuentes…). Se escriben en inglés, que es el idioma base; para los demás idiomas ve a Traducciones.</p>
+   <input type="search" id="txq" placeholder="Buscar un texto…" style="max-width:360px;margin-bottom:.8rem">
+   <div class="card" id="txt"></div>
+  </section>
+
+  <!-- TRADUCCIONES -->
+  <section class="view" data-v="traducciones" hidden>
+   <h2>Traducciones</h2>
+   <p class="lead">El inglés es el idioma base. Los textos de serie ya vienen traducidos; aquí puedes corregirlos o traducir los tuyos (textos del lienzo, licencias, álbum, proyectos). Al elegir idioma, el editor visual también lo muestra.</p>
+   <div class="card"><div class="g2"><label>Idioma<select id="tl"><option value="en">English</option><option value="es">Español</option><option value="ca">Català</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="ja">日本語</option></select></label><label>Mostrar<select id="tlf"><option value="all">Todos los textos</option><option value="miss">Solo los que faltan</option></select></label></div><div id="tlist"></div></div>
+  </section>
+
+  <!-- AJUSTES -->
+  <section class="view" data-v="ajustes" hidden>
+   <h2>Datos y redes</h2>
+   <p class="lead">Nombre artístico, redes y forma de pago.</p>
+   <div class="card" id="set"></div>
+  </section>
+
+  <!-- TIENDA Y LEGAL -->
+  <section class="view" data-v="tienda" hidden>
+   <h2>Tienda (entrega automática)</h2>
+   <p class="lead">Conecta el servidor de pedidos (ver SETUP.md). Sin él, los compradores pagan con tu enlace de PayPal.me y la entrega la haces tú a mano.</p>
+   <div class="card" id="shp"></div>
+   <div class="sec-h"><h2>Datos legales</h2></div>
+   <p class="lead">Salen en la página Legal (enlace en el pie). Rellénalos antes de promocionar la web; si dudas de qué incluir, consúltalo con una gestoría.</p>
+   <div class="card" id="lgl"></div>
+  </section>
+
+  <!-- CUENTA -->
+  <section class="view" data-v="cuenta" hidden>
+   <h2>Cuenta y copias de seguridad</h2>
+   <p class="lead">Cada publicación queda guardada en el historial de GitHub, así que siempre se puede volver atrás. Además puedes descargar una copia de todos los datos.</p>
+   <div class="card" id="acc"></div>
+   <div class="card"><h3>Copias</h3><div class="tb"><button id="bk">Descargar copia (data.json)</button><label class="up">Restaurar desde una copia<input type="file" accept=".json,application/json" id="rsi" hidden></label><button id="rld">Descartar cambios y recargar</button></div><small>Restaurar carga la copia en el panel; no se publica hasta que pulses Publicar.</small></div>
+   <div class="card"><h3>Sesión</h3><div class="tb"><button class="del" id="out">Desconectar este navegador</button><a class="btn" href="admin-clasico.html">Abrir el panel clásico</a></div></div>
+  </section>
+ </main>
 </div>
 
-<div class="bar"><div class="w"><span id="st"></span><button id="pub" hidden>Publish changes</button></div></div>
+<datalist id="keys"><option>C</option><option>Cm</option><option>C#</option><option>C#m</option><option>D</option><option>Dm</option><option>D#</option><option>D#m</option><option>E</option><option>Em</option><option>F</option><option>Fm</option><option>F#</option><option>F#m</option><option>G</option><option>Gm</option><option>G#</option><option>G#m</option><option>A</option><option>Am</option><option>A#</option><option>A#m</option><option>B</option><option>Bm</option></datalist>
+<div id="qk" hidden><div class="bx"><input id="qki" placeholder="Ir a una sección o a un beat…" autocomplete="off"><ul id="qkl"></ul></div></div>
+<div id="toast" hidden></div>
 
 <script>
 const $=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-let C={};try{C=JSON.parse(localStorage.getItem("gh")||sessionStorage.getItem("gh")||"{}")}catch(_){C={}}let D=null,F={};const uid=p=>p+"-"+Math.random().toString(36).slice(2,8);
+let C={};try{C=JSON.parse(localStorage.getItem("gh")||sessionStorage.getItem("gh")||"{}")}catch(_){C={}}let D=null,F={},BASE="";const uid=p=>p+"-"+Math.random().toString(36).slice(2,8);
 const log=t=>$("#st").textContent=t;
+let tt;const toast=t=>{const e=$("#toast");e.textContent=t;e.hidden=false;clearTimeout(tt);tt=setTimeout(()=>e.hidden=true,2600)};
 const hdr=()=>({Authorization:"Bearer "+C.token,Accept:"application/vnd.github+json"});
 const url=p=>`https://api.github.com/repos/${C.repo}/contents/${p}`;
 const b64=f=>new Promise((ok,no)=>{const r=new FileReader();r.onload=()=>ok(r.result.split(",")[1]);r.onerror=no;r.readAsDataURL(f)});
 const enc=s=>btoa(unescape(encodeURIComponent(s))),dec=s=>decodeURIComponent(escape(atob(s.replace(/\n/g,""))));
+const today=()=>new Date().toISOString().slice(0,10);
+const LOCAL=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
 async function get(p){const r=await fetch(url(p)+"?ref="+encodeURIComponent(C.branch)+"&t="+Date.now(),{headers:hdr()});
- if(r.status===404)return null;if(!r.ok)throw new Error("GitHub answered "+r.status+". Check the repository name and the token.");return r.json()}
+ if(r.status===404)return null;if(!r.ok)throw new Error("GitHub ha respondido "+r.status+". Revisa el nombre del repositorio y el token.");return r.json()}
 async function put(p,content,msg){const old=await get(p);
  const r=await fetch(url(p),{method:"PUT",headers:hdr(),body:JSON.stringify({message:msg,content,branch:C.branch,...(old?{sha:old.sha}:{})})});
- if(!r.ok)throw new Error(p+" failed ("+r.status+")")}
-async function load(){const f=await get("data.json");if(!f)throw new Error("data.json was not found in the repository.");
- D=JSON.parse(dec(f.content));D.theme=Object.assign({paper:"#f4f1e8",ink:"#0d0d0d",acc:"#ffd400",acc2:"#e63a1e",hd:"Archivo Black",bd:"Space Mono"},D.theme);D.stickers=D.stickers||[];if(D.anim===undefined)D.anim=true;D.ticker=D.ticker||"new beats every week \u2022 tagged previews \u2022 clean files after payment \u2022 ";D.banner=D.banner||"";mig(D);cur=D.layout.find(k=>D.canvases[k])||"";D.texts=D.texts||{};$("#login").hidden=true;$("#ed").hidden=false;$("#pub").hidden=false;draw();design()}
+ if(!r.ok)throw new Error("No se pudo subir "+p+" ("+r.status+")")}
+async function fetchData(){if(C.local){const r=await fetch("data.json?t="+Date.now());if(!r.ok)throw new Error("No encuentro data.json en esta carpeta.");return r.json()}
+ const f=await get("data.json");if(!f)throw new Error("No hay data.json en el repositorio.");return JSON.parse(dec(f.content))}
+async function load(){D=await fetchData();D.theme=Object.assign({paper:"#f4f1e8",ink:"#0d0d0d",acc:"#ffd400",acc2:"#e63a1e",hd:"Archivo Black",bd:"Space Mono"},D.theme);D.stickers=D.stickers||[];if(D.anim===undefined)D.anim=true;D.ticker=D.ticker||"new beats every week • tagged previews • clean files after payment • ";D.banner=D.banner||"";mig(D);cur=D.layout.find(k=>D.canvases[k])||"";D.texts=D.texts||{};
+ BASE=JSON.stringify(D);$("#login").hidden=true;$("#ed").hidden=false;$("#pub").hidden=false;if(C.local)$("#pub").textContent="Descargar data.json";draw();design();go(location.hash.replace(/^#\/?/,"")||"inicio")}
+
+/* ---------- Navegación entre secciones ---------- */
+const VIEWS={inicio:"Inicio",beats:"Beats",licencias:"Licencias",disenar:"Editor visual",estructura:"Estructura de la portada",capas:"Capas y elementos",estilo:"Colores y tipografías",paginas:"Páginas, álbum y proyectos",textos:"Textos de la web",traducciones:"Traducciones",ajustes:"Datos y redes",tienda:"Tienda y legal",cuenta:"Cuenta y copias"};
+let VIEW="inicio";
+function go(v){if(!VIEWS[v])v="inicio";VIEW=v;document.querySelectorAll(".view").forEach(s=>s.hidden=s.dataset.v!==v);document.querySelectorAll("#nav a").forEach(a=>a.classList.toggle("on",a.dataset.v===v));$("#vt").textContent=VIEWS[v];document.body.classList.remove("navopen");
+ if(location.hash!=="#/"+v)history.replaceState(null,"","#/"+v);
+ if(v==="disenar")setTimeout(rf0,0);if(v==="inicio")dash();if(v==="capas")lyr();if(v==="traducciones")tl();if(v==="beats")beatsView();if(v==="estilo")swp();scrollTo(0,0)}
+addEventListener("hashchange",()=>{if(D)go(location.hash.replace(/^#\/?/,""))});
+$("#mb").onclick=()=>document.body.classList.toggle("navopen");
+document.addEventListener("click",e=>{if(document.body.classList.contains("navopen")&&!e.target.closest("#side,#mb"))document.body.classList.remove("navopen")});
+
+/* ---------- Cambios sin publicar ---------- */
+const isDirty=()=>D&&(JSON.stringify(D)!==BASE||Object.keys(F).length>0);
+setInterval(()=>{if(!D)return;const d=isDirty(),n=Object.keys(F).length,e=$("#dirty");e.classList.toggle("on",!!d);e.textContent=d?"● Sin publicar"+(n?" · "+n+" archivo"+(n>1?"s":""):""):"Todo publicado"},700);
+addEventListener("beforeunload",e=>{if(isDirty()){e.preventDefault();e.returnValue=""}});
+
+/* ---------- Datos, licencias y beats ---------- */
 function draw(){
- const s=(k,l,ph="")=>`<label>${l}<input data-k="${k}" value="${esc(D[k])}" placeholder="${ph}"></label>`;
- const c=(k,l)=>`<label>${l}<input type="color" data-k="theme.${k}" value="${esc(D.theme[k])}"></label>`;
- const fi=(f,i,o,l,cur)=>`<label>${l}<input type="file" accept="${f==="audio"?".mp3,audio/mpeg":"image/*"}" data-f="${f}" data-i="${i}" data-o="${o}"><small>${esc(cur||"Nothing uploaded")}</small></label>`;
- const n=(k,l,v)=>`<label>${l}<input type="number" data-t="num" data-k="${k}" value="${esc(v)}"></label>`;
- $("#set").innerHTML=s("artist","Artist name (logo, footer, page title)")+s("instagram","Instagram username (no @)")+s("youtube","YouTube channel URL")+s("email","Contact email (optional)")+s("paypal","PayPal.me username or link","e.g. cloudisdeaf")+`<label>Currency<select data-k="currency"><option${D.currency==="EUR"?" selected":""}>EUR</option><option${D.currency==="USD"?" selected":""}>USD</option></select></label>`;
- $("#lic").innerHTML=D.licenses.map((l,i)=>`<div class="card"><label>Name<input data-k="licenses.${i}.name" value="${esc(l.name)}"></label>${n(`licenses.${i}.price`,"Price",l.price)}<label>What is included (one per line)<textarea rows="5" data-t="list" data-k="licenses.${i}.features">${esc(l.features.join("\n"))}</textarea></label><label class="row"><input type="checkbox" data-t="chk" data-k="licenses.${i}.best" ${l.best?"checked":""}> Highlight this license</label><button class="del" data-dellic="${i}">Remove license</button></div>`).join("");
- $("#bts").innerHTML=D.beats.map((b,i)=>`<div class="card"><label>Title<input data-k="beats.${i}.title" value="${esc(b.title)}"></label>${n(`beats.${i}.bpm`,"BPM",b.bpm)}<label>Tags (comma separated)<input data-t="csv" data-k="beats.${i}.tags" value="${esc((b.tags||[]).join(", "))}"></label>${fi("audio",i,"beats","Preview MP3 (with voice tag)",b.audio)}${fi("cover",i,"beats","Cover image (optional)",b.cover)}<label>Checkout link (optional: BeatStars, Payhip... for automatic delivery)<input data-k="beats.${i}.buy" value="${esc(b.buy||"")}"></label>${gn(b,i)}<button class="del" data-del="${i}">Remove beat</button></div>`).join("")||"<p>No beats yet.</p>"}
+ const s=(k,l,ph="",help="")=>`<label>${l}<input data-k="${k}" value="${esc(D[k])}" placeholder="${ph}">${help?`<small>${help}</small>`:""}</label>`;
+ $("#set").innerHTML=`<div class="g2">`+s("artist","Nombre artístico","","Logo, pie y título de la página")+s("email","Email de contacto (opcional)")+`</div><div class="g2">`+s("instagram","Usuario de Instagram (sin @)")+s("youtube","URL del canal de YouTube")+`</div><div class="g2">`+s("paypal","Usuario o enlace de PayPal.me","p. ej. cloudisdeaf")+`<label>Moneda<select data-k="currency"><option${D.currency==="EUR"?" selected":""}>EUR</option><option${D.currency==="USD"?" selected":""}>USD</option></select></label></div>`;
+ licView();beatsView();beatEd();genView();cnt();if(VIEW==="inicio")dash()}
+function cnt(){$("#nb").textContent=D.beats.length;$("#nl").textContent=D.licenses.length}
+const n=(k,l,v)=>`<label>${l}<input type="number" data-t="num" data-k="${k}" value="${esc(v)}"></label>`;
+function licView(){const cs=D.currency==="USD"?"$":"€";
+ $("#lic").innerHTML=D.licenses.map((l,i)=>`<div class="card lic${l.best?" best":""}"><div class="row2" style="padding-top:0"><span>${l.best?'<i class="tag dk">Destacada</i>':""}<i class="tag">${i+1}.º en la web</i></span><span><button class="ic" data-lm="up" data-i="${i}" ${i?"":"disabled"} aria-label="Subir">↑</button><button class="ic" data-lm="dn" data-i="${i}" ${i<D.licenses.length-1?"":"disabled"} aria-label="Bajar">↓</button></span></div><label>Nombre<input data-k="licenses.${i}.name" value="${esc(l.name)}"></label><label>Precio (${cs})<input type="number" min="0" step="1" data-t="num" data-k="licenses.${i}.price" value="${esc(l.price)}"></label><label>Qué incluye (una línea por punto)<textarea rows="6" data-t="list" data-k="licenses.${i}.features">${esc(l.features.join("\n"))}</textarea></label><label class="row"><input type="checkbox" data-t="chk" data-k="licenses.${i}.best" ${l.best?"checked":""}> Destacar esta licencia</label><div class="tb"><button data-lm="dup" data-i="${i}">Duplicar</button><button class="del" data-lm="del" data-i="${i}">Eliminar</button></div></div>`).join("")||'<div class="card emp"><b>Sin licencias</b>Añade la primera con el botón de arriba.</div>'}
+$("#lic").addEventListener("click",e=>{const b=e.target.closest("[data-lm]");if(!b)return;const i=+b.dataset.i,L=D.licenses,m=b.dataset.lm;
+ if(m==="up"&&i>0)[L[i-1],L[i]]=[L[i],L[i-1]];else if(m==="dn"&&i<L.length-1)[L[i+1],L[i]]=[L[i],L[i+1]];
+ else if(m==="dup"){const c=JSON.parse(JSON.stringify(L[i]));c.lid=uid("lic");c.name+=" (copy)";c.best=false;L.splice(i+1,0,c)}
+ else if(m==="del"){if(!confirm("¿Eliminar la licencia «"+L[i].name+"» de la web?"))return;L.splice(i,1)}else return;licView();cnt();rf()});
+$("#lic").addEventListener("change",e=>{if(/\.best$/.test(e.target.dataset.k||""))licView()});
+$("#addlic").onclick=()=>{D.licenses.push({lid:uid("lic"),name:"New license",price:50,features:["Describe what is included"]});licView();cnt();rf();toast("Licencia añadida al final")};
+
+/* Lista de beats */
+let BQ="",BG="",BS="ord",OPEN=null,DRAG=null;const PA=new Audio();let PI=null;
+const inc=b=>[!b.audio&&"Sin audio",!b.cover&&"Sin portada",!(b.genres||[]).length&&"Sin género"].filter(Boolean);
+const src=p=>P[p]||p;
+function beatsView(){if(!D)return;
+ const fg=$("#bfg"),gv=BG;fg.innerHTML=`<option value="">Todos (${D.beats.length})</option><option value="_vis">En la tienda</option><option value="_hid">Ocultos</option><option value="_inc">Incompletos</option><optgroup label="Género">${D.genres.map(g=>`<option value="${esc(g)}">${esc(g)}</option>`).join("")}</optgroup>`;fg.value=gv;
+ const q=BQ.toLowerCase(),ok=b=>(!q||(b.title+" "+(b.tags||[]).join(" ")+" "+(b.key||"")).toLowerCase().includes(q))&&(!BG||(BG==="_hid"?b.hidden:BG==="_vis"?!b.hidden:BG==="_inc"?inc(b).length:(b.genres||[]).includes(BG)));
+ const L=D.beats.map((b,i)=>({b,i})).filter(x=>ok(x.b));
+ if(BS==="az")L.sort((x,y)=>x.b.title.localeCompare(y.b.title));if(BS==="bpm")L.sort((x,y)=>(+x.b.bpm||0)-(+y.b.bpm||0));
+ const dr=BS==="ord"&&!q&&!BG;
+ $("#bts").innerHTML=L.map(({b,i})=>`<div class="brow${OPEN===b.id?" on":""}${b.hidden?" hid":""}" data-bid="${esc(b.id)}" draggable="${dr}"><span class="grip" title="${dr?"Arrastra para reordenar":"Quita filtros para reordenar"}">⋮⋮</span><span class="th" style="${b.cover?`background-image:url('${esc(src(b.cover)).replace(/'/g,"%27")}')`:""}"></span><button class="pp${PI===i&&!PA.paused?" on":""}" data-play="${i}" aria-label="Escuchar ${esc(b.title)}" ${b.audio?"":"disabled"}>${PI===i&&!PA.paused?"❚❚":"▶"}</button><span class="bt"><b>${esc(b.title||"Sin título")}</b><small>${esc(b.bpm||"?")} BPM${b.key?" · "+esc(b.key):""}${(b.tags||[]).length?" · "+esc(b.tags.join(", ")):""}</small></span><span class="flags">${b.hidden?'<i class="tag">Oculto</i>':""}${inc(b).map(x=>`<i class="tag warn">${x}</i>`).join("")}${(b.genres||[]).slice(0,2).map(g=>`<i class="tag">${esc(g)}</i>`).join("")}</span><span class="ra"><button class="ic gh" data-bm="up" data-i="${i}" ${i&&dr?"":"disabled"} aria-label="Subir">↑</button><button class="ic gh" data-bm="dn" data-i="${i}" ${i<D.beats.length-1&&dr?"":"disabled"} aria-label="Bajar">↓</button></span></div>`).join("")||`<div class="emp"><b>${D.beats.length?"Nada coincide":"Aún no hay beats"}</b>${D.beats.length?"Prueba con otra búsqueda o filtro.":"Añade el primero o suelta un MP3 aquí debajo."}</div>`;cnt()}
+$("#bq").oninput=e=>{BQ=e.target.value;beatsView()};$("#bfg").onchange=e=>{BG=e.target.value;beatsView()};$("#bso").onchange=e=>{BS=e.target.value;beatsView()};
+const openBeat=id=>{OPEN=id;beatsView();beatEd();const t=$("#bd [data-k$='.title']");if(t&&innerWidth>1100)t.focus()};
+$("#bts").addEventListener("click",e=>{const pb=e.target.closest("[data-play]");if(pb){playB(+pb.dataset.play);return}
+ const m=e.target.closest("[data-bm]");if(m){const i=+m.dataset.i,L=D.beats;if(m.dataset.bm==="up"&&i>0)[L[i-1],L[i]]=[L[i],L[i-1]];if(m.dataset.bm==="dn"&&i<L.length-1)[L[i+1],L[i]]=[L[i],L[i+1]];beatsView();rf();return}
+ const r=e.target.closest(".brow");if(r)openBeat(r.dataset.bid)});
+function playB(i){const b=D.beats[i];if(!b||!b.audio)return;if(PI===i&&!PA.paused){PA.pause()}else{if(PI!==i){PA.src=src(b.audio);PI=i}PA.play().catch(()=>toast("No se puede reproducir este audio aquí"))}setTimeout(beatsView,30)}
+PA.onended=PA.onpause=()=>beatsView();
+/* Arrastrar para reordenar */
+$("#bts").addEventListener("dragstart",e=>{const r=e.target.closest(".brow");if(!r)return;DRAG=r.dataset.bid;r.classList.add("drag");e.dataTransfer.effectAllowed="move";try{e.dataTransfer.setData("text/plain",DRAG)}catch(_){}});
+$("#bts").addEventListener("dragover",e=>{if(!DRAG)return;const r=e.target.closest(".brow");if(!r)return;e.preventDefault();document.querySelectorAll(".brow.over").forEach(x=>x.classList.remove("over"));r.classList.add("over")});
+$("#bts").addEventListener("drop",e=>{if(!DRAG)return;e.preventDefault();const r=e.target.closest(".brow");if(r&&r.dataset.bid!==DRAG){const L=D.beats,a=L.findIndex(b=>b.id===DRAG),[x]=L.splice(a,1),t=L.findIndex(b=>b.id===r.dataset.bid);L.splice(t,0,x);rf();toast("Orden actualizado")}DRAG=null;beatsView()});
+$("#bts").addEventListener("dragend",()=>{DRAG=null;beatsView()});
+
+/* Ficha del beat */
+const fl=(b,i)=>`<small>Nombres exactos de los archivos en tu almacenamiento privado (nunca subas los archivos limpios a GitHub). Uno por línea.</small>${D.licenses.map(l=>`<label>${esc(l.name)}<textarea rows="2" data-k="beats.${i}.files.${l.lid}" placeholder="my-beat/my-beat.wav">${esc((b.files||{})[l.lid]||"")}</textarea></label>`).join("")}`;
+function beatEd(){const p=$("#bd"),i=D.beats.findIndex(b=>b.id===OPEN);
+ if(i<0){p.classList.remove("open");p.innerHTML=`<div class="emp"><b>Elige un beat</b>Haz clic en un beat de la lista para editarlo, o añade uno nuevo.<br><br><button class="pri" data-bx="new">+ Añadir beat</button></div>`;return}
+ const b=D.beats[i],k=x=>`beats.${i}.${x}`;b.files=b.files||{};p.classList.add("open");
+ p.innerHTML=`<div class="bdh"><b>${esc(b.title||"Beat")}</b><button class="ic gh" data-bx="close" aria-label="Cerrar">✕</button></div><div class="in">
+ <div class="cvz" data-drop="cover"><div class="im" style="${b.cover?`background-image:url('${esc(src(b.cover)).replace(/'/g,"%27")}')`:""}">${b.cover?"":"SIN PORTADA"}</div><div><span class="lb">Portada</span><small>${esc(b.cover||"Arrastra una imagen aquí")}</small><div class="tb" style="margin-top:.4rem"><label class="up">${b.cover?"Cambiar":"Subir"}<input type="file" accept="image/*" data-bf="cover" hidden></label>${b.cover?'<button class="gh" data-bx="nocover">Quitar</button>':""}</div></div></div>
+ <label>Título<input data-k="${k("title")}" value="${esc(b.title)}"></label>
+ <div class="g2" style="grid-template-columns:1fr 1fr"><label>BPM<input type="number" min="40" max="300" data-t="num" data-k="${k("bpm")}" value="${esc(b.bpm)}"></label><label>Tonalidad<input list="keys" data-k="${k("key")}" value="${esc(b.key||"")}" placeholder="p. ej. Dm"></label></div>
+ <label>Artistas tipo / tags<input data-t="csv" data-k="${k("tags")}" value="${esc((b.tags||[]).join(", "))}"><small>Separados por comas. Salen bajo el título.</small></label>
+ <div><span class="lb">Géneros</span><div class="chips">${D.genres.map(g=>`<label class="chip"><input type="checkbox" data-gn="${i}" data-gv="${esc(g)}" ${(b.genres||[]).includes(g)?"checked":""}>${esc(g)}</label>`).join("")}</div></div>
+ <div class="aud" data-drop="audio"><span class="lb">Preview MP3 (con tu tag de voz)</span>${b.audio?`<audio controls preload="none" src="${esc(src(b.audio))}"></audio>`:""}<small>${esc(b.audio||"Nada subido. Arrastra un MP3 aquí.")}${F[b.audio]?" · se sube al publicar":""}</small><div class="tb"><label class="up">${b.audio?"Cambiar MP3":"Subir MP3"}<input type="file" accept=".mp3,audio/mpeg" data-bf="audio" hidden></label></div></div>
+ <label>Enlace de compra (opcional)<input data-k="${k("buy")}" value="${esc(b.buy||"")}" placeholder="BeatStars, Payhip…"><small>Si lo rellenas, el botón de compra lleva ahí para la entrega automática.</small></label>
+ <label class="row"><input type="checkbox" data-t="chk" data-k="${k("hidden")}" ${b.hidden?"checked":""}> Oculto: borrador que no sale en la tienda</label>
+ <details class="sub"><summary>Archivos privados para la entrega automática</summary>${fl(b,i)}</details>
+ <small>${b.date?"Añadido el "+esc(b.date)+" · ":""}id ${esc(b.id)}</small>
+ <div class="bdf"><button data-bx="dup">Duplicar</button><button data-bx="top">Poner el primero</button><button class="del" data-bx="del">Eliminar</button></div></div>`}
+$("#bd").addEventListener("click",e=>{const x=e.target.closest("[data-bx]");if(!x)return;const m=x.dataset.bx,i=D.beats.findIndex(b=>b.id===OPEN);
+ if(m==="new"){newBeat();return}if(m==="close"){OPEN=null;beatsView();beatEd();return}if(i<0)return;const b=D.beats[i];
+ if(m==="nocover")b.cover="";
+ else if(m==="dup"){const c=JSON.parse(JSON.stringify(b));c.id=uid("beat");c.title+=" (copy)";c.files={};c.hidden=true;c.date=today();D.beats.splice(i,0,c);OPEN=c.id;toast("Copia creada como oculta")}
+ else if(m==="top"){D.beats.splice(i,1);D.beats.unshift(b);toast("Ahora es el primero de la tienda")}
+ else if(m==="del"){if(!confirm("¿Eliminar «"+b.title+"» de la web? (El MP3 sigue en el repositorio.)"))return;D.beats.splice(i,1);OPEN=null;toast("Beat eliminado")}
+ beatsView();beatEd();rf()});
+$("#bd").addEventListener("input",e=>{if(e.target.dataset.k){clearTimeout(beatsView.t);beatsView.t=setTimeout(()=>{beatsView();const h=$("#bd .bdh b"),b=D.beats.find(b=>b.id===OPEN);if(h&&b)h.textContent=b.title||"Beat"},150)}});
+$("#bd").addEventListener("change",e=>{const t=e.target;if(t.dataset.bf&&t.files[0])beatFile(t.dataset.bf,t.files[0]);else if(t.dataset.gn!==undefined||t.dataset.t==="chk")beatsView()});
+const slug=n=>n.toLowerCase().replace(/[^a-z0-9.\-]+/g,"-");
+function beatFile(kind,f){const b=D.beats.find(b=>b.id===OPEN);if(!b)return;
+ if(kind==="audio"&&!/\.mp3$/i.test(f.name)&&f.type!=="audio/mpeg"){toast("Solo MP3, por favor");return}if(kind==="cover"&&!/^image\//.test(f.type)){toast("Eso no es una imagen");return}
+ const p=(kind==="audio"?"beats/":"covers/")+slug(f.name);F[p]=f;P[p]=URL.createObjectURL(f);b[kind]=p;beatEd();beatsView();rf();toast(kind==="audio"?"MP3 listo: se sube al publicar":"Portada lista: se sube al publicar")}
+["dragover","dragleave","drop"].forEach(ev=>$("#bd").addEventListener(ev,e=>{const z=e.target.closest("[data-drop]");if(!z)return;e.preventDefault();z.classList.toggle("over",ev==="dragover");if(ev==="drop"&&e.dataTransfer.files[0])beatFile(z.dataset.drop,e.dataTransfer.files[0])}));
+/* Beats nuevos */
+const parseName=n=>{let s=n.replace(/\.[a-z0-9]+$/i,"");const m=s.match(/(\d{2,3})\s*-?\s*bpm/i);s=s.replace(/(\d{2,3})\s*-?\s*bpm/ig,"").replace(/type\s*beat/ig,"").replace(/[_\-]+/g," ").replace(/\s+/g," ").trim();return{title:s?s.replace(/\b\w/g,c=>c.toUpperCase()):"New beat",bpm:m?+m[1]:140}};
+function newBeat(f){const o=f?parseName(f.name):{title:"New beat",bpm:140},b={id:uid("beat"),files:{},genres:[],title:o.title,bpm:o.bpm,tags:[],audio:"",cover:"",date:today()};
+ if(f){const p="beats/"+slug(f.name);F[p]=f;P[p]=URL.createObjectURL(f);b.audio=p}D.beats.unshift(b);if(VIEW!=="beats")go("beats");OPEN=b.id;BQ="";BG="";$("#bq").value="";beatsView();beatEd();rf();
+ const t=$("#bd [data-k$='.title']");if(t){t.focus();t.select()}}
+$("#add").onclick=()=>newBeat();
+$("#bmp").onchange=e=>{[...e.target.files].reverse().forEach(f=>newBeat(f));toast(e.target.files.length+" beat(s) creado(s). Revisa título, BPM y géneros");e.target.value=""};
+["dragover","dragleave","drop"].forEach(ev=>$("#bdrop").addEventListener(ev,e=>{e.preventDefault();$("#bdrop").classList.toggle("over",ev==="dragover");if(ev==="drop"){const L=[...e.dataTransfer.files].filter(f=>/\.mp3$/i.test(f.name));if(!L.length){toast("Suelta archivos MP3");return}L.reverse().forEach(f=>newBeat(f));toast(L.length+" beat(s) creado(s). Revisa título, BPM y géneros")}}));
+/* Géneros */
+function genView(){$("#gen").innerHTML=`<div class="chips">${D.genres.map((g,i)=>`<span class="chip">${esc(g)} <small style="margin:0">${D.beats.filter(b=>(b.genres||[]).includes(g)).length}</small><button data-grm="${i}" aria-label="Quitar ${esc(g)}">×</button></span>`).join("")}</div><div class="tb"><input id="gna" placeholder="Nuevo género" style="max-width:220px"><button id="gnb">Añadir</button></div>`}
+$("#gen").addEventListener("click",e=>{if(e.target.id==="gnb"){const v=$("#gna").value.trim();if(v&&!D.genres.includes(v)){D.genres.push(v);genView();beatsView();beatEd();rf()}return}
+ const x=e.target.dataset.grm;if(x===undefined)return;const g=D.genres[+x],u=D.beats.filter(b=>(b.genres||[]).includes(g)).length;if(u&&!confirm("«"+g+"» lo usan "+u+" beat(s). ¿Quitarlo también de ellos?"))return;D.genres.splice(+x,1);D.beats.forEach(b=>{b.genres=(b.genres||[]).filter(y=>y!==g)});genView();beatsView();beatEd();rf()});
+$("#gen").addEventListener("keydown",e=>{if(e.target.id==="gna"&&e.key==="Enter")$("#gnb").click()});
+
+/* ---------- Inicio ---------- */
+function dash(){if(!D)return;const vis=D.beats.filter(b=>!b.hidden),hid=D.beats.length-vis.length,pr=D.licenses.map(l=>+l.price||0),cs=D.currency==="USD"?"$":"€",pub=["album","projects"].filter(k=>D[k]&&D[k].on).length,its=refs().length;
+ const T=[];D.beats.forEach(b=>{const x=inc(b);if(x.length)T.push([0,`«${esc(b.title)}»: ${x.join(", ").toLowerCase()}`,"beat:"+b.id])});
+ if(!(D.legal||{}).who)T.push([0,"Faltan los datos legales (quién lleva la web)","tienda"]);if(!D.paypal&&!(D.shop||{}).api)T.push([0,"No hay forma de cobro: añade PayPal.me o el servidor de pedidos","ajustes"]);
+ if(D.album&&D.album.on&&!D.album.title)T.push([0,"El álbum de la semana es público pero no tiene título","paginas"]);
+ if(!D.licenses.length)T.push([0,"No hay licencias a la venta","licencias"]);
+ const tri=trStats();tri.filter(t=>t.miss).forEach(t=>T.push([1,`Traducción ${t.n}: faltan ${t.miss} textos`,"traducciones:"+t.l]));
+ $("#dsh").innerHTML=`<div class="tiles"><a class="tile" href="#/beats"><span class="k">Beats en la tienda</span><span class="v">${vis.length}</span><span class="s">${hid?hid+" oculto"+(hid>1?"s":"")+" · ":""}${D.genres.length} géneros</span></a><a class="tile" href="#/licencias"><span class="k">Licencias</span><span class="v">${D.licenses.length}</span><span class="s">${pr.length?"desde "+Math.min(...pr)+" "+cs+" hasta "+Math.max(...pr)+" "+cs:"ninguna"}</span></a><a class="tile" href="#/paginas"><span class="k">Páginas públicas</span><span class="v">${2+pub}</span><span class="s">Inicio, Beats${D.album.on?", Álbum":""}${D.projects.on?", Proyectos":""}</span></a><a class="tile" href="#/capas"><span class="k">Elementos de diseño</span><span class="v">${its}</span><span class="s">${Object.keys(D.canvases).length} lienzo(s) libres</span></a></div>
+ <div class="sec-h"><h2>Accesos rápidos</h2></div><div class="qa"><button class="pri" data-go="newbeat">+ Añadir beat</button><button data-go="disenar">Abrir el editor visual</button><button data-go="paginas">Cambiar el álbum de la semana</button><button data-go="licencias">Revisar precios</button><a class="btn" href="./" target="_blank" rel="noopener">Ver la web ↗</a></div>
+ <div class="cols" style="margin-top:1.4rem"><div><div class="sec-h"><h2>Pendiente</h2><span class="mu">${T.filter(t=>!t[0]).length} por resolver</span></div><div class="card todo">${T.length?T.map(t=>`<a href="#" data-go="${esc(t[2])}"><span class="dot${t[0]?" i":""}"></span><span>${t[1]}</span></a>`).join(""):'<a href="#" data-go="beats"><span class="dot ok"></span><span>Todo en orden. Buen momento para subir un beat.</span></a>'}</div></div>
+ <div><div class="sec-h"><h2>Últimos beats</h2><a href="#/beats" class="mu">Ver todos</a></div><div class="blist">${D.beats.slice(0,5).map(b=>`<div class="brow" data-go="beat:${esc(b.id)}" style="grid-template-columns:46px minmax(0,1fr) auto"><span class="th" style="${b.cover?`background-image:url('${esc(src(b.cover)).replace(/'/g,"%27")}')`:""}"></span><span class="bt"><b>${esc(b.title)}</b><small>${esc(b.bpm)} BPM${b.date?" · "+esc(b.date):""}</small></span><span class="flags">${b.hidden?'<i class="tag">Oculto</i>':'<i class="tag">En la tienda</i>'}</span></div>`).join("")||'<div class="emp">Aún no hay beats.</div>'}</div>
+ <div class="sec-h"><h2>Traducciones</h2></div><div class="card">${tri.length?tri.map(t=>`<div><div class="row2" style="border:0;padding:0 0 .3rem"><span>${t.n}</span><span class="mu">${t.pc}%</span></div><div class="bar"><i style="width:${t.pc}%"></i></div></div>`).join(""):'<p class="mu">Se calcula cuando carga la vista previa.</p>'}</div></div></div>`}
+function trStats(){if(!W||!W.I18N)return[];const S=strs(),L=[["es","Español"],["ca","Català"],["fr","Français"],["de","Deutsch"],["ja","日本語"]];return L.map(([l,nm])=>{const I=D.i18n[l]||{},B=W.I18N[l]||{},m=S.filter(s=>!I[s]&&!B[s]).length;return{l,n:nm,miss:m,pc:S.length?Math.round((S.length-m)/S.length*100):100}})}
+document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(!g)return;e.preventDefault();const v=g.dataset.go;
+ if(v==="newbeat")newBeat();else if(v.indexOf("beat:")===0){go("beats");openBeat(v.slice(5))}else if(v.indexOf("traducciones:")===0){$("#tl").value=v.split(":")[1];$("#tlf").value="miss";go("traducciones");$("#pl").value=$("#tl").value;rf0()}else go(v)});
+
+/* ---------- Motor del editor visual (mismo funcionamiento que el panel v5) ---------- */
 document.addEventListener("input",e=>{const t=e.target,k=t.dataset.k;if(!k)return;const p=k.split(".");let o=D;while(p.length>1)o=o[p.shift()];
  let v=t.value;const ty=t.dataset.t;if(ty==="num")v=+v;if(ty==="list")v=v.split("\n").map(x=>x.trim()).filter(Boolean);if(ty==="csv")v=v.split(",").map(x=>x.trim()).filter(Boolean);if(ty==="chk")v=t.checked;o[p[0]]=v});
 document.addEventListener("change",e=>{const t=e.target;if(!t.dataset.f||!t.files[0])return;const f=t.files[0],k=t.dataset.f,dir=k==="audio"?"beats/":k==="cover"?"covers/":"img/",p=dir+f.name.toLowerCase().replace(/[^a-z0-9.\-]+/g,"-"),o=t.dataset.o;
- F[p]=f;if(k!=="audio"){P[p]=URL.createObjectURL(f);rf()}(()=>{const base=o==="root"?D:o.split(".").reduce((x,q)=>x[q],D);return t.dataset.i===""||o==="root"?base:base[+t.dataset.i]})()[k]=p;t.nextElementSibling.textContent=p+" (uploads when you publish)"});
-document.addEventListener("click",e=>{const d=e.target.dataset;
- if(d.del!==undefined&&confirm("Remove this beat from the site?")){D.beats.splice(+d.del,1);draw()}
- if(d.dellic!==undefined&&confirm("Remove this license?")){D.licenses.splice(+d.dellic,1);draw()}
- if(d.delst!==undefined){D.stickers.splice(+d.delst,1);draw()}});
-$("#addlic").onclick=()=>{D.licenses.push({lid:uid("lic"),name:"New license",price:50,features:["Describe what is included"]});draw()};
-const FONTS=["Archivo Black","Anton","Bebas Neue","Permanent Marker","Space Mono","Special Elite","VT323","Inter","Latin Modern Roman","Libre Baskerville","EB Garamond","Instrument Serif","DM Serif Display","Abril Fatface","Gloock","Playfair Display","Shrikhand","Bowlby One","Lilita One","Chango","Bungee","Alfa Slab One","Rubik Mono One","Climate Crisis","Rubik Dirt","Rubik Glitch","Unbounded","Syne","Dela Gothic One","Rock Salt","Gochi Hand","Caveat Brush","Courier Prime","IBM Plex Mono","Press Start 2P","Silkscreen"],P={},BN={beats:"Latest beats",licenses:"Licenses",payments:"How to pay",free:"Free use",faq:"Questions",contact:"Contact"};let sel=null,view="d",cur="",W=null,T="page",tm;const PG={"p-beats":["All beats page","beats"],"p-album":["Album page","album"],"p-projects":["Projects page","projects"],"p-legal":["Legal page","legal"],"p-thanks":["Order / downloads page","thanks"]};
+ F[p]=f;if(k!=="audio"){P[p]=URL.createObjectURL(f);rf()}(()=>{const base=o==="root"?D:o.split(".").reduce((x,q)=>x[q],D);return t.dataset.i===""||o==="root"?base:base[+t.dataset.i]})()[k]=p;t.nextElementSibling.textContent=p+" (se sube al publicar)"});
+document.addEventListener("click",e=>{const d=e.target.dataset;if(d.delst!==undefined){D.stickers.splice(+d.delst,1);draw()}});
+const FONTS=["Archivo Black","Anton","Bebas Neue","Permanent Marker","Space Mono","Special Elite","VT323","Inter","Latin Modern Roman","Libre Baskerville","EB Garamond","Instrument Serif","DM Serif Display","Abril Fatface","Gloock","Playfair Display","Shrikhand","Bowlby One","Lilita One","Chango","Bungee","Alfa Slab One","Rubik Mono One","Climate Crisis","Rubik Dirt","Rubik Glitch","Unbounded","Syne","Dela Gothic One","Rock Salt","Gochi Hand","Caveat Brush","Courier Prime","IBM Plex Mono","Press Start 2P","Silkscreen"],P={},BN={beats:"Últimos beats",licenses:"Licencias",payments:"Cómo pagar",free:"Uso gratis",faq:"Preguntas",contact:"Contacto"};let sel=null,view="d",cur="",W=null,T="page",tm;const PG={"p-beats":["Página All beats","beats"],"p-album":["Página del álbum","album"],"p-projects":["Página de proyectos","projects"],"p-legal":["Página legal","legal"],"p-thanks":["Página de pedido / descargas","thanks"]};
 const defHero=d=>{const L=[],b=d.banner?1:0;if(b)L.push({t:"img",src:d.banner,x:2,y:3,w:96,r:0,sh:1});(d.stickers||[]).filter(s=>s.img).forEach(s=>L.push({t:"img",src:s.img,x:+s.x||0,y:+s.y||0,w:Math.max(3,Math.round((+s.w||140)/12.8)),r:+s.r||0,sh:1,an:"w"}));
  L.push({t:"text",s:d.artist||"CloudIsDeaf",x:4,y:b?46:14,w:92,fs:b?9:11,f:"Archivo Black",sh:1,r:0},{t:"text",s:d.tagline||"Type beats made for late nights.",x:4,y:b?72:62,w:55,fs:2.1,f:"Space Mono",hl:1,r:0},{t:"text",s:"hear the beats",x:4,y:b?85:80,w:20,fs:1.9,f:"Space Mono",btn:1,link:"#beats",r:0});
- if(!b&&!(d.stickers||[]).length)L.push({t:"text",s:"\u2605",x:84,y:4,w:12,fs:11,f:"Archivo Black",c:"#e63a1e",an:"s",r:0},{t:"text",s:"ADVISORY\nheavy 808s inside",x:70,y:72,w:22,fs:1.6,f:"Space Mono",hl:1,r:-4});
+ if(!b&&!(d.stickers||[]).length)L.push({t:"text",s:"★",x:84,y:4,w:12,fs:11,f:"Archivo Black",c:"#e63a1e",an:"s",r:0},{t:"text",s:"ADVISORY\nheavy 808s inside",x:70,y:72,w:22,fs:1.6,f:"Space Mono",hl:1,r:-4});
  return{ar:"16/7",arm:"4/5",items:L}};
 const mig=d=>{if(!d.canvases||!d.layout){const H=d.hero||defHero(d);if(d.hero&&(d.banner||(d.stickers||[]).length))H.items=[...defHero({banner:d.banner,stickers:d.stickers}).items.filter(i=>i.t==="img"),...H.items];const c=i=>({x:i.x,y:i.y,w:i.w,fs:i.fs,r:i.r||0});d.canvases={hero:{name:"Top banner",ar:{d:H.ar||"16/7",m:H.arm||"4/5"},bg:{c:"",img:"",pat:"none"},items:H.items.map(i=>({...i,d:c(i),m:c(i)}))}};d.layout=["hero","beats","licenses","payments","free","faq","contact"]}delete d.hero;d.over=d.over||{};d.licenses=Array.isArray(d.licenses)?d.licenses:[];d.beats=Array.isArray(d.beats)?d.beats:[];d.shop=d.shop||{api:""};d.licenses.forEach(l=>{l.lid=l.lid||uid("lic");l.features=Array.isArray(l.features)?l.features:[]});d.beats.forEach(b=>{b.id=b.id||uid("beat");b.files=b.files||{};b.genres=b.genres||[];b.tags=b.tags||[]});d.i18n=d.i18n||{};d.legal=d.legal||{who:"",email:""};d.album=d.album||{on:false,week:"",title:"",artist:"",year:"",cover:"",note:"",links:{}};d.album.links=d.album.links||{};d.projects=d.projects||{on:false,items:[]};d.genres=d.genres||["Trap","R&B","Crank","Jerk","Melodic","Drill","Rage"];d.layout=d.layout.filter(k=>BN[k]||d.canvases[k])};
 const B=()=>D&&D.canvases[cur];
 const items=(b,o)=>o==="c"?(D.canvases[b]||{items:[]}).items:(D.over[b]=D.over[b]||[]);
 const it0=()=>sel&&items(sel.b,sel.o)[sel.i];
-const tn=id=>id==="page"?"Whole page":PG[id]?PG[id][0]:D.canvases[id]?D.canvases[id].name:BN[id]||id;
+const tn=id=>id==="page"?"Página entera":PG[id]?PG[id][0]:D.canvases[id]?D.canvases[id].name:BN[id]||id;
 const elOf=s=>W&&s&&W.document.querySelector(`.it[data-o="${s.o}"][data-b="${s.b}"][data-i="${s.i}"]`);
 const ctrEl=id=>{if(!W)return null;const d=W.document;return id==="page"?d.querySelector("#pg"):PG[id]?d.querySelector("#"+id+">.w"):D.canvases[id]?d.querySelector("#c-"+id+" .cv"):d.querySelector('[data-blk="'+id+'"]>.w')};
-const prev=()=>JSON.parse(JSON.stringify(D,(k,v)=>(k==="src"||k==="img"||k==="cover")&&P[v]?P[v]:v));
+const prev=()=>JSON.parse(JSON.stringify(D,(k,v)=>(k==="src"||k==="img"||k==="cover"||k==="audio")&&P[v]?P[v]:v));
 const addFile=f=>{const p="img/"+f.name.toLowerCase().replace(/[^a-z0-9.\-]+/g,"-");F[p]=f;P[p]=URL.createObjectURL(f);return p};
 const all=()=>[...Object.values(D.canvases).flatMap(c=>c.items),...Object.values(D.over).flat()];
 const rf=()=>{clearTimeout(tm);tm=setTimeout(rf0,70)};
 const pwv=()=>view==="m"?390:(+$("#pw").value||Math.max(1000,innerWidth));
-function fit(){const st=document.querySelector(".stage"),w=pwv(),av=st.clientWidth-26,z=$("#zm").value,s=z==="fit"?(av>0?Math.min(1,av/w):1):+z,h=Math.round(innerHeight*(document.body.classList.contains("fcs")?.86:.82)),fw=$("#fw"),fr=$("#fr");
+function fit(){const st=document.querySelector(".stage"),w=pwv(),av=st.clientWidth-26,z=$("#zm").value,s=z==="fit"?(av>0?Math.min(1,av/w):1):+z,h=st.clientHeight>200?st.clientHeight-26:Math.round(innerHeight*.8),fw=$("#fw"),fr=$("#fr");
  fw.style.width=Math.round(w*s)+"px";fw.style.height=h+"px";fr.style.width=w+"px";fr.style.height=Math.round(h/s)+"px";fr.style.transform="scale("+s+")";fr.style.transformOrigin="0 0"}
 addEventListener("resize",()=>{if(D)fit()});$("#pw").onchange=()=>rf0();$("#zm").onchange=()=>rf0();$("#ani").onchange=()=>rf0();
-function rf0(){if(!W||!W.render||!D)return;fit();$("#vd").style.outline=view==="d"?"2px solid #a5b8ff":"";$("#vm").style.outline=view==="m"?"2px solid #a5b8ff":"";
- const b=W.document.body;b.classList.toggle("vm",view==="m");b.classList.toggle("vd",view==="d");const y=W.scrollY||0;W.render(prev());const lg=$("#pl").value;if(lg&&W.setLang&&W.document.documentElement.lang!==lg)W.setLang(lg);b.classList.toggle("anim",$("#ani").checked&&D.anim!==false);try{W.scrollTo(0,y)}catch(_){}decor();lyr();hs()}
+function rf0(){if(!W||!W.render||!D)return;fit();$("#vd").classList.toggle("on",view==="d");$("#vm").classList.toggle("on",view==="m");
+ const b=W.document.body;b.classList.toggle("vm",view==="m");b.classList.toggle("vd",view==="d");const y=W.scrollY||0;W.render(prev());const lg=$("#pl").value;if(lg&&W.setLang&&W.document.documentElement.lang!==lg)W.setLang(lg);b.classList.toggle("anim",$("#ani").checked&&D.anim!==false);try{W.scrollTo(0,y)}catch(_){}decor();if(VIEW==="capas")lyr();hs()}
 function decor(){if(!W||!W.render)return;const d=W.document;d.querySelectorAll(".eg,.gd,.hd,.rh").forEach(e=>e.remove());
  const el=elOf(sel);if(el&&it0()){el.classList.add("sel");el.insertAdjacentHTML("beforeend",'<span class="hd"></span><span class="rh"></span>')}
  const C=el?el.offsetParent:ctrEl(T);
  if(C&&$("#grid").checked){const s=+$("#snap").value||10;let h="";for(let p=0;p<=100;p+=10)h+=`<i style="left:${p}%">${p}</i><b style="top:${p}%">${p}</b>`;C.insertAdjacentHTML("beforeend",`<div class="eg" style="--s:${s}%">${h}</div>`)}
  ro()}
 function ro(g){const i=it0(),el=elOf(sel),R=$("#ro");
- if(!i){const C=ctrEl(T);R.textContent="New items go on: "+tn(T)+(C?" ("+C.offsetWidth+"\u00d7"+C.offsetHeight+" px)":"")+". Click an item in the preview to select it.";return}
- const G=g||i[view]||i.d,C=el&&el.offsetParent;R.textContent=tn(sel.b)+(C?" \u00b7 "+C.offsetWidth+"\u00d7"+C.offsetHeight+" px":"")+" \u00b7 x "+G.x+"%  y "+G.y+"%  w "+G.w+"%  rot "+(G.r||0)+"\u00b0  layer "+(i.z||0)+" \u00b7 screen "+W.innerWidth+"px"}
+ if(!i){const C=ctrEl(T);R.textContent="Lo nuevo va en: "+tn(T)+(C&&C.offsetWidth?" ("+C.offsetWidth+"×"+C.offsetHeight+" px)":"")+". Haz clic en un elemento de la vista previa para seleccionarlo.";return}
+ const G=g||i[view]||i.d,C=el&&el.offsetParent;R.textContent=tn(sel.b)+(C?" · "+C.offsetWidth+"×"+C.offsetHeight+" px":"")+" · x "+G.x+"%  y "+G.y+"%  ancho "+G.w+"%  giro "+(G.r||0)+"°  capa "+(i.z||0)+" · pantalla "+W.innerWidth+"px"}
 function setT(id){T=id;$("#tgt").value=id;if(D.canvases[id]&&cur!==id){cur=id;lay()}bgp();gotoPage(id)}
 function gotoPage(id){if(!W||!W.location)return;const h=W.location.hash,sub=/^#\/(beats|album|projects|legal|thanks)/.test(h),want=PG[id]?"#/"+PG[id][1]:(sub?"#/":null);
  if(!want||(PG[id]&&h.indexOf(want)===0)||(want==="#/"&&!sub))return;W.location.hash=want;try{W.scrollTo(0,0)}catch(_){}setTimeout(()=>{decor();rf0()},150)}
 function lay(){const L=D.layout,rm=Object.keys(BN).filter(k=>!L.includes(k));
- $("#lay").innerHTML=L.map(id=>{const c=D.canvases[id];return`<div class="row2"><b>${esc(c?c.name:BN[id])}${c?" (free canvas"+(id===cur?", editing":"")+")":""}</b><span>${c?`<button class="sec" data-m="ed" data-id="${id}">Edit</button>`:""}<button class="sec" data-m="up" data-id="${id}">Up</button><button class="sec" data-m="dn" data-id="${id}">Down</button><button class="del" data-m="rm" data-id="${id}">Remove</button></span></div>`}).join("")+`<div class="tb"><button class="sec" id="adc">Add a free canvas</button>${rm.map(k=>`<button class="sec" data-m="back" data-id="${k}">Restore: ${BN[k]}</button>`).join("")}</div>`;
- $("#tgt").innerHTML='<option value="page">Whole page (background)</option>'+L.map(id=>`<option value="${id}">${esc(tn(id))}</option>`).join("")+'<optgroup label="Other pages">'+Object.keys(PG).map(k=>`<option value="${k}">${PG[k][0]}</option>`).join("")+"</optgroup>";T=L.includes(T)||T==="page"||PG[T]?T:"page";$("#tgt").value=T}
+ $("#lay").innerHTML=L.map((id,n)=>{const c=D.canvases[id];return`<div class="row2"><span><i class="tag">${n+1}</i><b>${esc(c?c.name:BN[id])}</b>${c?`<i class="tag dk">lienzo libre${id===cur?" · en edición":""}</i>`:'<i class="tag">sección fija</i>'}</span><span>${c?`<button data-m="ed" data-id="${id}">Editar</button>`:""}<button class="ic" data-m="up" data-id="${id}" ${n?"":"disabled"} aria-label="Subir">↑</button><button class="ic" data-m="dn" data-id="${id}" ${n<L.length-1?"":"disabled"} aria-label="Bajar">↓</button><button class="del" data-m="rm" data-id="${id}">Quitar</button></span></div>`}).join("")+`<div class="tb" style="padding-top:.6rem"><button class="pri" id="adc">+ Añadir lienzo libre</button>${rm.map(k=>`<button data-m="back" data-id="${k}">Recuperar: ${BN[k]}</button>`).join("")}</div>`;
+ $("#tgt").innerHTML='<option value="page">Página entera (fondo)</option>'+L.map(id=>`<option value="${id}">${esc(tn(id))}</option>`).join("")+'<optgroup label="Otras páginas">'+Object.keys(PG).map(k=>`<option value="${k}">${PG[k][0]}</option>`).join("")+"</optgroup>";T=L.includes(T)||T==="page"||PG[T]?T:"page";$("#tgt").value=T}
 $("#tgt").onchange=()=>{setT($("#tgt").value);decor()};$("#snap").onchange=decor;$("#grid").onchange=decor;
-$("#lay").addEventListener("click",e=>{const m=e.target.dataset.m,id=e.target.dataset.id,L=D.layout,n=L.indexOf(id),ct=L.indexOf("contact")>-1?L.indexOf("contact"):L.length;
- if(e.target.id==="adc"){const k="c"+Date.now().toString(36);D.canvases[k]={name:"Canvas "+(Object.keys(D.canvases).length+1),ar:{d:"16/6",m:"1/1"},bg:{c:"",img:"",pat:"none"},items:[]};L.splice(ct,0,k);cur=k;T=k;sel=null}
+$("#lay").addEventListener("click",e=>{const t=e.target.closest("button");if(!t)return;const m=t.dataset.m,id=t.dataset.id,L=D.layout,n=L.indexOf(id),ct=L.indexOf("contact")>-1?L.indexOf("contact"):L.length;
+ if(t.id==="adc"){const k="c"+Date.now().toString(36);D.canvases[k]={name:"Canvas "+(Object.keys(D.canvases).length+1),ar:{d:"16/6",m:"1/1"},bg:{c:"",img:"",pat:"none"},items:[]};L.splice(ct,0,k);cur=k;T=k;sel=null;toast("Lienzo añadido antes de Contacto")}
  else if(!m)return;
  else if(m==="up"&&n>0)[L[n-1],L[n]]=[L[n],L[n-1]];
  else if(m==="dn"&&n<L.length-1)[L[n+1],L[n]]=[L[n],L[n+1]];
- else if(m==="rm"){if(!confirm("Remove this block from the page?"))return;L.splice(n,1);if(D.canvases[id]){delete D.canvases[id];sel=null;if(cur===id)cur=L.find(k=>D.canvases[k])||""}}
+ else if(m==="rm"){if(!confirm("¿Quitar este bloque de la portada?"))return;L.splice(n,1);if(D.canvases[id]){delete D.canvases[id];sel=null;if(cur===id)cur=L.find(k=>D.canvases[k])||""}}
  else if(m==="back")L.splice(ct,0,id);
- else if(m==="ed"){cur=id;T=id;sel=null}
+ else if(m==="ed"){cur=id;T=id;sel=null;lay();bgp();pn();go("disenar");setTimeout(()=>gotoPage(id),50);return}
  lay();bgp();pn();rf0()});
 function bgp(){const p=$("#bgc");
  if(PG[T]){D.pbg=D.pbg||{};const b=D.pbg[T]=Object.assign({c:"",img:"",pat:"none"},D.pbg[T]),k=x=>`pbg.${T}.${x}`;
-  p.innerHTML=`<p><b>${PG[T][0]}</b>: its background. Items you place on this page are measured against the page content, so they stay with it.</p><label>Background color<input type="color" data-k="${k("c")}" value="${b.c||"#ffffff"}"></label><button class="sec" data-m="pnobg">Use default background</button><label>Background pattern<select data-k="${k("pat")}">${[["none","None"],["dots","Dots"],["lines","Stripes"]].map(a=>`<option value="${a[0]}"${a[0]===b.pat?" selected":""}>${a[1]}</option>`).join("")}</select></label><label>Background image<input type="file" accept="image/*" id="pbi"><small>${esc(b.img||"None")}</small></label><button class="sec" data-m="pnobi">Remove background image</button>`;return}
- const b=B();if(!b){p.innerHTML="<p>Add a free canvas in the page layout above to set its background and height.</p>";return}
+  $("#bgw summary").textContent="Fondo: "+PG[T][0];
+  p.innerHTML=`<p class="mu">Lo que colocas en esta página se mide respecto a su contenido, así que se mueve con él.</p><label>Color de fondo<input type="color" data-k="${k("c")}" value="${b.c||"#ffffff"}"></label><button data-m="pnobg">Usar el fondo por defecto</button><label>Trama<select data-k="${k("pat")}">${[["none","Ninguna"],["dots","Puntos"],["lines","Rayas"]].map(a=>`<option value="${a[0]}"${a[0]===b.pat?" selected":""}>${a[1]}</option>`).join("")}</select></label><label>Imagen de fondo<input type="file" accept="image/*" id="pbi"><small>${esc(b.img||"Ninguna")}</small></label><button data-m="pnobi">Quitar imagen de fondo</button>`;return}
+ const b=B();$("#bgw summary").textContent=b?"Fondo y forma: "+b.name:"Fondo y forma del lienzo";if(!b){p.innerHTML="<p class='mu'>Añade un lienzo libre en Estructura de la portada para cambiar su fondo y su altura.</p>";return}
  const k=x=>`canvases.${cur}.${x}`;
- p.innerHTML=`<label>Canvas name<input data-k="${k("name")}" value="${esc(b.name)}"></label><label>Shape on desktop (width/height)<input data-k="${k("ar.d")}" value="${esc(b.ar.d)}"></label><label>Shape on mobile (width/height)<input data-k="${k("ar.m")}" value="${esc(b.ar.m)}"></label><label>Background color<input type="color" data-k="${k("bg.c")}" value="${b.bg.c||"#ffffff"}"></label><button class="sec" data-m="nobg">Use page background</button><label>Background pattern<select data-k="${k("bg.pat")}">${[["none","None"],["dots","Dots"],["lines","Stripes"]].map(a=>`<option value="${a[0]}"${a[0]===b.bg.pat?" selected":""}>${a[1]}</option>`).join("")}</select></label><label class="row"><input type="checkbox" data-t="chk" data-k="${k("wide")}" ${b.wide?"checked":""}> Full width (edge to edge, up to 1920 px)</label><label>Background image<input type="file" accept="image/*" id="bgi"><small>${esc(b.bg.img||"None")}</small></label><button class="sec" data-m="nobi">Remove background image</button>`}
+ p.innerHTML=`<label>Nombre del lienzo<input data-k="${k("name")}" value="${esc(b.name)}"></label><div class="g2" style="grid-template-columns:1fr 1fr"><label>Forma escritorio (ancho/alto)<input data-k="${k("ar.d")}" value="${esc(b.ar.d)}"></label><label>Forma móvil (ancho/alto)<input data-k="${k("ar.m")}" value="${esc(b.ar.m)}"></label></div><label>Color de fondo<input type="color" data-k="${k("bg.c")}" value="${b.bg.c||"#ffffff"}"></label><button data-m="nobg">Usar el fondo de la página</button><label>Trama<select data-k="${k("bg.pat")}">${[["none","Ninguna"],["dots","Puntos"],["lines","Rayas"]].map(a=>`<option value="${a[0]}"${a[0]===b.bg.pat?" selected":""}>${a[1]}</option>`).join("")}</select></label><label class="row"><input type="checkbox" data-t="chk" data-k="${k("wide")}" ${b.wide?"checked":""}> Ancho completo (de borde a borde, hasta 1920 px)</label><label>Imagen de fondo<input type="file" accept="image/*" id="bgi"><small>${esc(b.bg.img||"Ninguna")}</small></label><button data-m="nobi">Quitar imagen de fondo</button>`}
 $("#bgc").addEventListener("click",e=>{const m=e.target.dataset.m;if(PG[T]&&D.pbg&&D.pbg[T]&&(m==="pnobg"||m==="pnobi")){if(m==="pnobg")D.pbg[T].c="";else D.pbg[T].img="";bgp();rf0();return}const b=B();if(!b)return;if(m==="nobg")b.bg.c="";else if(m==="nobi")b.bg.img="";else return;bgp();rf0()});
 $("#bgc").addEventListener("change",e=>{if(e.target.id==="pbi"&&e.target.files[0]&&D.pbg&&D.pbg[T]){D.pbg[T].img=addFile(e.target.files[0]);bgp();rf0();return}if(e.target.id==="bgi"&&e.target.files[0]){B().bg.img=addFile(e.target.files[0]);bgp();rf0()}});
-function pn(){const i=it0(),p=$("#pn");if(!i){p.innerHTML="<p>Select an item in the preview, or add one with the buttons above.</p>";return}
- const G=i[view]||i.d,V=view==="d"?"desktop":"mobile",
+function pn(){const i=it0(),p=$("#pn");if(!i){p.innerHTML="<div><h3>Nada seleccionado</h3><p class='mu'>Haz clic en un elemento de la vista previa, o añade uno con la barra de arriba. Flechas para mover (Mayús = más rápido), Supr para borrar.</p></div>";return}
+ const G=i[view]||i.d,V=view==="d"?"escritorio":"móvil",
  f=(k,l,t="text",x="")=>`<label>${l}<input type="${t}" data-p="${k}" value="${esc(i[k]??"")}" ${x}></label>`,
  gf=(k,l,x="")=>`<label>${l} (${V})<input type="number" data-g="${k}" value="${esc(G[k]??"")}" ${x}></label>`,
  ck=(k,l)=>`<label class="row"><input type="checkbox" data-p="${k}" data-c="1" ${i[k]?"checked":""}> ${l}</label>`,
- ab=(v,l)=>`<button class="sec" data-a="al" data-v="${v}">${l}</button>`,
- stk=()=>`<label>Sticker color<input type="color" data-p="bg" value="${i.bg||"#ffd400"}"></label>`+f("sub","Small print (left | right)")+`<label>Drawing<select data-p="ic">${[["","None"],["tag","Price tag crossed out"],["jack","Audio jack"],["vinylO","Smiling vinyl instead of the first O"],["tape","Cassette"],["bolt","Lightning bolt"],["note","Music note"],["star","Star"]].map(a=>`<option value="${a[0]}"${a[0]===(i.ic||"")?" selected":""}>${a[1]}</option>`).join("")}</select></label>`;
- p.innerHTML=`<p><b>${esc(tn(sel.b))}</b>: editing the ${V} layout</p>`+(i.t==="text"?`<label>Text<textarea rows="3" data-p="s">${esc(i.s)}</textarea></label><label>Font<select data-p="f">${FONTS.map(x=>`<option${x===i.f?" selected":""}>${x}</option>`).join("")}</select></label><div class="fpv" style="font-family:'${esc(i.f||D.theme.bd)}',sans-serif">Beats que pegan · Aa 123</div>`+gf("fs","Size",'step="0.1" min="0.5"')+`<label>Color<input type="color" data-p="c" value="${i.c||D.theme.ink}"></label>`+`<label>Collage style<select data-p="st">${[["","Normal"],["marker","Marker headline (red underline)"],["ransom","Ransom-note letters"],["scrap","Torn paper strip"],["dlg","Windows dialog with Play button (Link = second button)"],["dlgs","Windows dialog, cascade of 3"],["burst","Paper starburst (uses Color, no text)"],["ico","Desktop icon (text = label, uses Link)"],["cur","Mouse cursor (no text)"],["stk","Bumper sticker (text + color + drawing)"]].map(a=>`<option value="${a[0]}"${a[0]===(i.st||"")?" selected":""}>${a[1]}</option>`).join("")}</select></label>`+(i.st==="stk"?stk():"")+ck("tp","Tape on top")+ck("sh","Punk shadow")+ck("hl","Highlighter")+ck("btn","Button style")+f("link","Link (optional, for example #beats)"):`<label>Replace image<input type="file" accept="image/*" id="rpl"></label><label>Effect<select data-p="fx">${[["","None"],["xb","Photocopy: blue"],["xr","Photocopy: red"],["xy","Photocopy: yellow"],["xg","Photocopy: green and purple"],["xk","Photocopy: grey"],["paint","Paint window (pixelated picture, click to play)"]].map(a=>`<option value="${a[0]}"${a[0]===(i.fx||"")?" selected":""}>${a[1]}</option>`).join("")}</select></label>`+ck("cut","Scissor cut-out with white edge")+ck("sl","Selection frame around it")+ck("tp","Tape on top")+ck("lv","Paint window: show the beat that is playing")+ck("sh","Drop shadow"))
- +gf("x","X position (%)",'step="0.1"')+gf("y","Y position (%)",'step="0.1"')+gf("w","Width (%)",'step="0.5" min="2"')+gf("r","Rotation (degrees)")
- +`<label>Layer (-5 behind page content, 15 in front)<input type="number" min="-5" max="15" step="1" data-p="z" value="${i.z||0}"></label>`+ck("hd","Hide on desktop")+ck("hm","Hide on mobile")+`<label>Animation<select data-p="an">${[["","None"],["w","Wobble"],["s","Spin"],["p","Pulse"],["j","Paper jitter"]].map(a=>`<option value="${a[0]}"${a[0]===(i.an||"")?" selected":""}>${a[1]}</option>`).join("")}</select></label>`
- +`<div class="tb">${ab("l","Left edge")}${ab("ch","Center horizontally")}${ab("r","Right edge")}${ab("t","Top edge")}${ab("cv","Center vertically")}${ab("b","Bottom edge")}</div><div class="tb"><button class="sec" data-a="fw">Layer +1</button><button class="sec" data-a="bk">Layer -1</button><button class="sec" data-a="dup">Duplicate</button><button class="sec" data-a="hidev">Hide on ${V}</button><button class="del" data-a="rm">Delete everywhere</button></div>`}
+ ab=(v,l)=>`<button data-a="al" data-v="${v}">${l}</button>`,
+ stk=()=>`<label>Color de la pegatina<input type="color" data-p="bg" value="${i.bg||"#ffd400"}"></label>`+f("sub","Letra pequeña (izquierda | derecha)")+`<label>Dibujo<select data-p="ic">${[["","Ninguno"],["tag","Etiqueta de precio tachada"],["jack","Jack de audio"],["vinylO","Vinilo sonriente en la primera O"],["tape","Casete"],["bolt","Rayo"],["note","Nota musical"],["star","Estrella"]].map(a=>`<option value="${a[0]}"${a[0]===(i.ic||"")?" selected":""}>${a[1]}</option>`).join("")}</select></label>`;
+ p.innerHTML=`<div><h3>${i.t==="text"?"Texto":"Imagen"}</h3><p class="mu">${esc(tn(sel.b))} · editando la vista de ${V}</p></div>`+(i.t==="text"?`<label>Texto<textarea rows="3" data-p="s">${esc(i.s)}</textarea></label><label>Tipografía<select data-p="f">${FONTS.map(x=>`<option${x===i.f?" selected":""}>${x}</option>`).join("")}</select></label><div class="fpv" style="font-family:'${esc(i.f||D.theme.bd)}',sans-serif">Beats que pegan · Aa 123</div><div class="g2" style="grid-template-columns:1fr 1fr">`+gf("fs","Tamaño",'step="0.1" min="0.5"')+`<label>Color<input type="color" data-p="c" value="${i.c||D.theme.ink}"></label></div>`+`<label>Estilo collage<select data-p="st">${[["","Normal"],["marker","Titular de rotulador (subrayado rojo)"],["ransom","Letras recortadas (nota de rescate)"],["scrap","Tira de papel rasgada"],["dlg","Ventana Windows con botón Play (Enlace = segundo botón)"],["dlgs","Ventana Windows, cascada de 3"],["burst","Estallido de papel (usa Color, sin texto)"],["ico","Icono de escritorio (texto = nombre, usa Enlace)"],["cur","Cursor del ratón (sin texto)"],["stk","Pegatina de parachoques (texto + color + dibujo)"]].map(a=>`<option value="${a[0]}"${a[0]===(i.st||"")?" selected":""}>${a[1]}</option>`).join("")}</select></label>`+(i.st==="stk"?stk():"")+ck("tp","Cinta adhesiva encima")+ck("sh","Sombra punk")+ck("hl","Subrayador")+ck("btn","Estilo botón")+f("link","Enlace (opcional, p. ej. #beats)"):`<label>Cambiar imagen<input type="file" accept="image/*" id="rpl"></label><label>Efecto<select data-p="fx">${[["","Ninguno"],["xb","Fotocopia: azul"],["xr","Fotocopia: rojo"],["xy","Fotocopia: amarillo"],["xg","Fotocopia: verde y morado"],["xk","Fotocopia: gris"],["paint","Ventana de Paint (imagen pixelada, clic para reproducir)"]].map(a=>`<option value="${a[0]}"${a[0]===(i.fx||"")?" selected":""}>${a[1]}</option>`).join("")}</select></label>`+ck("cut","Recorte de tijera con borde blanco")+ck("sl","Marco de selección alrededor")+ck("tp","Cinta adhesiva encima")+ck("lv","Ventana de Paint: muestra el beat que suena")+ck("sh","Sombra"))
+ +`<div class="g2" style="grid-template-columns:1fr 1fr">`+gf("x","X (%)",'step="0.1"')+gf("y","Y (%)",'step="0.1"')+gf("w","Ancho (%)",'step="0.5" min="2"')+gf("r","Giro (°)")+`</div>`
+ +`<label>Capa (−5 detrás del contenido, 15 delante)<input type="number" min="-5" max="15" step="1" data-p="z" value="${i.z||0}"></label>`+ck("hd","Ocultar en escritorio")+ck("hm","Ocultar en móvil")+`<label>Animación<select data-p="an">${[["","Ninguna"],["w","Balanceo"],["s","Giro"],["p","Latido"],["j","Temblor de papel"]].map(a=>`<option value="${a[0]}"${a[0]===(i.an||"")?" selected":""}>${a[1]}</option>`).join("")}</select></label>`
+ +`<div><span class="lb">Alinear</span><div class="tb" style="margin-top:.35rem">${ab("l","⇤ Izq.")}${ab("ch","↔ Centro")}${ab("r","Der. ⇥")}${ab("t","⤒ Arriba")}${ab("cv","↕ Medio")}${ab("b","Abajo ⤓")}</div></div><div class="tb"><button data-a="fw">Capa +1</button><button data-a="bk">Capa −1</button><button data-a="dup">Duplicar</button><button data-a="hidev">Ocultar en ${V}</button><button class="del" data-a="rm">Borrar en todas partes</button></div>`}
 function design(){const t=D.theme,o=v=>FONTS.map(x=>`<option${x===v?" selected":""}>${x}</option>`).join(""),c=(k,l)=>`<label>${l}<input type="color" data-k="theme.${k}" value="${esc(t[k])}"></label>`;
- $("#sty").innerHTML=`<label>Heading font (titles of each section)<select data-k="theme.hd">${o(t.hd)}</select></label><div class="fpv" style="font-family:'${esc(t.hd)}',sans-serif">Heading font · Aa 123</div><label>Body font<select data-k="theme.bd">${o(t.bd)}</select></label><div class="fpv" style="font-family:'${esc(t.bd)}',sans-serif">Body font · Aa 123</div>`+c("paper","Page background color")+c("ink","Text and border color")+c("acc","Accent color")+c("acc2","Second accent color")+`<label>Page background pattern<select data-k="theme.pat"><option value="dots"${t.pat!=="none"?" selected":""}>Dots</option><option value="none"${t.pat==="none"?" selected":""}>None</option></select></label><label>Scrolling strip text<input data-k="ticker" value="${esc(D.ticker)}"></label><label class="row"><input type="checkbox" data-t="chk" data-k="anim" ${D.anim?"checked":""}> Animations on</label>`;
- lay();bgp();pn();pgs();shp();legal();if(!$("#fr").getAttribute("src"))$("#fr").src="index.html?edit=1&t="+Date.now();
+ $("#sty").innerHTML=`<label>Tipografía de títulos<select data-k="theme.hd">${o(t.hd)}</select></label><div class="fpv" style="font-family:'${esc(t.hd)}',sans-serif">Títulos · Aa 123</div><label>Tipografía del texto<select data-k="theme.bd">${o(t.bd)}</select></label><div class="fpv" style="font-family:'${esc(t.bd)}',sans-serif">Texto normal · Aa 123</div><div class="g2" style="grid-template-columns:1fr 1fr">`+c("paper","Fondo de la página")+c("ink","Texto y bordes")+c("acc","Color de acento")+c("acc2","Segundo acento")+`</div><label>Trama del fondo<select data-k="theme.pat"><option value="dots"${t.pat!=="none"?" selected":""}>Puntos</option><option value="none"${t.pat==="none"?" selected":""}>Ninguna</option></select></label><label>Texto de la cinta que se desplaza<input data-k="ticker" value="${esc(D.ticker)}"></label><label class="row"><input type="checkbox" data-t="chk" data-k="anim" ${D.anim?"checked":""}> Animaciones activadas</label>`;
+ lay();bgp();pn();pgs();shp();legal();acc();if(!$("#fr").getAttribute("src"))$("#fr").src="index.html?edit=1&t="+Date.now();
  fetch("index.html?t="+Date.now()).then(r=>r.text()).then(h=>{const d=new DOMParser().parseFromString(h,"text/html");
-  $("#txt").innerHTML=[...d.querySelectorAll("[data-tx]")].map(e=>`<label>${esc(e.textContent.trim().slice(0,45))}<textarea rows="2" data-x="${e.dataset.tx}">${esc(D.texts[e.dataset.tx]??e.textContent.trim())}</textarea></label>`).join("")||"<p>No texts found.</p>"}).catch(()=>{$("#txt").innerHTML="<p>Could not load the list of texts.</p>"})}
-document.addEventListener("input",e=>{if(e.target.dataset.k&&D)rf();const t=e.target;if(t.dataset.k==="theme.hd"||t.dataset.k==="theme.bd"){const v=t.closest("label").nextElementSibling;if(v&&v.classList.contains("fpv"))v.style.fontFamily="'"+t.value+"',sans-serif"}});
-$("#txt").addEventListener("input",e=>{const k=e.target.dataset.x;if(k)D.texts[k]=e.target.value});
+  $("#txt").innerHTML=[...d.querySelectorAll("[data-tx]")].map(e=>`<label data-q="${esc(e.textContent.trim().toLowerCase())}">${esc(e.textContent.trim().slice(0,60))}<textarea rows="2" data-x="${e.dataset.tx}">${esc(D.texts[e.dataset.tx]??e.textContent.trim())}</textarea></label>`).join("")||"<p>No se han encontrado textos.</p>"}).catch(()=>{$("#txt").innerHTML="<p>No se ha podido cargar la lista de textos.</p>"})}
+function swp(){if(!D)return;const t=D.theme;$("#swp").innerHTML=`<div class="card" style="background:${esc(t.paper)};color:${esc(t.ink)};border:3px solid ${esc(t.ink)};box-shadow:6px 6px 0 ${esc(t.ink)}"><div style="font:2rem/1 '${esc(t.hd)}',sans-serif">${esc(D.artist||"CloudIsDeaf")}</div><div style="font:15px/1.5 '${esc(t.bd)}',monospace">Type beats made for late nights.</div><div><span style="background:${esc(t.acc)};padding:.2em .5em;font:14px '${esc(t.bd)}',monospace">acento</span> <span style="background:${esc(t.acc2)};padding:.2em .5em;font:14px '${esc(t.bd)}',monospace;border:1px solid ${esc(t.ink)}">segundo acento</span></div></div><p class="mu" style="margin-top:.7rem">Muestra rápida. La vista real está en el <a href="#/disenar">editor visual</a>.</p>`}
+document.addEventListener("input",e=>{if(e.target.dataset.k&&D)rf();const t=e.target;if(t.dataset.k==="theme.hd"||t.dataset.k==="theme.bd"){const v=t.closest("label").nextElementSibling;if(v&&v.classList.contains("fpv"))v.style.fontFamily="'"+t.value+"',sans-serif"}if(VIEW==="estilo"&&/^theme|^ticker/.test(t.dataset.k||""))swp()});
+$("#txt").addEventListener("input",e=>{const k=e.target.dataset.x;if(k){D.texts[k]=e.target.value;rf()}});
+$("#txq").oninput=e=>{const q=e.target.value.toLowerCase();document.querySelectorAll("#txt label").forEach(l=>l.hidden=q&&!(l.dataset.q||"").includes(q)&&!l.querySelector("textarea").value.toLowerCase().includes(q))};
 $("#pn").addEventListener("input",e=>{const t=e.target,i=it0();if(!i)return;
  if(t.dataset.g)(i[view]=i[view]||{...i.d})[t.dataset.g]=+t.value;else if(t.dataset.p)i[t.dataset.p]=t.dataset.c?t.checked:t.type==="number"?+t.value:t.value;else return;if(t.dataset.p==="st")pn();if(t.dataset.p==="f"){const v=$("#pn").querySelector(".fpv");if(v)v.style.fontFamily="'"+t.value+"',sans-serif"}rf();ro()});
 $("#pn").addEventListener("change",e=>{if(e.target.id==="rpl"&&e.target.files[0]){it0().src=addFile(e.target.files[0]);rf0()}});
 $("#pn").addEventListener("click",e=>{const a=e.target.dataset.a,i=it0();if(!a||!i)return;const L=items(sel.b,sel.o),g=i[view]=i[view]||{...i.d};
- if(a==="rm"){if(!confirm("Delete this item from desktop AND mobile?"))return;L.splice(sel.i,1);sel=null}else if(a==="hidev"){i[view==="d"?"hd":"hm"]=1}
- else if(a==="dup"){const c=JSON.parse(JSON.stringify(i));["d","m"].forEach(k=>{c[k].x+=3;c[k].y+=3});L.push(c);sel={...sel,i:L.length-1}}
+ if(a==="rm"){if(!confirm("¿Borrar este elemento de escritorio Y móvil?"))return;L.splice(sel.i,1);sel=null}else if(a==="hidev"){i[view==="d"?"hd":"hm"]=1}
+ else if(a==="dup"){const c=JSON.parse(JSON.stringify(i));["d","m"].forEach(k=>{if(c[k]){c[k].x+=3;c[k].y+=3}});L.push(c);sel={...sel,i:L.length-1}}
  else if(a==="fw"||a==="bk")i.z=Math.max(-5,Math.min(15,(i.z||0)+(a==="fw"?1:-1)));
- else if(a==="al"){const el=elOf(sel),C=el.offsetParent,w=el.offsetWidth/C.offsetWidth*100,h=el.offsetHeight/C.offsetHeight*100,v=e.target.dataset.v;
+ else if(a==="al"){const el=elOf(sel);if(!el)return;const C=el.offsetParent,w=el.offsetWidth/C.offsetWidth*100,h=el.offsetHeight/C.offsetHeight*100,v=e.target.dataset.v;
   if(v==="l")g.x=0;if(v==="ch")g.x=+(50-w/2).toFixed(1);if(v==="r")g.x=+(100-w).toFixed(1);if(v==="t")g.y=0;if(v==="cv")g.y=+(50-h/2).toFixed(1);if(v==="b")g.y=+(100-h).toFixed(1)}
  rf0();pn()});
 const nw=o=>{const id=ctrEl(T)?T:"page",oo=D.canvases[id]?"c":"o",C=ctrEl(id);let x=30,y=20;
@@ -221,42 +628,47 @@ $("#adt").onclick=()=>nw({t:"text",s:"New text",f:D.theme.bd,z:0,d:{w:40,fs:4,r:
 $("#adk").onclick=()=>nw({t:"text",s:"NEW\nSTICKER!",st:"stk",bg:"#ffd400",c:D.theme.ink,f:"Anton",sub:"Prod. "+(D.artist||"")+"|© "+new Date().getFullYear()+" "+(D.artist||""),ic:"bolt",z:3,d:{w:30,fs:4.6,r:-3},m:{w:86,fs:11,r:-2}});$("#adw").onclick=()=>nw({t:"text",s:"Title line\nSecond line",st:"dlg",f:D.theme.bd,z:5,d:{w:30,fs:1.1,r:0},m:{w:88,fs:3.7,r:0}});$("#adb").onclick=()=>nw({t:"text",s:"",st:"burst",c:D.theme.acc,f:D.theme.bd,z:0,d:{w:25,fs:2,r:0},m:{w:60,fs:4,r:0}});$("#adr").onclick=()=>nw({t:"text",s:"New text",st:"ransom",f:D.theme.bd,z:3,d:{w:40,fs:4,r:-2},m:{w:80,fs:8,r:-2}});$("#ads").onclick=()=>nw({t:"text",s:"New text",st:"scrap",tp:1,f:"Special Elite",z:3,d:{w:22,fs:1.2,r:-3},m:{w:80,fs:4,r:-3}});
 $("#adi").onchange=e=>{const f=e.target.files[0];if(!f)return;nw({t:"img",src:addFile(f),sh:1,z:1,d:{w:20,r:0},m:{w:35,r:0}});e.target.value=""};
 $("#vd").onclick=()=>{view="d";rf0();pn()};$("#vm").onclick=()=>{view="m";rf0();pn()};
-const cp=(a,z)=>{if(confirm("Copy the "+(a==="d"?"desktop":"mobile")+" layout of every item to "+(z==="d"?"desktop":"mobile")+"?")){all().forEach(i=>{i[z]={...(i[a]||i.d)}});rf0();pn()}};
+const cp=(a,z)=>{if(confirm("¿Copiar la colocación de "+(a==="d"?"escritorio":"móvil")+" de todos los elementos a "+(z==="d"?"escritorio":"móvil")+"?")){all().forEach(i=>{i[z]={...(i[a]||i.d)}});rf0();pn()}};
 $("#c2m").onclick=()=>cp("d","m");$("#m2d").onclick=()=>cp("m","d");
 const refs=()=>[...Object.entries(D.canvases).flatMap(([b,c])=>c.items.map((it,i)=>({o:"c",b,i,it}))),...Object.entries(D.over).flatMap(([b,L])=>L.map((it,i)=>({o:"o",b,i,it})))];
-function lyr(){const L=$("#ly");if(!L||!D)return;
- L.innerHTML=refs().map(r=>{const k=r.o+"|"+r.b+"|"+r.i;return`<div class="row2"><span><b>${esc(r.it.t==="img"?(r.it.src||"").split("/").pop():"\u201c"+String(r.it.s||"").slice(0,28)+"\u201d")}</b><small>on ${esc(tn(r.b))}</small></span><span><label class="row"><input type="checkbox" data-ly="d" data-ref="${k}" ${r.it.hd?"":"checked"}> Desktop</label><label class="row"><input type="checkbox" data-ly="m" data-ref="${k}" ${r.it.hm?"":"checked"}> Mobile</label><button class="sec" data-ly="s" data-ref="${k}">Select</button></span></div>`}).join("")||"<p>No items yet.</p>"}
+function lyr(){const L=$("#ly");if(!L||!D)return;const q=($("#lyq").value||"").toLowerCase(),R=refs().filter(r=>!q||(String(r.it.s||"")+" "+(r.it.src||"")+" "+tn(r.b)).toLowerCase().includes(q)),G={};R.forEach(r=>{(G[r.b]=G[r.b]||[]).push(r)});
+ L.innerHTML=Object.entries(G).map(([b,rs])=>`<div class="lb" style="margin-top:.6rem">${esc(tn(b))} · ${rs.length}</div>`+rs.map(r=>{const k=r.o+"|"+r.b+"|"+r.i;return`<div class="row2"><span>${r.it.t==="img"?`<span class="th" style="width:34px;height:34px;background-image:url('${esc(src(r.it.src)).replace(/'/g,"%27")}');background-size:contain;background-repeat:no-repeat"></span>`:'<i class="tag">texto</i>'}<b>${esc(r.it.t==="img"?(r.it.src||"").split("/").pop():"“"+String(r.it.s||r.it.st||"").slice(0,34)+"”")}</b></span><span><label class="row"><input type="checkbox" data-ly="d" data-ref="${k}" ${r.it.hd?"":"checked"}> Escritorio</label><label class="row"><input type="checkbox" data-ly="m" data-ref="${k}" ${r.it.hm?"":"checked"}> Móvil</label><button data-ly="s" data-ref="${k}">Seleccionar</button></span></div>`}).join("")).join("")||"<p class='mu'>No hay elementos.</p>"}
+$("#lyq").oninput=lyr;
 $("#ly").addEventListener("change",e=>{const t=e.target,v=t.dataset.ly;if(!v||v==="s")return;const[o,b,i]=t.dataset.ref.split("|");items(b,o)[+i][v==="d"?"hd":"hm"]=t.checked?0:1;rf0()});
-$("#ly").addEventListener("click",e=>{const t=e.target;if(t.dataset.ly!=="s")return;const[o,b,i]=t.dataset.ref.split("|");sel={o,b,i:+i};setT(b);rf0();pn();const el=elOf(sel);if(el&&el.scrollIntoView)el.scrollIntoView({block:"center"})});
-$("#hm1").onclick=()=>{refs().forEach(r=>{if(r.it.t==="img")r.it.hm=1});rf0()};$("#hm0").onclick=()=>{refs().forEach(r=>{r.it.hm=0});rf0()};
+$("#ly").addEventListener("click",e=>{const t=e.target;if(t.dataset.ly!=="s")return;const[o,b,i]=t.dataset.ref.split("|");sel={o,b,i:+i};go("disenar");setT(b);rf0();pn();setTimeout(()=>{const el=elOf(sel);if(el&&el.scrollIntoView)el.scrollIntoView({block:"center"})},200)});
+$("#hm1").onclick=()=>{refs().forEach(r=>{if(r.it.t==="img")r.it.hm=1});rf0();lyr()};$("#hm0").onclick=()=>{refs().forEach(r=>{r.it.hm=0});rf0();lyr()};
 const PL=[["spotify","Spotify"],["apple","Apple Music"],["ytm","YouTube Music"],["amazon","Amazon Music"],["deezer","Deezer"],["tidal","Tidal"],["soundcloud","SoundCloud"],["bandcamp","Bandcamp"]];
-const fl=(b,i)=>`<div><b>Private files for automatic delivery</b><small>Exact file names in your private storage (never upload clean files to GitHub). One per line.</small>${D.licenses.map(l=>`<label>${esc(l.name)}<textarea rows="3" data-k="beats.${i}.files.${l.lid}" placeholder="my-beat/my-beat.wav">${esc((b.files||{})[l.lid]||"")}</textarea></label>`).join("")}</div>`;
-const gn=(b,i)=>fl(b,i)+`<div><b>Genres</b><div class="tb">${D.genres.map(g=>`<label class="row"><input type="checkbox" data-gn="${i}" data-gv="${esc(g)}" ${(b.genres||[]).includes(g)?"checked":""}> ${esc(g)}</label>`).join("")}</div></div>`;
 document.addEventListener("change",e=>{const t=e.target;if(t.dataset.gn===undefined)return;const b=D.beats[+t.dataset.gn];b.genres=b.genres||[];const g=t.dataset.gv,ix=b.genres.indexOf(g);if(t.checked&&ix<0)b.genres.push(g);if(!t.checked&&ix>-1)b.genres.splice(ix,1);rf()});
-function pgs(){const A=D.album,J=D.projects,f=(k,l,v)=>`<label>${l}<input data-k="${k}" value="${esc(v||"")}"></label>`;
- $("#pgs").innerHTML=`<label class="row"><input type="checkbox" data-t="chk" data-k="album.on" ${A.on?"checked":""}> Album of the week page is public</label><label class="row"><input type="checkbox" data-t="chk" data-k="projects.on" ${J.on?"checked":""}> Projects page is public</label><label>Preview page in the designer<select id="pgv"><option value="">Home</option><option value="beats">All beats</option><option value="album">Album of the week</option><option value="projects">Projects</option><option value="legal">Legal page</option></select></label><label>Genres for the beats page (comma separated)<input data-t="csv" data-k="genres" value="${esc(D.genres.join(", "))}"></label>`;
- $("#alb").innerHTML=f("album.week","Label (for example Week of Oct 12)",A.week)+f("album.title","Album title",A.title)+f("album.artist","Artist",A.artist)+f("album.year","Year",A.year)+`<label>Why this album<textarea rows="3" data-k="album.note">${esc(A.note)}</textarea></label><label>Cover<input type="file" accept="image/*" data-f="cover" data-i="" data-o="album"><small>${esc(A.cover||"No cover")}</small></label>`+PL.map(x=>`<label>${x[1]} link<input data-k="album.links.${x[0]}" value="${esc(A.links[x[0]]||"")}" placeholder="https://"></label>`).join("");
- $("#prj").innerHTML=J.items.map((p,i)=>`<div class="card">${f(`projects.items.${i}.title`,"Title",p.title)}${f(`projects.items.${i}.role`,"Your role",p.role)}${f(`projects.items.${i}.year`,"Year",p.year)}<label>Description<textarea rows="3" data-k="projects.items.${i}.desc">${esc(p.desc)}</textarea></label><label>Cover<input type="file" accept="image/*" data-f="cover" data-i="${i}" data-o="projects.items"><small>${esc(p.cover||"No cover")}</small></label><label>Links (one per line: Label | URL)<textarea rows="3" data-k="projects.items.${i}.links">${esc(p.links)}</textarea></label><button class="del" data-delp="${i}">Remove project</button></div>`).join("")||"<p>No projects yet.</p>"}
-$("#pgs").addEventListener("change",e=>{if(e.target.id==="pgv"&&W)W.location.hash=e.target.value?"#/"+e.target.value:"#/"});
-$("#pgs").addEventListener("input",e=>{if(e.target.dataset.k==="genres")setTimeout(()=>{draw();rf()},0)});
+function pgs(){const A=D.album,J=D.projects,f=(k,l,v,ph="")=>`<label>${l}<input data-k="${k}" value="${esc(v||"")}" placeholder="${ph}"></label>`;
+ $("#pgs").innerHTML=`<label class="row"><input type="checkbox" data-t="chk" data-k="album.on" ${A.on?"checked":""}> La página del álbum de la semana es pública</label><label class="row"><input type="checkbox" data-t="chk" data-k="projects.on" ${J.on?"checked":""}> La página de proyectos es pública</label><label>Ver una página en el editor visual<select id="pgv"><option value="">Inicio</option><option value="beats">All beats</option><option value="album">Álbum de la semana</option><option value="projects">Proyectos</option><option value="legal">Legal</option></select></label>`;
+ $("#alb").innerHTML=`<div class="cvz"><div class="im" style="${A.cover?`background-image:url('${esc(src(A.cover)).replace(/'/g,"%27")}')`:""}">${A.cover?"":"SIN PORTADA"}</div><label>Portada<input type="file" accept="image/*" data-f="cover" data-i="" data-o="album"><small>${esc(A.cover||"Sin portada")}</small></label></div><div class="g2">`+f("album.week","Etiqueta",A.week,"Week of Oct 12")+f("album.title","Título del álbum",A.title)+f("album.artist","Artista",A.artist)+f("album.year","Año",A.year)+`</div><label>Por qué este álbum<textarea rows="4" data-k="album.note">${esc(A.note)}</textarea></label><div class="lb">Enlaces</div><div class="g2">`+PL.map(x=>f(`album.links.${x[0]}`,x[1],A.links[x[0]],"https://")).join("")+`</div>`;
+ $("#prj").innerHTML=J.items.map((p,i)=>`<div class="card"><div class="row2" style="padding-top:0"><b>${esc(p.title||"Proyecto")}</b><span><button class="ic" data-pm="up" data-i="${i}" ${i?"":"disabled"} aria-label="Subir">↑</button><button class="ic" data-pm="dn" data-i="${i}" ${i<J.items.length-1?"":"disabled"} aria-label="Bajar">↓</button></span></div><div class="g2">${f(`projects.items.${i}.title`,"Título",p.title)}${f(`projects.items.${i}.role`,"Tu papel",p.role)}${f(`projects.items.${i}.year`,"Año",p.year)}</div><label>Descripción<textarea rows="3" data-k="projects.items.${i}.desc">${esc(p.desc)}</textarea></label><label>Portada<input type="file" accept="image/*" data-f="cover" data-i="${i}" data-o="projects.items"><small>${esc(p.cover||"Sin portada")}</small></label><label>Enlaces (uno por línea: Texto | URL)<textarea rows="3" data-k="projects.items.${i}.links">${esc(p.links)}</textarea></label><button class="del" data-delp="${i}" style="justify-self:start">Eliminar proyecto</button></div>`).join("")||"<div class='card emp'><b>Sin proyectos</b>Añade el primero con el botón de arriba.</div>"}
+$("#pgs").addEventListener("change",e=>{if(e.target.id==="pgv"&&W){go("disenar");W.location.hash=e.target.value?"#/"+e.target.value:"#/"}});
 $("#adp").onclick=()=>{D.projects.items.unshift({title:"New project",role:"",year:"",desc:"",cover:"",links:""});pgs();rf()};
-$("#prj").addEventListener("click",e=>{const x=e.target.dataset.delp;if(x!==undefined&&confirm("Remove this project?")){D.projects.items.splice(+x,1);pgs();rf()}});
+$("#prj").addEventListener("click",e=>{const x=e.target.dataset.delp;if(x!==undefined&&confirm("¿Eliminar este proyecto?")){D.projects.items.splice(+x,1);pgs();rf();return}const m=e.target.closest("[data-pm]");if(!m)return;const i=+m.dataset.i,L=D.projects.items;if(m.dataset.pm==="up"&&i>0)[L[i-1],L[i]]=[L[i],L[i-1]];if(m.dataset.pm==="dn"&&i<L.length-1)[L[i+1],L[i]]=[L[i],L[i+1]];pgs();rf()});
+$("#alb").addEventListener("change",()=>setTimeout(pgs,0));
+$("#ptabs").onclick=e=>{const t=e.target.dataset.tab;if(!t)return;document.querySelectorAll("#ptabs button").forEach(b=>b.classList.toggle("on",b.dataset.tab===t));document.querySelectorAll("[data-pt]").forEach(s=>s.hidden=s.dataset.pt!==t)};
 let TS=[];
-function shp(){const S=D.shop;$("#shp").innerHTML=`<label>Order server address (https://...workers.dev)<input data-k="shop.api" value="${esc(S.api||"")}" placeholder="https://beats-shop.yourname.workers.dev"></label><button class="sec" id="shpt">Test connection</button><small id="shpr"></small>`}
-$("#shp").addEventListener("click",async e=>{if(e.target.id!=="shpt")return;const u=String(D.shop.api||"").replace(/\/+$/,""),o=$("#shpr");if(!/^https:\/\//.test(u)){o.textContent="Enter an https address first.";return}o.textContent="Testing...";try{const r=await fetch(u+"/api/health"),j=await r.json();o.textContent=j.ok?"Connected. Missing settings: "+((j.missing||[]).join(", ")||"none"):"The server answered but is not ready."}catch(x){o.textContent="Could not reach the server."}});
-function legal(){const L=D.legal;$("#lgl").innerHTML=`<label>Who runs the site (name, tax ID, address)<textarea rows="3" data-k="legal.who">${esc(L.who)}</textarea></label><label>Contact email for privacy requests<input data-k="legal.email" value="${esc(L.email||"")}"></label>`}
+function shp(){const S=D.shop;$("#shp").innerHTML=`<label>Dirección del servidor de pedidos (https://…workers.dev)<input data-k="shop.api" value="${esc(S.api||"")}" placeholder="https://beats-shop.yourname.workers.dev"></label><div class="tb"><button id="shpt">Probar conexión</button><span class="mu" id="shpr">${S.api?"":"Sin servidor: entrega manual por PayPal."}</span></div>`}
+$("#shp").addEventListener("click",async e=>{if(e.target.id!=="shpt")return;const u=String(D.shop.api||"").replace(/\/+$/,""),o=$("#shpr");if(!/^https:\/\//.test(u)){o.textContent="Escribe primero una dirección https.";return}o.textContent="Probando…";try{const r=await fetch(u+"/api/health"),j=await r.json();o.textContent=j.ok?"Conectado. Ajustes que faltan: "+((j.missing||[]).join(", ")||"ninguno"):"El servidor responde pero no está listo."}catch(x){o.textContent="No se ha podido conectar con el servidor."}});
+function legal(){const L=D.legal;$("#lgl").innerHTML=`<label>Quién lleva la web (nombre, NIF y dirección)<textarea rows="3" data-k="legal.who">${esc(L.who)}</textarea></label><label>Email para temas de privacidad<input data-k="legal.email" value="${esc(L.email||"")}"></label>`}
+function acc(){$("#acc").innerHTML=C.local?`<h3>Modo prueba local</h3><p class="mu">Estás editando la copia de esta carpeta. «Descargar data.json» guarda los cambios en un archivo; no se publica nada en GitHub y los archivos nuevos (MP3, imágenes) no se suben.</p>`:`<h3>Conectado a GitHub</h3><div class="g2"><div><span class="lb">Repositorio</span><p><b>${esc(C.repo)}</b></p></div><div><span class="lb">Rama</span><p><b>${esc(C.branch)}</b></p></div></div><div class="tb"><a class="btn" href="https://github.com/${esc(C.repo)}/commits/${esc(C.branch)}" target="_blank" rel="noopener">Historial de cambios ↗</a></div>`}
 function strs(){const U=new Set(),S=new Set(),add=(st,x)=>{x=String(x||"").trim();if(x)st.add(x)};
  add(U,D.ticker);Object.values(D.canvases).forEach(c=>c.items.forEach(i=>i.t==="text"&&add(U,i.s)));Object.values(D.over).forEach(L=>L.forEach(i=>i.t==="text"&&add(U,i.s)));
  D.licenses.forEach(l=>{add(U,l.name);l.features.forEach(f=>add(U,f))});add(U,D.album.week);add(U,D.album.note);D.projects.items.forEach(p=>{add(U,p.role);add(U,p.desc)});Object.values(D.texts||{}).forEach(x=>add(U,x));
  U.forEach(x=>S.add(x));if(W&&W.I18N)Object.keys(W.I18N.es).forEach(x=>add(S,x));return[...S]}
-function tl(){const lg=$("#tl").value;if(lg==="en"){$("#tlist").innerHTML="<p>English is the base language. Edit those texts in Texts and in the designer.</p>";return}
- const I=(D.i18n[lg]=D.i18n[lg]||{}),B=(W&&W.I18N&&W.I18N[lg])||{};TS=strs();
- $("#tlist").innerHTML=TS.map((s,n)=>`<label>${esc(s.slice(0,200))}<textarea rows="${s.length>90?3:1}" data-tr="${n}" placeholder="Not translated yet">${esc(I[s]!==undefined?I[s]:B[s]||"")}</textarea></label>`).join("")}
+function tl(){const lg=$("#tl").value;if(lg==="en"){$("#tlist").innerHTML="<p class='mu'>El inglés es el idioma base. Esos textos se cambian en Textos de la web y en el editor visual.</p>";return}
+ const I=(D.i18n[lg]=D.i18n[lg]||{}),B=(W&&W.I18N&&W.I18N[lg])||{},miss=$("#tlf").value==="miss";TS=strs();
+ const rows=TS.map((s,n)=>({s,n,v:I[s]!==undefined?I[s]:B[s]||""})).filter(r=>!miss||!r.v);
+ $("#tlist").innerHTML=`<p class="mu">${TS.length-TS.filter(s=>!(I[s]||B[s])).length} de ${TS.length} textos traducidos.</p>`+(rows.map(r=>`<label>${esc(r.s.slice(0,200))}<textarea rows="${r.s.length>90?3:1}" data-tr="${r.n}" placeholder="Sin traducir">${esc(r.v)}</textarea></label>`).join("")||"<p>No falta nada en este idioma.</p>")}
 $("#tlist").addEventListener("input",e=>{const n=e.target.dataset.tr;if(n===undefined)return;const lg=$("#tl").value,s=TS[+n],I=D.i18n[lg]=D.i18n[lg]||{};if(e.target.value.trim())I[s]=e.target.value;else delete I[s];rf()});
-$("#tl").onchange=()=>{$("#pl").value=$("#tl").value;tl();rf0()};
-function key(e){if((e.ctrlKey||e.metaKey)&&D&&!/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)){const k=e.key.toLowerCase();if(k==="z"&&!e.shiftKey){e.preventDefault();undo();return}if(k==="y"||(k==="z"&&e.shiftKey)){e.preventDefault();redo();return}}if(!sel||!D||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;const i=it0();if(!i)return;const g=i[view]=i[view]||{...i.d},st=e.shiftKey?2:.5;
- if(e.key==="Delete"||e.key==="Backspace"){if(view==="m")i.hm=1;else if(confirm("Delete this item from the whole page? To only hide it, use the Desktop and Mobile checkboxes in All items.")){items(sel.b,sel.o).splice(sel.i,1);sel=null}}
+$("#tl").onchange=()=>{$("#pl").value=$("#tl").value;tl();rf0()};$("#tlf").onchange=tl;
+function key(e){const typing=/INPUT|TEXTAREA|SELECT/.test(e.target.tagName);
+ if((e.ctrlKey||e.metaKey)&&D){const k=e.key.toLowerCase();if(k==="s"){e.preventDefault();$("#pub").click();return}if(k==="k"){e.preventDefault();qk();return}if(!typing){if(k==="z"&&!e.shiftKey){e.preventDefault();undo();return}if(k==="y"||(k==="z"&&e.shiftKey)){e.preventDefault();redo();return}}}
+ if(VIEW!=="disenar"||!sel||!D||typing)return;const i=it0();if(!i)return;const g=i[view]=i[view]||{...i.d},st=e.shiftKey?2:.5;
+ if(e.key==="Delete"||e.key==="Backspace"){if(view==="m")i.hm=1;else if(confirm("¿Borrar este elemento de toda la página? Para solo ocultarlo, usa las casillas de Capas y elementos.")){items(sel.b,sel.o).splice(sel.i,1);sel=null}}
  else if(e.key.indexOf("Arrow")===0){e.preventDefault();if(e.key==="ArrowLeft")g.x=+(g.x-st).toFixed(1);if(e.key==="ArrowRight")g.x=+(g.x+st).toFixed(1);if(e.key==="ArrowUp")g.y=+(g.y-st).toFixed(1);if(e.key==="ArrowDown")g.y=+(g.y+st).toFixed(1)}
+ else if(e.key==="Escape"){sel=null;decor()}
  else return;rf0();pn()}
 document.addEventListener("keydown",key);
 const ap=(el,g)=>{for(const[k,v]of[["x",g.x+"%"],["y",g.y+"%"],["w",g.w+"%"],["r",g.r||0]])el.style.setProperty("--"+view+k,v)};
@@ -276,29 +688,57 @@ function pd(e){if(e.button>0)return;const hd=e.target.closest(".hd,.rh"),el=e.ta
   if(va)C.insertAdjacentHTML("beforeend",'<div class="gd" style="left:50%;top:0;bottom:0;width:2px"></div>');if(ha)C.insertAdjacentHTML("beforeend",'<div class="gd" style="top:50%;left:0;right:0;height:2px"></div>');ro(g)},
   up=()=>{W.removeEventListener("pointermove",mv);W.removeEventListener("pointerup",up);rf0();pn()};
  W.addEventListener("pointermove",mv);W.addEventListener("pointerup",up)}
-$("#fr").addEventListener("load",()=>{W=$("#fr").contentWindow;if(!W||!W.render)return;W.document.addEventListener("pointerdown",pd,true);W.document.addEventListener("keydown",key);rf0();tl()});
-$("#add").onclick=()=>{D.beats.unshift({id:uid("beat"),files:{},genres:[],title:"New beat",bpm:140,tags:[],audio:"",cover:""});draw()};
-$("#go").onclick=async()=>{C={repo:$("#repo").value.trim(),branch:$("#br").value.trim()||"main",token:$("#tk").value.trim()};
- try{(($("#rem")&&$("#rem").checked)?localStorage:sessionStorage).setItem("gh",JSON.stringify(C))}catch(_){}log("Connecting...");try{await load();log("Connected.")}catch(e){log("Error: "+e.message)}};
-$("#out").onclick=()=>{try{localStorage.removeItem("gh");sessionStorage.removeItem("gh")}catch(_){}location.reload()};
-$("#pub").onclick=async()=>{const b=$("#pub");b.disabled=true;
- try{for(const[p,f]of Object.entries(F)){log("Uploading "+p+"...");await put(p,await b64(f),"Upload "+p)}F={};
-  log("Saving site data...");await put("data.json",enc(JSON.stringify(D,null,2)+"\n"),"Update site data");
-  log("Published. The site updates in about a minute.")}catch(e){log("Error: "+e.message)}b.disabled=false};
-(()=>{const L=[["en","English"],["es","Espa\u00f1ol"],["ca","Catal\u00e0"],["fr","Fran\u00e7ais"],["de","Deutsch"],["ja","\u65e5\u672c\u8a9e"]];let g="";try{g=localStorage.getItem("lg")||""}catch(_){}
+$("#fr").addEventListener("load",()=>{W=$("#fr").contentWindow;if(!W||!W.render)return;W.document.addEventListener("pointerdown",pd,true);W.document.addEventListener("keydown",key);rf0();tl();if(VIEW==="inicio")dash()});
+
+/* ---------- Acceso, publicación y copias ---------- */
+$("#go").onclick=async()=>{C={repo:$("#repo").value.trim(),branch:$("#br").value.trim()||"main",token:$("#tk").value.trim()};if(!C.repo||!C.token){$("#lst").textContent="Rellena el repositorio y el token.";return}
+ try{(($("#rem")&&$("#rem").checked)?localStorage:sessionStorage).setItem("gh",JSON.stringify(C))}catch(_){}$("#lst").textContent="Conectando…";try{await load();log("Conectado")}catch(e){$("#lst").textContent="Error: "+e.message}};
+if(LOCAL)$("#loc").hidden=false;
+$("#loc").onclick=async()=>{C={local:true,repo:"(copia local)",branch:"-"};try{await load();log("Modo prueba local")}catch(e){$("#lst").textContent="Error: "+e.message}};
+$("#out").onclick=()=>{if(isDirty()&&!confirm("Tienes cambios sin publicar. ¿Salir igualmente?"))return;BASE=JSON.stringify(D);F={};try{localStorage.removeItem("gh");sessionStorage.removeItem("gh")}catch(_){}location.hash="";location.reload()};
+const dl=(name,text)=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type:"application/json"}));a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)};
+$("#pub").onclick=async()=>{if(!D)return;const b=$("#pub");
+ if(C.local){dl("data.json",JSON.stringify(D,null,2)+"\n");toast("data.json descargado (modo prueba: no se publica nada)");return}
+ if(!isDirty()){toast("No hay cambios que publicar");return}
+ b.disabled=true;
+ try{for(const[p,f]of Object.entries(F)){log("Subiendo "+p+"…");await put(p,await b64(f),"Upload "+p)}F={};
+  log("Guardando datos…");await put("data.json",enc(JSON.stringify(D,null,2)+"\n"),"Update site data");BASE=JSON.stringify(D);
+  log("Publicado "+new Date().toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit"}));toast("Publicado. La web se actualiza en un minuto más o menos.")}catch(e){log("Error: "+e.message);toast("Error al publicar: "+e.message)}b.disabled=false};
+$("#bk").onclick=()=>dl("data-"+today()+".json",JSON.stringify(D,null,2)+"\n");
+$("#rsi").onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>{const d=JSON.parse(t);if(!d||!Array.isArray(d.beats))throw new Error("no parece un data.json de la web");if(!confirm("¿Cargar esta copia en el panel? Sustituye lo que tienes ahora (no se publica hasta que pulses Publicar)."))return;D=d;mig(D);D.texts=D.texts||{};D.theme=Object.assign({paper:"#f4f1e8",ink:"#0d0d0d",acc:"#ffd400",acc2:"#e63a1e",hd:"Archivo Black",bd:"Space Mono"},D.theme);cur=D.layout.find(k=>D.canvases[k])||"";sel=null;OPEN=null;draw();design();rf0();toast("Copia cargada. Revisa y publica.")}).catch(x=>toast("No se pudo leer: "+x.message));e.target.value=""};
+$("#rld").onclick=async()=>{if(isDirty()&&!confirm("Se perderán los cambios sin publicar. ¿Seguro?"))return;F={};sel=null;OPEN=null;try{await load();toast("Datos recargados")}catch(x){toast("Error: "+x.message)}};
+
+/* Idioma de la vista previa */
+(()=>{const L=[["en","English"],["es","Español"],["ca","Català"],["fr","Français"],["de","Deutsch"],["ja","日本語"]];let g="";try{g=localStorage.getItem("lg")||""}catch(_){}
  if(!L.some(x=>x[0]===g))g=(navigator.languages||[navigator.language||"en"]).map(x=>String(x).slice(0,2).toLowerCase()).find(x=>L.some(y=>y[0]===x))||"en";
  $("#pl").innerHTML=L.map(x=>'<option value="'+x[0]+'"'+(x[0]===g?" selected":"")+'>'+x[1]+'</option>').join("")})();
 $("#pl").onchange=()=>{$("#tl").value=$("#pl").value;tl();rf0()};
+
+/* Deshacer y rehacer */
 const H=[],RD=[];
 function ub(){$("#und").disabled=H.length<2;$("#red").disabled=!RD.length}
 function hs(){if(!D)return;const s=JSON.stringify(D);if(H[H.length-1]===s)return;H.push(s);if(H.length>80)H.shift();RD.length=0;ub()}
 function rs(s){D=JSON.parse(s);sel=null;draw();design();rf0()}
-function undo(){if(H.length<2)return;RD.push(H.pop());rs(H[H.length-1]);ub()}
-function redo(){if(!RD.length)return;const s=RD.pop();H.push(s);rs(s);ub()}
+function undo(){if(H.length<2)return;RD.push(H.pop());rs(H[H.length-1]);ub();toast("Deshecho")}
+function redo(){if(!RD.length)return;const s=RD.pop();H.push(s);rs(s);ub();toast("Rehecho")}
 $("#und").onclick=undo;$("#red").onclick=redo;
-$("#fcs").onclick=()=>{document.body.classList.toggle("fcs");$("#fcs").textContent=document.body.classList.contains("fcs")?"Exit focus mode":"Focus mode";scrollTo(0,0);rf0()};
-$("#repo").value=C.repo||"";$("#br").value=C.branch||"main";
-if(C.token){log("Connecting...");load().then(()=>log("Connected.")).catch(e=>{log("Error: "+e.message)})}
+$("#fcs").onclick=()=>{document.body.classList.toggle("fcs");$("#fcs").textContent=document.body.classList.contains("fcs")?"Salir de pantalla completa":"Pantalla completa";scrollTo(0,0);rf0()};
+
+/* Buscar o ir a… (Ctrl K) */
+let QI=0,QR=[];
+function qk(){if(!D)return;$("#qk").hidden=false;$("#qki").value="";qkr();$("#qki").focus()}
+function qkr(){const q=$("#qki").value.toLowerCase().trim(),A=[...Object.entries(VIEWS).map(([k,v])=>({t:v,s:"Sección",go:k})),{t:"Añadir un beat nuevo",s:"Acción",go:"newbeat"},...D.beats.map(b=>({t:b.title,s:"Beat · "+b.bpm+" BPM",go:"beat:"+b.id})),...D.licenses.map(l=>({t:l.name,s:"Licencia",go:"licencias"}))];
+ QR=A.filter(x=>!q||x.t.toLowerCase().includes(q)).slice(0,12);QI=0;qkd()}
+function qkd(){$("#qkl").innerHTML=QR.map((x,i)=>`<li class="${i===QI?"on":""}" data-qi="${i}"><span>${esc(x.t)}</span><small>${esc(x.s)}</small></li>`).join("")||"<li>Sin resultados</li>"}
+function qkgo(x){$("#qk").hidden=true;if(!x)return;if(x.go==="newbeat")newBeat();else if(x.go.indexOf("beat:")===0){go("beats");openBeat(x.go.slice(5))}else go(x.go)}
+$("#qki").oninput=qkr;
+$("#qki").onkeydown=e=>{if(e.key==="ArrowDown"){e.preventDefault();QI=Math.min(QR.length-1,QI+1);qkd()}else if(e.key==="ArrowUp"){e.preventDefault();QI=Math.max(0,QI-1);qkd()}else if(e.key==="Enter")qkgo(QR[QI]);else if(e.key==="Escape")$("#qk").hidden=true};
+$("#qkl").onclick=e=>{const l=e.target.closest("[data-qi]");if(l)qkgo(QR[+l.dataset.qi])};
+$("#qk").onclick=e=>{if(e.target.id==="qk")$("#qk").hidden=true};
+$("#qsb").onclick=qk;
+
+$("#repo").value=C.repo&&!C.local?C.repo:"";$("#br").value=C.branch&&!C.local?C.branch:"main";
+if(C.token){$("#lst").textContent="Conectando…";load().then(()=>log("Conectado")).catch(e=>{$("#lst").textContent="Error: "+e.message})}
 </script>
 </body>
 </html>
