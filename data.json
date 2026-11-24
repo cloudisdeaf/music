@@ -1053,6 +1053,25 @@
           "y": 7.2
         },
         "hm": 1
+      },
+      {
+        "t": "img",
+        "src": "img/cloud-deaf-en-tipograf-a-psicod-lica-removebg-preview.png",
+        "sh": 1,
+        "z": 1,
+        "d": {
+          "w": 20,
+          "r": -5,
+          "x": 17.2,
+          "y": 15.4
+        },
+        "m": {
+          "w": 35,
+          "r": 0,
+          "x": 42.4,
+          "y": 4.4
+        },
+        "hm": 1
       }
     ],
     "free": [
