@@ -48,6 +48,25 @@
   ],
   "beats": [
     {
+      "id": "beat-lpwpk5",
+      "files": {},
+      "genres": [
+        "Trap",
+        "Jerk",
+        "Drill"
+      ],
+      "title": "DND",
+      "bpm": 138,
+      "tags": [
+        "Nemzzz",
+        "La Pantera"
+      ],
+      "audio": "beats/do-not-disturb-nemzzz-type-beat-138bpm-d-m-6.mp3",
+      "cover": "covers/-pfp.jpg",
+      "date": "2026-11-28",
+      "key": "D#m"
+    },
+    {
       "id": "beat-0rvhh2",
       "files": {},
       "genres": [
